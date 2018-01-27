@@ -2,26 +2,53 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using TMPro;
+using System;
 
-public class PaperThing : MonoBehaviour
+public class PaperThing : A3DClickable
 {
 
     public static PaperThing CurrentPaperThing = null;
 
-    public Vector3 prevPosition;
-    public Quaternion prevRotation;
+    private Vector3 prevPosition;
+    private Quaternion prevRotation;
 
-    public Transform nextTransform;
+    private Transform nextTransform;
 
-    public bool isInFront=false;
-    public bool isAnimating = false;
-    public void Start()
+    private bool isInFront=false;
+    private bool isAnimating = false;
+    private bool isMakingFirstAnimating = false;
+
+    public TextMeshPro text;
+
+    public void SetText(string text)
+    {
+        this.text.SetText(text);
+    }
+
+    public void StartAnimation( Transform endAnimationTransform, Action OnComplete )
+    {
+        this.isMakingFirstAnimating = true;
+        var tween = this.transform.DOMove(endAnimationTransform.position, 1);
+        tween.onComplete += () => {
+            this.isMakingFirstAnimating = false;
+            this.InitVar();
+            OnComplete();
+        };
+    }
+    void InitVar()
     {
         this.prevPosition = this.transform.position;
         this.prevRotation = this.transform.rotation;
     }
+    public override void OnClick()
+    {
+        this.OnClick(MainCameraManager.Instance.paperThing);
+    }
     public void OnClick(Transform nextTransform)
     {
+        if (this.isMakingFirstAnimating) return;
+
         if (nextTransform != null && !isInFront)
         {
             if (CurrentPaperThing != null)
@@ -50,6 +77,8 @@ public class PaperThing : MonoBehaviour
 
     private void Update()
     {
+        if (this.isMakingFirstAnimating) return;
+
         if (isInFront)
         {
             this.transform.position = Vector3.Lerp(this.transform.position, this.nextTransform.position, 0.1f);
