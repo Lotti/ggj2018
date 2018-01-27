@@ -14,6 +14,14 @@ public class HistoryManager : Singleton<HistoryManager>
             return gManager.GetMatrixSetup();
         }
     }
+
+    public int historyCount
+    {
+        get
+        {
+            return this.History.Count;
+        }
+    }
     
     private GameManager gManager
     {
@@ -21,6 +29,23 @@ public class HistoryManager : Singleton<HistoryManager>
         {
             return GameManager.Instance;
         }
+    }
+
+    /// <summary>
+    /// Return all values of the launch 
+    /// </summary>
+    /// <returns>The bools.</returns>
+    /// <param name="numberLaunch">Number lunch.</param>
+    public List<bool> GetBools(int numberLaunch)
+    {
+        var listBool = new List<bool>();
+
+        foreach (var log in this.History[numberLaunch - 1])
+        {
+            listBool.Add(log.Value.Get(numberLaunch));
+        }
+
+        return listBool;
     }
 
 

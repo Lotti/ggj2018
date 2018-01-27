@@ -8,4 +8,14 @@ public class SparseAsteroidSector : ISector {
             spaceship.HP -= 60;
         }
     }
+
+    public ISector Clone() {
+        return new SparseAsteroidSector();
+    }
+
+    public string prefabName()
+    {
+        return "sparseAsteroids";
+    }
+
 }

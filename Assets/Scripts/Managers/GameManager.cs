@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour {
     public const float INITIAL_FUEL = 1000;
     public const float INITIAL_TEMP = 20;
     public const float COUNT_DOWN = 180;
+    public const int TOKENS = 8;
 
     List<ISector> _map = new List<ISector>();
     bool _isRunning = false;
@@ -20,11 +21,21 @@ public class GameManager : MonoBehaviour {
     SpaceShip _spaceship;
     float _gameTimer = 0;
     float _launchTimer = 0;
+    int _pinTokens = 0;
+    bool _isGameOver = false;
+    bool _isWin = false;
+    bool _canLaunchTimer = true;
 
     public float GameTimer { get { return _gameTimer; }}
     public float LaunchTimer { get { return _launchTimer; }}
     public int GameTimerInt { get { return Mathf.FloorToInt(_gameTimer); } }
     public int LaunchTimerInt { get { return Mathf.FloorToInt( _launchTimer ); } }
+    public bool IsWin { get { return _isWin; }}
+    public bool IsGameOver { get { return _isGameOver; } }
+    public SpaceShip SpaceShip { get { return _spaceship; }}
+    public int PinTokens { get { return _pinTokens; }}
+
+    public List<ISector> WorldMap { get { return _map; }}
 
     static ISector[] _mapSpawner = new ISector[]{
         new EmptySector(),
@@ -64,20 +75,16 @@ public class GameManager : MonoBehaviour {
 
     void Awake () {
         _instance = this;
-        _InitMap();
-        _spaceship = new SpaceShip();
-        _spaceship.Init( new SpaceShipDataInit( INITIAL_HP, INITIAL_FUEL, INITIAL_TEMP, SPACE_SIZE ) );
+        DontDestroyOnLoad( this.gameObject );
+        StartGame();
     }
 
     void Start () {
-        _gameTimer = COUNT_DOWN;
+        
 	}
 	
 	void Update () {
-        _gameTimer -= Time.deltaTime;
-        if(_isRunning){
-            _launchTimer += Time.deltaTime;
-        }
+        
 	}
 
     void OnDestroy () {
@@ -88,13 +95,48 @@ public class GameManager : MonoBehaviour {
         return _spaceship.HP == 0 || _spaceship.Fuel <= 0.1 || _spaceship.Temp >= 150;
     }
 
+    WaitForEndOfFrame _waitFrame = new WaitForEndOfFrame();
+    IEnumerator _CountDown(){
+        while(_gameTimer > 0){
+            _gameTimer -= Time.deltaTime;
+            yield return _waitFrame;
+        }
+        GameOver();
+    }
+
+    IEnumerator _LaunchTime () {
+        while ( _canLaunchTimer ) {
+            _launchTimer += Time.deltaTime;
+            yield return _waitFrame;
+        }
+    }
+
+    public void StartGame(){
+        _gameTimer = COUNT_DOWN;
+        _launchTimer = 0;
+        _isGameOver = false;
+        _isWin = false;
+        _isRunning = false;
+        _currentTick = 0;
+        _pinTokens = TOKENS;
+        StopAllCoroutines();
+        _InitMap();
+        _spaceship = new SpaceShip();
+        _spaceship.Init( new SpaceShipDataInit( INITIAL_HP, INITIAL_FUEL, INITIAL_TEMP, SPACE_SIZE ) );
+        StartCoroutine( _CountDown() );
+    }
+
     public void Launch(){
         if ( _isRunning ) return;
         _spaceship.Setup( new SpaceShipDataSetup( INITIAL_HP, INITIAL_FUEL, INITIAL_TEMP ) );
         _isRunning = true;
         _currentTick = 0;
         _launchTimer = 0;
-        StopAllCoroutines();
+        this.FillHistory(_spaceship.ActionMatrix);
+        StopCoroutine( _LaunchTime() );
+        StopCoroutine( _Run() );
+        _canLaunchTimer = true;
+        StartCoroutine( _LaunchTime() );
         StartCoroutine( _Run() );
     }
 
@@ -102,32 +144,64 @@ public class GameManager : MonoBehaviour {
         return _spaceship.ActionMatrix;
     }
 
-    public void SetupAction( ActionType type, int tick, bool action ){
-        _spaceship.SetAction( type, tick, action );
+    public void FillHistory(Dictionary<ActionType,BitArray> actionMatrix)
+    {
+        HistoryManager.Instance.History.Add(actionMatrix);
+    }
+
+    public bool SetupAction( ActionType type, int tick, bool action ){
+        if ( action && _pinTokens > 0 ) {
+            _spaceship.SetAction( type, tick, action );
+            _pinTokens--;
+            return true;
+        } else if(!action){
+            _pinTokens++;
+            _pinTokens = ( _pinTokens > TOKENS ) ? TOKENS : _pinTokens;
+            return true;
+        }else{
+            return false;
+        }
     }
 
     readonly WaitForSeconds _waitSeconds = new WaitForSeconds( 1 );
     IEnumerator _Run(){
         while (_currentTick < _map.Count){
             _map[_currentTick].RunSector( _spaceship, _currentTick );
+
             Debug.Log( _map[_currentTick].ToString() + " XXX " + _spaceship.ToString() );
             if(_isSpaceShipDied()){
                 _isRunning = false;
-                GameOver();
+                LaunchFailed();
                 yield break;
             }
             _currentTick++;
             yield return _waitSeconds;
         }
+
+
+
         _isRunning = false;
-        Win();
+        LaunchSuccess();
     }
 
-    public void GameOver() {
-        Debug.LogWarning("GAME OVER - FATALITYYYY!!!!");
+    public void LaunchFailed() {
+        _pinTokens = TOKENS;
+        _canLaunchTimer = false;
+        //StopCoroutine( _LaunchTime() );
+        Debug.LogWarning("LAUNCH FAILED - FATALITYYYY!!!!");
     }
 
-    public void Win() {
+    public void LaunchSuccess() {
+        _isWin = true;
+        _isGameOver = false;
+        StopAllCoroutines();
         Debug.LogWarning( "WIIIIIIIINNNNNNNNN! DAJE CAZZO" );
+    }
+
+    public void GameOver(){
+        _isGameOver = true;
+        _isWin = false;
+        StopAllCoroutines();
+        Debug.LogWarning( "GAME OVER - MEGA FATALITYYYY!!!!" );
     }
 }

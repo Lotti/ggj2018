@@ -68,7 +68,7 @@ public class SpaceShip : ISpaceShip {
         _fuel = ddata.fuel;
         _temp = ddata.temp;
         _actionMatrix = new Dictionary<ActionType, BitArray>();
-        _actionMatrix.Add( ActionType.LOG, new BitArray( ddata.spaceSize, true ) );
+        _actionMatrix.Add( ActionType.LOG, new BitArray( ddata.spaceSize, false ) );
         _actionMatrix.Add( ActionType.GRAVITATIONAL_BOOST, new BitArray( ddata.spaceSize, false ) );
         _actionMatrix.Add( ActionType.POWER_SHIELD, new BitArray( ddata.spaceSize, false ) );
         _actionMatrix.Add( ActionType.TERMIC_SHIELD, new BitArray( ddata.spaceSize, false ) );
@@ -86,6 +86,12 @@ public class SpaceShip : ISpaceShip {
         _fuel = ddata.fuel;
         _temp = ddata.temp;
     }
+
+    public string prefabName()
+    {
+        return "spaceShip";
+    }
+
 }
 
 public class SpaceShipDataInit: ISpaceShipDataInit {

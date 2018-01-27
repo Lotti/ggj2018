@@ -11,4 +11,14 @@ public class BlackHoleSector : ISector {
             spaceship.Fuel -= 200;
         }
     }
+
+    public ISector Clone() {
+        return new BlackHoleSector();
+    }
+
+    public string prefabName()
+    {
+        return "blackHole";
+    }
+
 }

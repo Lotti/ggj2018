@@ -24,9 +24,12 @@ public class UIItem : MonoBehaviour {
 
     public void Switch () {
         if ( _isHeader ) return;
-        _isActive = !_isActive;
+        bool act = !_isActive;
+        bool res = GameManager.Instance.SetupAction( _type, _tick, act );
+        if(res){
+            _isActive = !_isActive;
+        }
         _Refresh();
-        GameManager.Instance.SetupAction( _type, _tick, _isActive );
     }
 
     private void _Refresh () 
