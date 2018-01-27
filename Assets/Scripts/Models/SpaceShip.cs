@@ -73,6 +73,7 @@ public class SpaceShip : ISpaceShip {
         _actionMatrix.Add( ActionType.POWER_SHIELD, new BitArray( ddata.spaceSize, false ) );
         _actionMatrix.Add( ActionType.TERMIC_SHIELD, new BitArray( ddata.spaceSize, false ) );
         _actionMatrix.Add( ActionType.WEAPONS, new BitArray( ddata.spaceSize, false ) );
+
     }
 
     public void SetAction ( ActionType type, int tick, bool active ) {
