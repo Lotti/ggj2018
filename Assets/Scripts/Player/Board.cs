@@ -8,6 +8,7 @@ public class Board : Singleton<Board> {
     public int rows = 3;
     private Dictionary<int, List<GameObject>> cells = new Dictionary<int, List<GameObject>>();
     private List<GameObject> shipObjectives = new List<GameObject>();
+    private string prefabPath = "Prefabs/PlayerScene/";
 
 	void Awake() {
         this.PrepareCells();
@@ -26,6 +27,10 @@ public class Board : Singleton<Board> {
 
 	// Use this for initialization
 	void Start () {
+        Transform parentTransform = this.transform.parent.transform;
+        GameObject g = (GameObject)Instantiate(Resources.Load(prefabPath + "spaceShip"), Vector3.zero, Quaternion.identity, parentTransform);
+        g.transform.position = cells[0][0].transform.position;
+        g.GetComponent<ShipNavigator>().Move();
 	}
 	
 	// Update is called once per frame
@@ -50,6 +55,7 @@ public class Board : Singleton<Board> {
 
     private void PrepareCells()
     {
+        
         for (int y = 0; y < rows; y++) {
             GameObject row = new GameObject(y + " row");
             row.transform.SetParent(this.transform);
@@ -79,13 +85,18 @@ public class Board : Singleton<Board> {
         for (int i = 0; i < cells.Count; i++) {
             GameObject c = cells[i][UnityEngine.Random.Range(0, cells[i].Count)];
             ISector s = WorldMap[0];
-            GameObject g = (GameObject) Instantiate(Resources.Load("Prefabs/PlayerScene/" + s.prefabName()), Vector3.zero, Quaternion.identity, c.transform);
+            GameObject g = (GameObject) Instantiate(Resources.Load(prefabPath + s.prefabName()), Vector3.zero, Quaternion.identity, c.transform);
             shipObjectives.Add(g);
             WorldMap.RemoveAt(0);
         }
     }
 
-    public GameObject CalculateShipMovements(int i) {
-        return shipObjectives[i];
+    public GameObject getShipTarget(int i) {
+        if (i >= shipObjectives.Count) {
+            return null;
+        }
+        else {
+            return shipObjectives[i];
+        }
     }
 }
