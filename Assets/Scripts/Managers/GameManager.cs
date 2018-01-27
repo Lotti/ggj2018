@@ -12,11 +12,19 @@ public class GameManager : MonoBehaviour {
     public const int INITIAL_HP = 100;
     public const float INITIAL_FUEL = 1000;
     public const float INITIAL_TEMP = 20;
+    public const float COUNT_DOWN = 180;
 
     List<ISector> _map = new List<ISector>();
     bool _isRunning = false;
     int _currentTick = 0;
     SpaceShip _spaceship;
+    float _gameTimer = 0;
+    float _launchTimer = 0;
+
+    public float GameTimer { get { return _gameTimer; }}
+    public float LaunchTimer { get { return _launchTimer; }}
+    public int GameTimerInt { get { return Mathf.FloorToInt(_gameTimer); } }
+    public int LaunchTimerInt { get { return Mathf.FloorToInt( _launchTimer ); } }
 
     static ISector[] _mapSpawner = new ISector[]{
         new EmptySector(),
@@ -62,15 +70,22 @@ public class GameManager : MonoBehaviour {
     }
 
     void Start () {
-        
+        _gameTimer = COUNT_DOWN;
 	}
 	
 	void Update () {
-		
+        _gameTimer -= Time.deltaTime;
+        if(_isRunning){
+            _launchTimer += Time.deltaTime;
+        }
 	}
 
     void OnDestroy () {
         _instance = null;    
+    }
+
+    bool _isSpaceShipDied(){
+        return _spaceship.HP == 0 || _spaceship.Fuel <= 0.1 || _spaceship.Temp >= 150;
     }
 
     public void Launch(){
@@ -78,11 +93,7 @@ public class GameManager : MonoBehaviour {
         _spaceship.Setup( new SpaceShipDataSetup( INITIAL_HP, INITIAL_FUEL, INITIAL_TEMP ) );
         _isRunning = true;
         _currentTick = 0;
-
-        this.FillHistoryList(_spaceship.ActionMatrix); // riempie la lista ad ogni lancio
-
-        Debug.Log("History List " + HistoryManager.Instance.History.Count + "  Action Matrix " + _spaceship.ActionMatrix[ActionType.WEAPONS].Get(0));
-
+        _launchTimer = 0;
         StopAllCoroutines();
         StartCoroutine( _Run() );
     }
@@ -91,26 +102,32 @@ public class GameManager : MonoBehaviour {
         return _spaceship.ActionMatrix;
     }
 
-    public void SetupAction( ActionType type, int tick, bool action )
-    {
+    public void SetupAction( ActionType type, int tick, bool action ){
         _spaceship.SetAction( type, tick, action );
     }
 
-    private readonly WaitForSeconds _waitSeconds = new WaitForSeconds( 1 );
-
-    private void FillHistoryList(Dictionary<ActionType,BitArray> actionMatrix)
-    {   
-        HistoryManager.Instance.History.Add(actionMatrix);
-    }
-
-    private IEnumerator _Run()
-    {
+    readonly WaitForSeconds _waitSeconds = new WaitForSeconds( 1 );
+    IEnumerator _Run(){
         while (_currentTick < _map.Count){
             _map[_currentTick].RunSector( _spaceship, _currentTick );
-            Debug.Log(_map[_currentTick].ToString() + " XXX " + _spaceship.ToString() );
+            Debug.Log( _map[_currentTick].ToString() + " XXX " + _spaceship.ToString() );
+            if(_isSpaceShipDied()){
+                _isRunning = false;
+                GameOver();
+                yield break;
+            }
             _currentTick++;
             yield return _waitSeconds;
         }
         _isRunning = false;
+        Win();
+    }
+
+    public void GameOver() {
+        Debug.LogWarning("GAME OVER - FATALITYYYY!!!!");
+    }
+
+    public void Win() {
+        Debug.LogWarning( "WIIIIIIIINNNNNNNNN! DAJE CAZZO" );
     }
 }
