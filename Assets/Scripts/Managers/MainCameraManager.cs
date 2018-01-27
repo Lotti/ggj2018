@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainCameraManager : MonoBehaviour
+public class MainCameraManager : Singleton<MainCameraManager>
 {
 
     private Camera cam;
@@ -33,19 +33,19 @@ public class MainCameraManager : MonoBehaviour
             var ray = cam.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray.origin, ray.direction, out hit))
             {
-                var button = hit.transform.GetComponent<SituaButton>();
+                var button = hit.transform.GetComponent<A3DClickable>();
                 if (button != null)
                 {
                     button.OnClick();
                     return;
                 }
-
+                /*
                 var paper = hit.transform.GetComponent<PaperThing>();
                 if (paper != null)
                 {
                     paper.OnClick(this.paperThing);
                     return;
-                }
+                }*/
             }
         }
     }
