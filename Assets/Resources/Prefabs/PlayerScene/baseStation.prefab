@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 222297952011614836}
   - component: {fileID: 114891021823959576}
   m_Layer: 5
-  m_Name: spaceStation
+  m_Name: baseStation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
