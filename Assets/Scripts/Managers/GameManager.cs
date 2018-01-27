@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour {
     public int GameTimerInt { get { return Mathf.FloorToInt(_gameTimer); } }
     public int LaunchTimerInt { get { return Mathf.FloorToInt( _launchTimer ); } }
 
+    public List<ISector> WorldMap { get { return _map; }}
+
     static ISector[] _mapSpawner = new ISector[]{
         new EmptySector(),
         new EmptySector(),
