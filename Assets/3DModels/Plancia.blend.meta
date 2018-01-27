@@ -18,6 +18,11 @@ ModelImporter:
     100020: Cube_006
     100022: Plane
     100024: Plane_001
+    100026: Cube_007
+    100028: Cube_008
+    100030: Plane_002
+    100032: Plane_003
+    100034: Cube_009
     400000: Cube
     400002: Cube_001
     400004: Cube_002
@@ -31,6 +36,11 @@ ModelImporter:
     400020: Cube_006
     400022: Plane
     400024: Plane_001
+    400026: Cube_007
+    400028: Cube_008
+    400030: Plane_002
+    400032: Plane_003
+    400034: Cube_009
     2100000: None__seamless-texture-colored-rough-paper-free_jpg
     2100002: None__depositphotos_75285501-stock-illustration-green-lines-pattern_j
     2100004: Material__seamless-texture-colored-rough-paper-free_jpg
@@ -52,6 +62,11 @@ ModelImporter:
     2300018: Cube_006
     2300020: Plane
     2300022: Plane_001
+    2300024: Cube_007
+    2300026: Cube_008
+    2300028: Plane_002
+    2300030: Plane_003
+    2300032: Cube_009
     3300000: Cube
     3300002: Cube_001
     3300004: Cube_002
@@ -64,6 +79,11 @@ ModelImporter:
     3300018: Cube_006
     3300020: Plane
     3300022: Plane_001
+    3300024: Cube_007
+    3300026: Cube_008
+    3300028: Plane_002
+    3300030: Plane_003
+    3300032: Cube_009
     4300000: Cube_002
     4300002: Cube_001
     4300004: Cube
@@ -76,6 +96,11 @@ ModelImporter:
     4300018: Cube_006
     4300020: Plane
     4300022: Plane_001
+    4300024: Cube_007
+    4300026: Plane_002
+    4300028: Plane_003
+    4300030: Cube_008
+    4300032: Cube_009
     7400000: Default Take
     9500000: //RootNode
   externalObjects: {}
