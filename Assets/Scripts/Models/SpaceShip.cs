@@ -8,6 +8,7 @@ public class SpaceShip : ISpaceShip {
     int _hp = 0;
     float _fuel = 0;
     float _temp = 0;
+    int _peoples = 0;
 
     float[] _modHP;
     float[] _modFUEL;
@@ -187,6 +188,7 @@ public class SpaceShip : ISpaceShip {
         _hp = ddata.hp;
         _fuel = ddata.fuel;
         _temp = ddata.temp;
+
         _actionMatrix = new Dictionary<ActionType, BitArray>();
         _actionMatrix.Add( ActionType.CONSUME, new BitArray( ddata.spaceSize, false ) );
         _actionMatrix.Add( ActionType.PROTECTION, new BitArray( ddata.spaceSize, false ) );
@@ -208,6 +210,7 @@ public class SpaceShip : ISpaceShip {
         _hp = ddata.hp;
         _fuel = ddata.fuel;
         _temp = ddata.temp;
+        _peoples = ddata.peoples;
 
         _modHP = new float[GameManager.SPACE_SIZE];
         _modFUEL = new float[GameManager.SPACE_SIZE];
@@ -239,10 +242,12 @@ public class SpaceShipDataSetup : ISpaceShipDataInit {
     public int hp;
     public float fuel;
     public float temp;
+    public int peoples;
 
-    public SpaceShipDataSetup ( int h, float f, float t ) {
+    public SpaceShipDataSetup ( int h, float f, float t, int p ) {
         hp = h;
         fuel = f;
         temp = t;
+        peoples = p;
     }
 }

@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour {
     public const float INITIAL_FUEL = 12;
     public const float INITIAL_TEMP = 0;
     public const float COUNT_DOWN = 180;
-    //public const int TOKENS = 8;
+    public const int PEOPLES = 1000;
 
     List<ISector> _map = new List<ISector>();
     bool _isRunning = false;
@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour {
     bool _isGameOver = false;
     bool _isWin = false;
     bool _canLaunchTimer = true;
+    int _peoples = 0;
 
     public float GameTimer { get { return _gameTimer; }}
     public float LaunchTimer { get { return _launchTimer; }}
@@ -32,6 +33,7 @@ public class GameManager : MonoBehaviour {
     public bool IsWin { get { return _isWin; }}
     public bool IsGameOver { get { return _isGameOver; } }
     public SpaceShip SpaceShip { get { return _spaceship; }}
+    public int Peoples { get { return _peoples; }}
 
     public List<ISector> WorldMap { get { return _map; }}
 
@@ -116,17 +118,28 @@ public class GameManager : MonoBehaviour {
         _isWin = false;
         _isRunning = false;
         _currentTick = 0;
-        //_pinTokens = TOKENS;
+
         StopAllCoroutines();
         _InitMap();
         _spaceship = new SpaceShip();
         _spaceship.Init( new SpaceShipDataInit( INITIAL_HP, INITIAL_FUEL, INITIAL_TEMP, SPACE_SIZE ) );
-        StartCoroutine( _CountDown() );
+
     }
 
-    public void Launch(){
+    public void Launch(int peoples){
+        
         if ( _isRunning ) return;
-        _spaceship.Setup( new SpaceShipDataSetup( INITIAL_HP, INITIAL_FUEL, INITIAL_TEMP ) );
+
+        if (peoples < 10 || (peoples%10) != 0) return;
+
+        if(_peoples >= peoples){
+            _peoples -= peoples;
+        }else{
+            peoples = _peoples;
+            _peoples = 0;
+        }
+
+        _spaceship.Setup( new SpaceShipDataSetup( INITIAL_HP, INITIAL_FUEL, INITIAL_TEMP, peoples ) );
         _isRunning = true;
         _currentTick = 0;
         _launchTimer = 0;
@@ -171,23 +184,29 @@ public class GameManager : MonoBehaviour {
             yield return _waitSeconds;
         }
 
-
-
         _isRunning = false;
         LaunchSuccess();
     }
 
     public void LaunchFailed() {
-        //_pinTokens = TOKENS;
         _canLaunchTimer = false;
-        //StopCoroutine( _LaunchTime() );
         Debug.LogWarning("LAUNCH FAILED - FATALITYYYY!!!!");
+        if (_peoples <= 0)
+        {
+            GameOver();
+        }
+        else
+        {
+            MissionLog.Instance.TransmitLog();
+        }
+
     }
 
     public void LaunchSuccess() {
         _isWin = true;
         _isGameOver = false;
         StopAllCoroutines();
+        MissionLog.Instance.TransmitLog();
         Debug.LogWarning( "WIIIIIIIINNNNNNNNN! DAJE CAZZO" );
     }
 
@@ -195,6 +214,7 @@ public class GameManager : MonoBehaviour {
         _isGameOver = true;
         _isWin = false;
         StopAllCoroutines();
+        MissionLog.Instance.TransmitLog();
         Debug.LogWarning( "GAME OVER - MEGA FATALITYYYY!!!!" );
     }
 
