@@ -13,6 +13,11 @@ ModelImporter:
     100010: Cylinder_001
     100012: Cylinder_002
     100014: Cube_003
+    100016: Cube_004
+    100018: Cube_005
+    100020: Cube_006
+    100022: Plane
+    100024: Plane_001
     400000: Cube
     400002: Cube_001
     400004: Cube_002
@@ -21,6 +26,11 @@ ModelImporter:
     400010: Cylinder_001
     400012: Cylinder_002
     400014: Cube_003
+    400016: Cube_004
+    400018: Cube_005
+    400020: Cube_006
+    400022: Plane
+    400024: Plane_001
     2100000: None__seamless-texture-colored-rough-paper-free_jpg
     2100002: None__depositphotos_75285501-stock-illustration-green-lines-pattern_j
     2100004: Material__seamless-texture-colored-rough-paper-free_jpg
@@ -37,6 +47,11 @@ ModelImporter:
     2300008: Cylinder_001
     2300010: Cylinder_002
     2300012: Cube_003
+    2300014: Cube_004
+    2300016: Cube_005
+    2300018: Cube_006
+    2300020: Plane
+    2300022: Plane_001
     3300000: Cube
     3300002: Cube_001
     3300004: Cube_002
@@ -44,6 +59,11 @@ ModelImporter:
     3300008: Cylinder_001
     3300010: Cylinder_002
     3300012: Cube_003
+    3300014: Cube_004
+    3300016: Cube_005
+    3300018: Cube_006
+    3300020: Plane
+    3300022: Plane_001
     4300000: Cube_002
     4300002: Cube_001
     4300004: Cube
@@ -51,6 +71,11 @@ ModelImporter:
     4300008: Cylinder_002
     4300010: Cylinder_001
     4300012: Cube_003
+    4300014: Cube_004
+    4300016: Cube_005
+    4300018: Cube_006
+    4300020: Plane
+    4300022: Plane_001
     7400000: Default Take
     9500000: //RootNode
   externalObjects: {}
@@ -87,7 +112,7 @@ ModelImporter:
     meshCompression: 0
     addColliders: 0
     importVisibility: 1
-    importBlendShapes: 1
+    importBlendShapes: 0
     importCameras: 1
     importLights: 1
     swapUVChannels: 0
