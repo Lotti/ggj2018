@@ -6,20 +6,22 @@ public interface ISpaceShip {
     void Setup ( ISpaceShipDataInit data );
     void SetAction ( ActionType type, int tick, bool active );
     string ToString ();
+    void CalculateMod();
 
     int HP { get; set; }
     float Fuel { get; set; }
     float Temp { get; set; }
-	
+
+    float[] ModHP { get; set; }
+    float[] ModFUEL { get; set;  }
+    float[] ModTEMP { get; set;  }
 }
 
 public class ISpaceShipDataInit {}
 
 public enum ActionType {
     NONE,
-    POWER_SHIELD,
-    GRAVITATIONAL_BOOST,
-    LOG,
-    WEAPONS,
-    TERMIC_SHIELD
+    PROTECTION,
+    TEMPERATURE,
+    CONSUME,
 }
