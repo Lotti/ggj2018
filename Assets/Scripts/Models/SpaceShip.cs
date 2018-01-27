@@ -86,6 +86,12 @@ public class SpaceShip : ISpaceShip {
         _fuel = ddata.fuel;
         _temp = ddata.temp;
     }
+
+    public string prefabName()
+    {
+        return "spaceShip";
+    }
+
 }
 
 public class SpaceShipDataInit: ISpaceShipDataInit {

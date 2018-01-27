@@ -20,4 +20,9 @@ public class WhiteAlienSector : ISector {
     public ISector Clone() {
         return new WhiteAlienSector();
     }
+
+    public string prefabName()
+    {
+        return "whiteAlien";
+    }
 }

@@ -18,4 +18,10 @@ public class NebulosaSector : ISector {
     public ISector Clone() {
         return new NebulosaSector();
     }
+
+    public string prefabName()
+    {
+        return "nebulosa";
+    }
+
 }

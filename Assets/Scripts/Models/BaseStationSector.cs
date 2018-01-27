@@ -12,4 +12,8 @@ public class BaseStationSector : ISector {
     public ISector Clone() {
         return new BaseStationSector();
     }
+
+    public string prefabName() {
+        return "baseStation";
+    }
 }

@@ -15,4 +15,10 @@ public class BlackHoleSector : ISector {
     public ISector Clone() {
         return new BlackHoleSector();
     }
+
+    public string prefabName()
+    {
+        return "blackHole";
+    }
+
 }

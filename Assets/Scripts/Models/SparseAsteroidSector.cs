@@ -12,4 +12,10 @@ public class SparseAsteroidSector : ISector {
     public ISector Clone() {
         return new SparseAsteroidSector();
     }
+
+    public string prefabName()
+    {
+        return "sparseAsteroids";
+    }
+
 }

@@ -8,4 +8,8 @@ public class EmptySector : ISector {
     public ISector Clone() {
         return new EmptySector();
     }
+
+    public string prefabName() {
+        return "empty";
+    }
 }

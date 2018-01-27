@@ -23,4 +23,9 @@ public class BlackAlienSector : ISector {
         c._isDestroyed = false;
         return c;
     }
+
+    public string prefabName()
+    {
+        return "blackAlien";
+    }
 }

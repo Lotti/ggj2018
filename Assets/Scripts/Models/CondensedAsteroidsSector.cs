@@ -15,4 +15,9 @@ public class CondensedAsteroidsSector : ISector {
     public ISector Clone() {
         return new CondensedAsteroidsSector();
     }
+
+    public string prefabName()
+    {
+        return "condensedAsteroid";
+    }
 }

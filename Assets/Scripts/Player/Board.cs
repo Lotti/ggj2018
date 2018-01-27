@@ -6,36 +6,12 @@ using UnityEngine.UI;
 public class Board : Singleton<Board> {
 
     public int rows = 3;
+    private Dictionary<int, List<GameObject>> cells = new Dictionary<int, List<GameObject>>();
 
 	void Awake() {
-        for (int y = 0; y < rows; y++) {
-            GameObject row = new GameObject(y + " row");
-            row.transform.SetParent(this.transform);
-            row.transform.localScale = Vector3.one;
-            HorizontalLayoutGroup hlg = row.AddComponent<HorizontalLayoutGroup>();
-            hlg.childControlWidth = true;
-            hlg.childControlHeight = true;
-            hlg.childAlignment = TextAnchor.MiddleCenter;
-            for(int i = 0; i < GameManager.SPACE_SIZE; i++) {
-                GameObject cell = new GameObject(y + "-" + i + " cell");
-                cell.AddComponent<RectTransform>();
-                cell.transform.SetParent(row.transform);
-                cell.transform.localScale = Vector3.one;
-			}
-		}
+        this.prepareCells();
 
-        List<ISector> WorldMap = new List<ISector>(){
-            new SparseAsteroidSector(),
-            new BlackAlienSector(),
-            new BlackHoleSector(),
-            new SparseAsteroidSector(),
-            new BlackAlienSector(),
-            new SparseAsteroidSector(),
-            new BlackAlienSector(),
-            new BlackHoleSector(),
-            new BlackHoleSector(),
-            new BlackHoleSector(),
-        };
+        List<ISector> WorldMap = this.fakeWorldMap();
         if (GameManager.Instance != null) {
             WorldMap = GameManager.Instance.WorldMap;    
         }
@@ -44,7 +20,7 @@ public class Board : Singleton<Board> {
             LocalMap.Add(WorldMap[i].Clone());
         }
 
-
+        this.populateCells(WorldMap);
 	}
 
 	// Use this for initialization
@@ -55,4 +31,55 @@ public class Board : Singleton<Board> {
 	void Update () {
 		
 	}
+
+    private List<ISector> fakeWorldMap() {
+        return new List<ISector>(){
+            new SparseAsteroidSector(),
+            new BlackAlienSector(),
+            new BlackHoleSector(),
+            new SparseAsteroidSector(),
+            new BlackAlienSector(),
+            new SparseAsteroidSector(),
+            new BlackAlienSector(),
+            new BlackHoleSector(),
+            new BlackHoleSector(),
+            new BlackHoleSector(),
+        };        
+    }
+
+    private void prepareCells()
+    {
+        for (int y = 0; y < rows; y++) {
+            GameObject row = new GameObject(y + " row");
+            row.transform.SetParent(this.transform);
+            row.transform.localScale = Vector3.one;
+            HorizontalLayoutGroup hlg = row.AddComponent<HorizontalLayoutGroup>();
+            hlg.childControlWidth = true;
+            hlg.childControlHeight = true;
+            hlg.childAlignment = TextAnchor.MiddleCenter;
+
+            for (int i = 0; i < GameManager.SPACE_SIZE + 1; i++)
+            {
+                if (!cells.ContainsKey(i)) {
+                    cells.Add(i, new List<GameObject>());
+                }
+
+                GameObject cell = new GameObject(y + "-" + i + " cell");
+                cell.AddComponent<RectTransform>();
+                cell.transform.SetParent(row.transform);
+                cell.transform.localScale = Vector3.one;
+
+                cells[i].Add(cell);
+            }
+        }
+    }
+
+    private void populateCells(List<ISector> WorldMap) {
+        for (int i = 1; i < cells.Count; i++) {
+            GameObject c = cells[i][UnityEngine.Random.Range(0, cells[i].Count - 1)];
+            ISector s = WorldMap[0];
+            Instantiate(Resources.Load("Prefabs/PlayerScene/" + s.prefabName()), Vector3.zero, Quaternion.identity, c.transform);
+            WorldMap.RemoveAt(0);
+        }
+    }
 }
