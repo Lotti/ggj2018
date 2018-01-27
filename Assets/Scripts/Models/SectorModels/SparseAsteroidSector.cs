@@ -10,13 +10,23 @@ public class SparseAsteroidSector : GenericSectorCalculator, ISector
 
     public void RunSector(ISpaceShip spaceship, int tick)
     {
-        spaceship.HP += (int)CalcModDMG(spaceship.ModHP[tick]);
+        var app = (int)CalcModDMG(spaceship.ModHP[tick]);
+        spaceship.HP += app;
 
         spaceship.Temp += CalcModTEMP(spaceship.ModTEMP[tick]);
 
         spaceship.Fuel += CalcModFUEL(spaceship.ModFUEL[tick]);
 
         spaceship.Fuel--;
+
+        if (app < 0)
+        {
+            MissionLog.Instance.AddLog("Ehi Boss! we came across a band of asteroids that damaged our ship!");
+        }
+        else
+        {
+            MissionLog.Instance.AddLog("An asteroid has scratched our hull! ");
+        }
 
     }
 
