@@ -13,4 +13,7 @@ public class RedStarSector : ISector {
         }
     }
 
+    public ISector Clone() {
+        return new RedStarSector();
+    }
 }

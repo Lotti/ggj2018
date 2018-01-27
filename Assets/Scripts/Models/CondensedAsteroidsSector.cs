@@ -11,4 +11,8 @@ public class CondensedAsteroidsSector : ISector {
             spaceship.HP -= 80;
         }
     }
+
+    public ISector Clone() {
+        return new CondensedAsteroidsSector();
+    }
 }

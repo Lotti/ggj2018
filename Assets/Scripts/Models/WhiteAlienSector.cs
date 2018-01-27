@@ -17,4 +17,7 @@ public class WhiteAlienSector : ISector {
         }
     }
 
+    public ISector Clone() {
+        return new WhiteAlienSector();
+    }
 }
