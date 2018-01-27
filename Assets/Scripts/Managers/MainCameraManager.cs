@@ -8,6 +8,8 @@ public class MainCameraManager : MonoBehaviour
     private Camera cam;
     private Vector3 firstForward;
     public Vector2 MaxCameraMovement = Vector2.one;
+
+    public Transform paperThing;
     private void Start()
     {
         cam = this.GetComponent<Camera>();
@@ -35,6 +37,14 @@ public class MainCameraManager : MonoBehaviour
                 if (button != null)
                 {
                     button.OnClick();
+                    return;
+                }
+
+                var paper = hit.transform.GetComponent<PaperThing>();
+                if (paper != null)
+                {
+                    paper.OnClick(this.paperThing);
+                    return;
                 }
             }
         }
