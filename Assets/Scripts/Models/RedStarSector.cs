@@ -7,10 +7,13 @@ public class RedStarSector : ISector {
     public void RunSector ( ISpaceShip spaceship, int tick ) {
         spaceship.Fuel -= 100;
         if(spaceship.HasAction(ActionType.TERMIC_SHIELD, tick)){
-            
+            spaceship.Temp = 80;
         }else{
-            spaceship.Temp = 100;
+            spaceship.Temp = 150;
         }
     }
 
+    public ISector Clone() {
+        return new RedStarSector();
+    }
 }

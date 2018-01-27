@@ -8,4 +8,8 @@ public class BaseStationSector : ISector {
         spaceship.Fuel += 200;
         spaceship.HP += 20;
     }
+
+    public ISector Clone() {
+        return new BaseStationSector();
+    }
 }

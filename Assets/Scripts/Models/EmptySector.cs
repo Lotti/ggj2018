@@ -5,4 +5,7 @@ public class EmptySector : ISector {
         spaceship.Fuel -= 100;
     }
 
+    public ISector Clone() {
+        return new EmptySector();
+    }
 }
