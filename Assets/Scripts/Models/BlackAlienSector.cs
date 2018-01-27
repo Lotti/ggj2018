@@ -17,4 +17,10 @@ public class BlackAlienSector : ISector {
             }
         }
     }
+
+    public ISector Clone() {
+        BlackAlienSector c = new BlackAlienSector();
+        c._isDestroyed = false;
+        return c;
+    }
 }

@@ -14,4 +14,8 @@ public class NebulosaSector : ISector {
             spaceship.Fuel -= 50;
         }
     }
+
+    public ISector Clone() {
+        return new NebulosaSector();
+    }
 }
