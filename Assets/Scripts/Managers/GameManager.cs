@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -132,6 +132,7 @@ public class GameManager : MonoBehaviour {
         _isRunning = true;
         _currentTick = 0;
         _launchTimer = 0;
+        this.FillHistory(_spaceship.ActionMatrix);
         StopCoroutine( _LaunchTime() );
         StopCoroutine( _Run() );
         _canLaunchTimer = true;
@@ -141,6 +142,11 @@ public class GameManager : MonoBehaviour {
 
     public Dictionary<ActionType, BitArray> GetMatrixSetup(){
         return _spaceship.ActionMatrix;
+    }
+
+    public void FillHistory(Dictionary<ActionType,BitArray> actionMatrix)
+    {
+        HistoryManager.Instance.History.Add(actionMatrix);
     }
 
     public void SetupAction( ActionType type, int tick, bool action ){
@@ -157,6 +163,7 @@ public class GameManager : MonoBehaviour {
     IEnumerator _Run(){
         while (_currentTick < _map.Count){
             _map[_currentTick].RunSector( _spaceship, _currentTick );
+
             Debug.Log( _map[_currentTick].ToString() + " XXX " + _spaceship.ToString() );
             if(_isSpaceShipDied()){
                 _isRunning = false;
@@ -166,6 +173,9 @@ public class GameManager : MonoBehaviour {
             _currentTick++;
             yield return _waitSeconds;
         }
+
+
+
         _isRunning = false;
         LaunchSuccess();
     }
