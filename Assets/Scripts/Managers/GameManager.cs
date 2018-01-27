@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour {
-
+    
     static GameManager _instance = null;
     public static GameManager Instance { get { return _instance; } }
     public static bool IsInstanced { get { return _instance != null; } }
 
     public const int SPACE_SIZE = 10;
-    public const int INITIAL_HP = 100;
-    public const float INITIAL_FUEL = 1000;
-    public const float INITIAL_TEMP = 20;
+    public const int INITIAL_HP = 3;
+    public const float INITIAL_FUEL = 12;
+    public const float INITIAL_TEMP = 0;
     public const float COUNT_DOWN = 180;
-    public const int TOKENS = 8;
+    //public const int TOKENS = 8;
 
     List<ISector> _map = new List<ISector>();
     bool _isRunning = false;
@@ -21,7 +21,6 @@ public class GameManager : MonoBehaviour {
     SpaceShip _spaceship;
     float _gameTimer = 0;
     float _launchTimer = 0;
-    int _pinTokens = 0;
     bool _isGameOver = false;
     bool _isWin = false;
     bool _canLaunchTimer = true;
@@ -33,7 +32,6 @@ public class GameManager : MonoBehaviour {
     public bool IsWin { get { return _isWin; }}
     public bool IsGameOver { get { return _isGameOver; } }
     public SpaceShip SpaceShip { get { return _spaceship; }}
-    public int PinTokens { get { return _pinTokens; }}
 
     public List<ISector> WorldMap { get { return _map; }}
 
@@ -118,7 +116,7 @@ public class GameManager : MonoBehaviour {
         _isWin = false;
         _isRunning = false;
         _currentTick = 0;
-        _pinTokens = TOKENS;
+        //_pinTokens = TOKENS;
         StopAllCoroutines();
         _InitMap();
         _spaceship = new SpaceShip();
@@ -137,6 +135,10 @@ public class GameManager : MonoBehaviour {
         StopCoroutine( _Run() );
         _canLaunchTimer = true;
         StartCoroutine( _LaunchTime() );
+
+        //Calcolo i modificatori
+        _spaceship.CalculateMod();
+
         StartCoroutine( _Run() );
     }
 
@@ -150,17 +152,8 @@ public class GameManager : MonoBehaviour {
     }
 
     public bool SetupAction( ActionType type, int tick, bool action ){
-        if ( action && _pinTokens > 0 ) {
-            _spaceship.SetAction( type, tick, action );
-            _pinTokens--;
-            return true;
-        } else if(!action){
-            _pinTokens++;
-            _pinTokens = ( _pinTokens > TOKENS ) ? TOKENS : _pinTokens;
-            return true;
-        }else{
-            return false;
-        }
+        _spaceship.SetAction(type, tick, action);
+        return true;
     }
 
     readonly WaitForSeconds _waitSeconds = new WaitForSeconds( 1 );
@@ -185,7 +178,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void LaunchFailed() {
-        _pinTokens = TOKENS;
+        //_pinTokens = TOKENS;
         _canLaunchTimer = false;
         //StopCoroutine( _LaunchTime() );
         Debug.LogWarning("LAUNCH FAILED - FATALITYYYY!!!!");
@@ -204,4 +197,5 @@ public class GameManager : MonoBehaviour {
         StopAllCoroutines();
         Debug.LogWarning( "GAME OVER - MEGA FATALITYYYY!!!!" );
     }
+
 }
