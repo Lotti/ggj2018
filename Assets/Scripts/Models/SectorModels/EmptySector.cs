@@ -3,9 +3,9 @@ public class EmptySector : GenericSectorCalculator,ISector {
 
     public EmptySector()
     {
-            SectorDamage = 1;
+            SectorDamage = 0;
             SectorTemperature = 0;
-            SectorConsume = 1;
+            SectorConsume =0;
     }
 
     public void RunSector(ISpaceShip spaceship, int tick)
@@ -17,6 +17,8 @@ public class EmptySector : GenericSectorCalculator,ISector {
         spaceship.Fuel += CalcModFUEL(spaceship.ModFUEL[tick]);
 
         spaceship.Fuel--;
+
+        MissionLog.Instance.AddLog("For now it seems to be all right in thi sector, dude");
 
     }
 

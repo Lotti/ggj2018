@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
@@ -8,6 +10,7 @@ public class SpaceShip : ISpaceShip {
     int _hp = 0;
     float _fuel = 0;
     float _temp = 0;
+    int _peoples = 0;
 
     float[] _modHP;
     float[] _modFUEL;
@@ -109,14 +112,14 @@ public class SpaceShip : ISpaceShip {
             if(protectionArray[i]==true)
             {
                 ModHP[i] = 2;
-                ModFUEL[i] = 2;
-                ModTEMP[i] = 1;
+                ModFUEL[i] = 1;
+                ModTEMP[i] = 2;
             }
             else
             {
                 ModHP[i] = 0;
-                ModFUEL[i] = -1;
-                ModTEMP[i] = 0;
+                ModFUEL[i] = 0;
+                ModTEMP[i] = -1;
             }
         }
 
@@ -129,8 +132,8 @@ public class SpaceShip : ISpaceShip {
             if (tempArray[i] == true)
             {
                 ModHP[i] += -2;
-                ModFUEL[i] += 1;
-                ModTEMP[i] += -1;
+                ModFUEL[i] += -1;
+                ModTEMP[i] += +1;
             }
             else
             {
@@ -149,8 +152,8 @@ public class SpaceShip : ISpaceShip {
             if (tempArray[i] == true)
             {
                 ModHP[i] += -1;
-                ModFUEL[i] += -2;
-                ModTEMP[i] += 2;
+                ModFUEL[i] += +2;
+                ModTEMP[i] += -2;
             }
             else
             {
@@ -159,6 +162,11 @@ public class SpaceShip : ISpaceShip {
                 ModTEMP[i] += 0;
             }
         }
+
+        Debug.Log("ModHP => " + string.Join(",", ModHP.Select(x => x.ToString()).ToArray()));
+        Debug.Log("ModFUEL => " + string.Join(",", ModFUEL.Select(x => x.ToString()).ToArray()));
+        Debug.Log("ModTEMP => " + string.Join(",", ModTEMP.Select(x => x.ToString()).ToArray()));
+
 
     }
 
@@ -187,6 +195,7 @@ public class SpaceShip : ISpaceShip {
         _hp = ddata.hp;
         _fuel = ddata.fuel;
         _temp = ddata.temp;
+
         _actionMatrix = new Dictionary<ActionType, BitArray>();
         _actionMatrix.Add( ActionType.CONSUME, new BitArray( ddata.spaceSize, false ) );
         _actionMatrix.Add( ActionType.PROTECTION, new BitArray( ddata.spaceSize, false ) );
@@ -208,6 +217,7 @@ public class SpaceShip : ISpaceShip {
         _hp = ddata.hp;
         _fuel = ddata.fuel;
         _temp = ddata.temp;
+        _peoples = ddata.peoples;
 
         _modHP = new float[GameManager.SPACE_SIZE];
         _modFUEL = new float[GameManager.SPACE_SIZE];
@@ -239,10 +249,12 @@ public class SpaceShipDataSetup : ISpaceShipDataInit {
     public int hp;
     public float fuel;
     public float temp;
+    public int peoples;
 
-    public SpaceShipDataSetup ( int h, float f, float t ) {
+    public SpaceShipDataSetup ( int h, float f, float t, int p ) {
         hp = h;
         fuel = f;
         temp = t;
+        peoples = p;
     }
 }

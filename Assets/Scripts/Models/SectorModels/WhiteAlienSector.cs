@@ -8,7 +8,7 @@ public class WhiteAlienSector : GenericSectorCalculator, ISector {
 
     public WhiteAlienSector()
     {
-        SectorDamage = 1;
+        SectorDamage = 0;
         SectorTemperature = 0;
         SectorConsume = 1;
     }
@@ -19,9 +19,11 @@ public class WhiteAlienSector : GenericSectorCalculator, ISector {
 
         spaceship.Temp += CalcModTEMP(spaceship.ModTEMP[tick]);
 
-        spaceship.Fuel += CalcModFUEL(spaceship.ModFUEL[tick]);
+        spaceship.Fuel += 2;
 
         spaceship.Fuel--;
+
+        MissionLog.Instance.AddLog("Ah ah! nice gift from an unexpected friend!");
 
     }
 

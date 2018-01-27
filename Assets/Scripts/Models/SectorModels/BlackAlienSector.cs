@@ -8,20 +8,27 @@ public class BlackAlienSector :  GenericSectorCalculator, ISector {
 
     public BlackAlienSector()
     {
-        SectorDamage = 1;
+        SectorDamage = 2;
         SectorTemperature = 0;
-        SectorConsume = 1;
+        SectorConsume = 0;
     }
 
     public void RunSector(ISpaceShip spaceship, int tick)
     {
-        spaceship.HP += (int)CalcModDMG(spaceship.ModHP[tick]);
+        var app = (int)CalcModDMG(spaceship.ModHP[tick]);
+        spaceship.HP += app;
 
         spaceship.Temp += CalcModTEMP(spaceship.ModTEMP[tick]);
 
         spaceship.Fuel += CalcModFUEL(spaceship.ModFUEL[tick]);
 
         spaceship.Fuel--;
+
+        if ( app < 0 ) {
+            MissionLog.Instance.AddLog("Ehi Boss! An unidentified hostile starship fire at us!!We have some damage on the ship");
+        }else{
+            MissionLog.Instance.AddLog("We had a figth with an enemy alien, but we are safe!!");
+        }
     }
 
 
