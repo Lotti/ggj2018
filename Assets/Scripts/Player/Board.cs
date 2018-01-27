@@ -7,9 +7,10 @@ public class Board : Singleton<Board> {
 
     public int rows = 3;
     private Dictionary<int, List<GameObject>> cells = new Dictionary<int, List<GameObject>>();
+    private List<GameObject> shipObjectives = new List<GameObject>();
 
 	void Awake() {
-        this.prepareCells();
+        this.PrepareCells();
 
         List<ISector> WorldMap = this.fakeWorldMap();
         if (GameManager.Instance != null) {
@@ -20,7 +21,7 @@ public class Board : Singleton<Board> {
             LocalMap.Add(WorldMap[i].Clone());
         }
 
-        this.populateCells(WorldMap);
+        this.PopulateCells(WorldMap);
 	}
 
 	// Use this for initialization
@@ -47,7 +48,7 @@ public class Board : Singleton<Board> {
         };        
     }
 
-    private void prepareCells()
+    private void PrepareCells()
     {
         for (int y = 0; y < rows; y++) {
             GameObject row = new GameObject(y + " row");
@@ -58,7 +59,7 @@ public class Board : Singleton<Board> {
             hlg.childControlHeight = true;
             hlg.childAlignment = TextAnchor.MiddleCenter;
 
-            for (int i = 0; i < GameManager.SPACE_SIZE + 1; i++)
+            for (int i = 0; i < GameManager.SPACE_SIZE; i++)
             {
                 if (!cells.ContainsKey(i)) {
                     cells.Add(i, new List<GameObject>());
@@ -74,12 +75,17 @@ public class Board : Singleton<Board> {
         }
     }
 
-    private void populateCells(List<ISector> WorldMap) {
-        for (int i = 1; i < cells.Count; i++) {
-            GameObject c = cells[i][UnityEngine.Random.Range(0, cells[i].Count - 1)];
+    private void PopulateCells(List<ISector> WorldMap) {
+        for (int i = 0; i < cells.Count; i++) {
+            GameObject c = cells[i][UnityEngine.Random.Range(0, cells[i].Count)];
             ISector s = WorldMap[0];
-            Instantiate(Resources.Load("Prefabs/PlayerScene/" + s.prefabName()), Vector3.zero, Quaternion.identity, c.transform);
+            GameObject g = (GameObject) Instantiate(Resources.Load("Prefabs/PlayerScene/" + s.prefabName()), Vector3.zero, Quaternion.identity, c.transform);
+            shipObjectives.Add(g);
             WorldMap.RemoveAt(0);
         }
+    }
+
+    public GameObject CalculateShipMovements(int i) {
+        return shipObjectives[i];
     }
 }
