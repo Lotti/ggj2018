@@ -6,6 +6,7 @@ using UnityEngine;
 public enum Scenes
 {
     Main,
+    Player,
     StartScene
 }
 
