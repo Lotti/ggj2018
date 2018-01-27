@@ -76,7 +76,7 @@ public class Board : Singleton<Board> {
 
     private void populateCells(List<ISector> WorldMap) {
         for (int i = 1; i < cells.Count; i++) {
-            GameObject c = cells[i][UnityEngine.Random.Range(0, cells[i].Count - 1)];
+            GameObject c = cells[i][UnityEngine.Random.Range(0, cells[i].Count)];
             ISector s = WorldMap[0];
             Instantiate(Resources.Load("Prefabs/PlayerScene/" + s.prefabName()), Vector3.zero, Quaternion.identity, c.transform);
             WorldMap.RemoveAt(0);
