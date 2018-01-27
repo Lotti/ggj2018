@@ -29,7 +29,8 @@ public class UIItem : MonoBehaviour {
         GameManager.Instance.SetupAction( _type, _tick, _isActive );
     }
 
-    void _Refresh () {
+    private void _Refresh () 
+    {
         if(_isHeader){
             _txt.gameObject.SetActive( true );
             _txt.text = _type.ToString();
