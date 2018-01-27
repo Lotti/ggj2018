@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
@@ -110,14 +112,14 @@ public class SpaceShip : ISpaceShip {
             if(protectionArray[i]==true)
             {
                 ModHP[i] = 2;
-                ModFUEL[i] = 2;
-                ModTEMP[i] = 1;
+                ModFUEL[i] = 1;
+                ModTEMP[i] = 2;
             }
             else
             {
                 ModHP[i] = 0;
-                ModFUEL[i] = -1;
-                ModTEMP[i] = 0;
+                ModFUEL[i] = 0;
+                ModTEMP[i] = -1;
             }
         }
 
@@ -130,8 +132,8 @@ public class SpaceShip : ISpaceShip {
             if (tempArray[i] == true)
             {
                 ModHP[i] += -2;
-                ModFUEL[i] += 1;
-                ModTEMP[i] += -1;
+                ModFUEL[i] += -1;
+                ModTEMP[i] += +1;
             }
             else
             {
@@ -150,8 +152,8 @@ public class SpaceShip : ISpaceShip {
             if (tempArray[i] == true)
             {
                 ModHP[i] += -1;
-                ModFUEL[i] += -2;
-                ModTEMP[i] += 2;
+                ModFUEL[i] += +2;
+                ModTEMP[i] += -2;
             }
             else
             {
@@ -160,6 +162,11 @@ public class SpaceShip : ISpaceShip {
                 ModTEMP[i] += 0;
             }
         }
+
+        Debug.Log("ModHP => " + string.Join(",", ModHP.Select(x => x.ToString()).ToArray()));
+        Debug.Log("ModFUEL => " + string.Join(",", ModFUEL.Select(x => x.ToString()).ToArray()));
+        Debug.Log("ModTEMP => " + string.Join(",", ModTEMP.Select(x => x.ToString()).ToArray()));
+
 
     }
 

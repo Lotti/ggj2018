@@ -16,7 +16,7 @@ public class BaseStationSector : GenericSectorCalculator, ISector {
         
         spaceship.HP += 2;
 
-        spaceship.Temp += 0;
+        spaceship.Temp = 5;
 
         spaceship.Fuel += 5;
 

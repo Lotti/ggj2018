@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour {
     public const int SPACE_SIZE = 10;
     public const int INITIAL_HP = 3;
     public const float INITIAL_FUEL = 12;
-    public const float INITIAL_TEMP = 0;
+    public const float INITIAL_TEMP = 5;
     public const float COUNT_DOWN = 180;
     public const int PEOPLES = 1000;
 
@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour {
     }
 
     bool _isSpaceShipDied(){
-        return _spaceship.HP == 0 || _spaceship.Fuel <= 0.1 || _spaceship.Temp >= 100 || _spaceship.Temp <= 0;
+        return _spaceship.HP == 0 || _spaceship.Fuel <= 0.1 || _spaceship.Temp >= 12 || _spaceship.Temp <= 0;
     }
 
     WaitForEndOfFrame _waitFrame = new WaitForEndOfFrame();
@@ -118,7 +118,7 @@ public class GameManager : MonoBehaviour {
         _isWin = false;
         _isRunning = false;
         _currentTick = 0;
-
+        _peoples = PEOPLES;
         StopAllCoroutines();
         _InitMap();
         _spaceship = new SpaceShip();
