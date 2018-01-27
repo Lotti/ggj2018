@@ -7,6 +7,7 @@ public enum ButtonType
 {
     NewGame,
     Options,
+    Credits,
     Quit
 }
 
