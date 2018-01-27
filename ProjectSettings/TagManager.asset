@@ -16,7 +16,7 @@ TagManager:
   - TV
   - PostFX
   - TVEffects
-  - 
+  - UIAlwaysOnTop
   - 
   - 
   - 
@@ -40,4 +40,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UIAlwaysOnTop
+    uniqueID: 2889251151
     locked: 0
