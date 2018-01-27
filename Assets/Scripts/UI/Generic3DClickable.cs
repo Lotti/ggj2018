@@ -10,7 +10,7 @@ public class Generic3DClickable : A3DClickable {
 
     public Transform feedbackTrans;
     public override void OnClick()
-    {
+    {   
         OnClickCallback();
         var asd=this.feedbackTrans.DOLocalMoveY( 1.969f, 0.5f);
         asd.onComplete += () => {

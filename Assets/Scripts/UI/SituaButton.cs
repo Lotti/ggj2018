@@ -25,6 +25,8 @@ public class SituaButton : A3DClickable
         this.rend.GetComponent<Renderer>().material.SetColor("_Color", (this.isActive ? activeColor : nonActiveColor));
 
         this.rend.transform.DOLocalMoveY(((!this.isActive)?0:-0.066f), 1);
+
+        GameManager.Instance.SetupAction(this.type, this.Tick, this.isActive);
         
     }
 }
