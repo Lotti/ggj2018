@@ -6,8 +6,8 @@ public class NebulosaSector : GenericSectorCalculator,ISector
 {
     public NebulosaSector()
     {
-        SectorDamage = 1;
-        SectorTemperature = 0;
+        SectorDamage = 0;
+        SectorTemperature = 2;
         SectorConsume = 1;
     }
 
@@ -15,11 +15,21 @@ public class NebulosaSector : GenericSectorCalculator,ISector
     {
         spaceship.HP += (int)CalcModDMG(spaceship.ModHP[tick]);
 
-        spaceship.Temp += CalcModTEMP(spaceship.ModTEMP[tick]);
+        var app = CalcModTEMP(spaceship.ModTEMP[tick]);
+        spaceship.Temp += app;
 
         spaceship.Fuel += CalcModFUEL(spaceship.ModFUEL[tick]);
 
         spaceship.Fuel--;
+
+        if (app < 0)
+        {
+            MissionLog.Instance.AddLog("Ehi Boss! we don't know what happen but THE ROOF IS ON FIRE!!");
+        }
+        else
+        {
+            MissionLog.Instance.AddLog("We are in a nebula but our shields are working well! :)");
+        }
 
     }
 

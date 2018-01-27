@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour {
     }
 
     bool _isSpaceShipDied(){
-        return _spaceship.HP == 0 || _spaceship.Fuel <= 0.1 || _spaceship.Temp >= 150;
+        return _spaceship.HP == 0 || _spaceship.Fuel <= 0.1 || _spaceship.Temp >= 100 || _spaceship.Temp <= 0;
     }
 
     WaitForEndOfFrame _waitFrame = new WaitForEndOfFrame();
