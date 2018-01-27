@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -149,13 +149,17 @@ public class GameManager : MonoBehaviour {
         HistoryManager.Instance.History.Add(actionMatrix);
     }
 
-    public void SetupAction( ActionType type, int tick, bool action ){
+    public bool SetupAction( ActionType type, int tick, bool action ){
         if ( action && _pinTokens > 0 ) {
             _spaceship.SetAction( type, tick, action );
             _pinTokens--;
+            return true;
         } else if(!action){
             _pinTokens++;
             _pinTokens = ( _pinTokens > TOKENS ) ? TOKENS : _pinTokens;
+            return true;
+        }else{
+            return false;
         }
     }
 
