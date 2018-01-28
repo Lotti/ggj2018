@@ -200,8 +200,8 @@ public class SpaceShip : ISpaceShip {
         if (tempArray[i] == true)
         {
             mod[(int)ActionType.PROTECTION] += -2;
-            mod[(int)ActionType.CONSUME] += -1;
-            mod[(int)ActionType.TEMPERATURE] += +1;
+            mod[(int)ActionType.CONSUME] += 1;
+            mod[(int)ActionType.TEMPERATURE] += -1;
         }
         else
         {

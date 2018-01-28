@@ -29,7 +29,14 @@ public class GenericSectorCalculator
 
     public float CalcModTEMP(float modSpaceship)
     {
-        float app = SectorTemperature - (modSpaceship + GameManager.Instance.tempBonus);
+        float tempBonus = 0f;
+        if (GameManager.Instance != null) {
+            tempBonus = GameManager.Instance.tempBonus;
+        }
+
+        Debug.Log("SectorTemperature: " +SectorTemperature+ " modSpaceship: "+modSpaceship+" tempBonus: "+tempBonus);
+        float app = SectorTemperature - (modSpaceship + tempBonus);
+        Debug.Log("= "+app);
 
         if (app > 0)
         {
