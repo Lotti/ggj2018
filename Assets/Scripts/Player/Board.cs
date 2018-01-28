@@ -37,9 +37,9 @@ public class Board : Singleton<Board>
         }
 
         // cloning real WorldMap in LocalMap
-        LocalMap = new List<ISector>(WorldMap.Count);
-        for (int i = 0; i < WorldMap.Count; i++) {
-            LocalMap.Add(WorldMap[i].Clone());
+        LocalMap = new List<ISector>();
+        foreach (var w in WorldMap) {
+            LocalMap.Add(w.Clone());
         }
 
         this.PrepareCells();
@@ -147,7 +147,7 @@ public class Board : Singleton<Board>
         }
     }
 
-    public ShipNavigator spawnShip(int dieAt, bool win) {
+    public ShipNavigator spawnShip(int dieAt) {
         GameObject g = (GameObject)Instantiate(Resources.Load(prefabPath + "spaceShip"), Vector3.zero, Quaternion.identity);
         g.transform.position = planetStartGame.transform.position;
         vCamera.Follow = g.transform;
@@ -157,11 +157,9 @@ public class Board : Singleton<Board>
     }
 
     public void launchShip() {
-        Debug.Log("shipCount: " + shipCount);
-        Debug.Log("History.Count: " + History.Count);
         if (shipCount < History.Count) {
-            int dieAt = GameManager.SimulateRun(LocalMap, History[shipCount]);
-            var ship = spawnShip(dieAt, dieAt == -1).Move();
+            int dieAt = GameManager.SimulateRun(WorldMap, History[shipCount]);
+            var ship = spawnShip(dieAt).Move();
             shipCount++;
         } else {
             UIWinPanel.Instance.ShowGameOver();
