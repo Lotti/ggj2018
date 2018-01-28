@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GenericSectorCalculator
 {
-    protected float SectorDamage;
+    public float SectorDamage { get; protected set; }
 
     protected float SectorTemperature;
 
@@ -17,7 +17,7 @@ public class GenericSectorCalculator
 
     public float CalcModDMG(float modSpaceship)
     {
-        float app = SectorDamage - modSpaceship;
+        float app = (SectorDamage>0)? (SectorDamage - modSpaceship):0;
 
         if (app > 0)
         {
@@ -47,12 +47,8 @@ public class GenericSectorCalculator
 
     public float CalcModFUEL(float modSpaceship)
     {
-        float app = SectorConsume - modSpaceship;
+        return -(SectorConsume + modSpaceship);
 
-        if (app > 0)
-        {
-            return -app;
-        }
-        else return 0;
+
     }
 }
