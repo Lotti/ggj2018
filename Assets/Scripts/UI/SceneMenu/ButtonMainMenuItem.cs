@@ -80,7 +80,8 @@ public class ButtonMainMenuItem : MonoBehaviour
 
         foreach (var btnName in btns.Keys)
         {
-            btns[btnName].transform.DOScale(new Vector3(1.35f,1.35f,1.35f),
+            
+            btns[btnName].transform.DOScale(new Vector3(1.10f,1.10f,1.10f),
                                             time).
                          OnComplete(()=>
                          {
