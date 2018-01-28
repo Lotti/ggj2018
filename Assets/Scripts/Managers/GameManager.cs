@@ -86,6 +86,7 @@ public class GameManager : Singleton<GameManager> {
     void Awake () {
         _instance = this;
         DontDestroyOnLoad( this.gameObject );
+        AudioManager.Instance.PlayMainTheme2();
         StartGame();
     }
 
