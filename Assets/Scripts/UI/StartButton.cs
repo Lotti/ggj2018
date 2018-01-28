@@ -21,6 +21,7 @@ public class StartButton : A3DClickable
         rend.material.SetColor("_EmissionColor", this.Enabled ? activeColor : nonActiveColor);
 
     }
+
     public override void OnClick()
     {
         if (!this.Enabled) return;
@@ -29,6 +30,7 @@ public class StartButton : A3DClickable
         {
             this.isActive = !this.isActive;
             var mov = this.transform.DOLocalMoveY( 1.969f, 0.5f);
+
             mov.onComplete += () =>
             {
                 mov = this.transform.DOLocalMoveY(2.079f, 0.5f);

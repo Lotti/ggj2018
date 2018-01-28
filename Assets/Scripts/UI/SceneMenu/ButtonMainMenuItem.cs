@@ -47,9 +47,6 @@ public class ButtonMainMenuItem : MonoBehaviour
             case ButtonType.Options:
                 this.btn.onClick.AddListener(delegate { this.Options(); });
                 break;
-            case ButtonType.Credits:
-                this.btn.onClick.AddListener(delegate { this.Credits(); });
-                break;
             case ButtonType.Quit:
                 this.btn.onClick.AddListener(delegate { this.Quit(); });
                 break;
@@ -59,6 +56,7 @@ public class ButtonMainMenuItem : MonoBehaviour
 
     private void NewGame()
     {
+        AudioManager.Instance.PlayMenuButtonPressedSound();
         this.StartCoroutine(SceneManager.Instance.ChangeScene(Scenes.Main_1, Fade()));
        
     }
@@ -71,7 +69,9 @@ public class ButtonMainMenuItem : MonoBehaviour
         
         var particles = StartSceneManager.Instance.particles;
 
-      
+       
+        //Destroy(UIManager.Instance.gameObject);
+
         foreach (var particleName in particles.Keys)
         {
             var main = particles[particleName].main;
@@ -102,22 +102,20 @@ public class ButtonMainMenuItem : MonoBehaviour
 
     private void Options()
     {
+        AudioManager.Instance.PlayMenuButtonPressedSound();
         Debug.Log("Options");
     }
 
 
     private void Credits()
     {
-        if (!StartSceneManager.Instance.credits.activeInHierarchy)
-            StartSceneManager.Instance.credits.SetActive(true);
-        
-        StartSceneManager.Instance.anim.Play();
-
-
+        AudioManager.Instance.PlayMenuButtonPressedSound();
+        Debug.Log("Credits");
     }
 
     private void Quit()
     {
+        AudioManager.Instance.PlayMenuButtonPressedSound();
 #if !UNITY_EDITOR
         Application.Quit();
 #else

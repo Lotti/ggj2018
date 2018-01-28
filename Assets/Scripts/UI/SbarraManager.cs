@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class SbarraManager : Singleton<SbarraManager>
@@ -12,6 +13,8 @@ public class SbarraManager : Singleton<SbarraManager>
     private Vector3 endScale1 = Vector3.zero;
     private Vector3 endScale2 = Vector3.zero;
     private Vector3 endScale3 = Vector3.zero;
+
+    public TextMeshPro text;
 
     private void Update()
     {
@@ -25,8 +28,10 @@ public class SbarraManager : Singleton<SbarraManager>
         
     }
 
-    public void UpdateBarra(float val1, float val2, float val3)
+    public void UpdateBarra(int tickNum, float val1, float val2, float val3)
     {
+        this.text.text = "STATS FOR SECTOR " + (tickNum + 1);
+
         TVManager.Instance.ShowSbarre();
         this.endScale1 = new Vector3(1, 3 * val1, 3);
         this.endScale2 = new Vector3(1, 3 * val2, 3);

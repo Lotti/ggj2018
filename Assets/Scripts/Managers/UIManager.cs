@@ -52,6 +52,7 @@ public class UIManager : Singleton<UIManager>
     {
         GameManager.Instance.Launch(this.HumansToSend);
         this.UpdateHumansToSend();
+        TVManager.Instance.ShowMonitor();
        // this.GeneratePaperLog("AHAHAHAH " + this.ScartoffieSpawnate.Count, null);
     }
 
