@@ -10,7 +10,7 @@ public class WhiteAlienSector : GenericSectorCalculator, ISector {
     {
         SectorDamage = 0;
         SectorTemperature = 0;
-        SectorConsume = 1;
+        SectorConsume = 0;
     }
 
     public void RunSector(ISpaceShip spaceship, int tick)

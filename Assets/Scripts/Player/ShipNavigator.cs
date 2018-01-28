@@ -41,11 +41,12 @@ public class ShipNavigator : MonoBehaviour {
             float floatDist = dist.magnitude * 0.02f;
             points.Add(target.transform.position);
             int mStep = step;
+            currentMiniScene = target.GetComponent<MiniSpaceScene>();
             this.transform.DOPath(points.ToArray(), floatDist, PathType.CatmullRom, PathMode.Sidescroller2D)
                 .SetEase(Ease.Linear)
                 .OnComplete(() => {
                 if (dieAt == -1 || mStep < dieAt) {
-                        this.PlayStopAnimation(target);
+                        this.PlayStopAnimation();
                     }
                     else {
                         this.SelfDestruct();
@@ -66,10 +67,10 @@ public class ShipNavigator : MonoBehaviour {
         Destroy(this.gameObject);
     }
 
-    public void PlayStopAnimation(GameObject target)
+    public void PlayStopAnimation()
     {
-        currentMiniScene = target.GetComponent<MiniSpaceScene>();
         currentMiniScene.OnEndAnimation += PlayNextStep;
+        currentMiniScene.PlayActionAnimation();
     }
 
     private void PlayNextStep()
