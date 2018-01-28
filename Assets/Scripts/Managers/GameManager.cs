@@ -47,6 +47,10 @@ public class GameManager : Singleton<GameManager> {
         }
     }
 
+    public static ISector[] MapSpawner() {
+        return _mapSpawner;
+    }
+
     static ISector[] _mapSpawner = new ISector[]{
         new EmptySector(),
         new EmptySector(),
@@ -189,6 +193,8 @@ public class GameManager : Singleton<GameManager> {
     readonly WaitForSeconds _waitSeconds = new WaitForSeconds( 1 );
     IEnumerator _Run(){
         tempBonus = 0;
+
+        MissionLog.Instance.AddLog("Mission Start: HP  " + _spaceship.HP + " TEMP  " + _spaceship.Temp + " FUEL  " + _spaceship.Fuel );
 
         while (_currentTick < _map.Count)
         {

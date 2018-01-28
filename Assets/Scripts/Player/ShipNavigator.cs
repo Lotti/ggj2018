@@ -7,7 +7,12 @@ public class ShipNavigator : MonoBehaviour {
     private int step = 0;
     private int dieAt = -1;
     private List<float> amplitude = new List<float>() { -9f, -5f, -1f, 1f, 5f ,9f};
+    public GameObject boom;
     // Use this for initialization
+
+    void Awake() {
+        boom.SetActive(false);    
+    }
 
     void Start() {
         step = 0;
@@ -40,19 +45,22 @@ public class ShipNavigator : MonoBehaviour {
             this.transform.DOPath(points.ToArray(), floatDist, PathType.CatmullRom, PathMode.Sidescroller2D)
                 .SetEase(Ease.Linear)
                 .OnComplete(() => {
-                    if (step < dieAt) {
+                    if (dieAt == -1 || step < dieAt) {
                         this.Move();
-                    } else {
-                        this.SelfDestruct();   
-                    }                    
+                    }
+                    else {
+                        this.SelfDestruct();
+                    }
                 });
             step++;
         }
         return this;
     }
 
-    public ShipNavigator SelfDestruct() {
-        Debug.Log("MORTO AMMAZZATO");
-        return this;
+    public void SelfDestruct() {
+        boom.SetActive(true);
+
+        Board.Instance.pickShip();
+        Destroy(this.gameObject);
     }
 }

@@ -35,8 +35,7 @@ public class GenericSectorCalculator
         }
 
         Debug.Log("SectorTemperature: " +SectorTemperature+ " modSpaceship: "+modSpaceship+" tempBonus: "+tempBonus);
-        float app = SectorTemperature - (modSpaceship + tempBonus);
-        Debug.Log("= "+app);
+        float app = SectorTemperature + (modSpaceship + tempBonus);
 
         if (app > 0)
         {
