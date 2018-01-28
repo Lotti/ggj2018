@@ -274,7 +274,7 @@ public class GameManager : Singleton<GameManager> {
         ship.Init( new SpaceShipDataInit( INITIAL_HP, INITIAL_FUEL, INITIAL_TEMP, SPACE_SIZE ) );
         ship.Setup( new SpaceShipDataSetup( INITIAL_HP, INITIAL_FUEL, INITIAL_TEMP, 0 ) );
         ship.SetActionMatrix( input );
-        for ( int i = 0; i < _map.Count;  i++){
+        for (int i = 0; i < _map.Count; i++) {
             _map[i].RunSector( ship, i );
             if ( IsSpaceShipDied(ship) ) {
                 return i;

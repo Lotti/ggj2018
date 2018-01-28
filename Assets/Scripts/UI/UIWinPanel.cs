@@ -37,8 +37,10 @@ public class UIWinPanel : Singleton<UIWinPanel> {
 	}
 
     public void Restart(){
-        AudioManager.Instance.PlayMainTheme();
-        SceneManager.Instance.ChangeScene( Scenes.StartScene );
+        if (_cg.alpha == 1) {
+            AudioManager.Instance.PlayMainTheme();
+            SceneManager.Instance.ChangeScene(Scenes.StartScene);
+        }
     }
 
 }
