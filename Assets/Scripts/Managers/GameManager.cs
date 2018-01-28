@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour {
     public const float INITIAL_FUEL = 12;
     public const float INITIAL_TEMP = 5;
     public const float COUNT_DOWN = 180;
-    public const int PEOPLES = 1000;
+    public const int PEOPLES = 100;
 
     List<ISector> _map = new List<ISector>();
     bool _isRunning = false;
@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour {
     bool _isGameOver = false;
     bool _isWin = false;
     bool _canLaunchTimer = true;
-    int _peoples = 0;
+    int _peoples = PEOPLES;
 
     public float GameTimer { get { return _gameTimer; }}
     public float LaunchTimer { get { return _launchTimer; }}
