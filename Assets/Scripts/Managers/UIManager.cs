@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
-public class UIManager : Singleton<UIManager> 
+public class UIManager : Singleton<UIManager>
 {
     public GameObject PaperLogPrefab;
     public Transform PaperLogStartTransform;
@@ -12,12 +13,17 @@ public class UIManager : Singleton<UIManager>
 
     public List<GameObject> ScartoffieSpawnate;
 
+    public Dictionary<string,ParticleSystem> particles = new Dictionary<string, ParticleSystem>();
+    public Dictionary<String, GameObject> buttons = new Dictionary<string, GameObject>();
+
     public TextMeshPro HumanText;
 
     public Generic3DClickable HumanPlusButton;
     public Generic3DClickable HumanMinusButton;
 
     public StartButton startButton;
+    public Scenes scene;
+    public event Action OnClick;
 
     private int _HumansToSend = 0;
     public int HumansToSend { get { return _HumansToSend; }
@@ -27,19 +33,39 @@ public class UIManager : Singleton<UIManager>
             }
     }
 
-    private void Start()
+    // HO SONNO PERDONATEMI OH ME CHE HO PECCATO
+    private void FillGraphicsComponent()
     {
+        foreach (var GO in GameObject.FindObjectsOfType<ParticleSystem>())
+        {
+            if(!this.particles.ContainsKey(GO.name))
+                this.particles.Add(GO.name,GO);
+        }
+        foreach (var btn in GameObject.FindObjectsOfType<GameObject>())
+        {
+            if (!this.buttons.ContainsKey(btn.name))
+                if(btn.layer == 12) // Ho sempre sonno
+                    this.buttons.Add(btn.name, btn);
+        }
+    }
+
+    private void Awake()
+    {
+        SceneManager.Instance.OnOpenScene += this.OnOpenScene;
+        this.FillGraphicsComponent();
         this.ScartoffieSpawnate = new List<GameObject>();
         //this.GeneratePaperLog("AAAHAHAHAHAHAH", null);
-        HumanPlusButton.OnClickCallback += this.onplusbutton;
-        HumanMinusButton.OnClickCallback += this.onminusbutton;
-        this.HumansToSend = 0;
-        this.startButton.OnClickCallback += this.OnStartButton;
-        MissionLog.Instance.OnTransmission += (string log) =>
-          {
-              UpdateHumansToSend();
-              this.GeneratePaperLog(log, null);
-          };
+        if (this.HumanPlusButton != null)
+        {
+            HumanPlusButton.OnClickCallback += this.onplusbutton;
+            HumanMinusButton.OnClickCallback += this.onminusbutton;
+            this.HumansToSend = 0;
+            this.startButton.OnClickCallback += this.OnStartButton;
+            MissionLog.Instance.OnTransmission += (string log) =>
+              {
+                  this.GeneratePaperLog(log, null);
+              };
+        }
     }
 
     private void OnStartButton()
@@ -50,17 +76,17 @@ public class UIManager : Singleton<UIManager>
 
     private void UpdateHumansToSend()
     {
-        this.HumanText.text = "HUMANS\n" + this.HumansToSend + "/" + GameManager.Instance.Peoples;
+        this.HumanText.text = "HUMANS\n" + this.HumansToSend;
     }
 
     private void onminusbutton()
     {
-        this.HumansToSend = Math.Max(0, this.HumansToSend-10);
+        this.HumansToSend = Math.Max(0, this.HumansToSend-1);
     }
 
     private void onplusbutton()
     {
-        this.HumansToSend = Math.Min(100, this.HumansToSend + 10);
+        this.HumansToSend = Math.Min(1000, this.HumansToSend + 1);
     }
 
     public void GeneratePaperLog(string log, Action oncomplete)
@@ -76,5 +102,8 @@ public class UIManager : Singleton<UIManager>
         this.ScartoffieSpawnate.Add(go);
     }
 
-
+    public void OnOpenScene()
+    {
+        this.particles.Clear();
+    }
 }

@@ -5,14 +5,8 @@ using DG.Tweening;
 
 public class ShipNavigator : MonoBehaviour {
     private int step = 0;
-    private List<float> amplitude = new List<float>();
+    private List<float> amplitude = new List<float>() { -9f, -5f, -1f, 1f, 5f ,9f};
     // Use this for initialization
-
-    void Awake() {
-        for (float i = -10; i <= 10; i+= 3) {
-            amplitude.Add(i);
-        }
-    }
 
     void Start() {
         step = 0;
