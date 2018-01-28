@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class EndAnim : MonoBehaviour 
 {
-    public void EndAnimation()
-    {
-        this.GetComponent<Animation>().Stop();
-
+    public void EndAnimation() {
         StartSceneManager.Instance.credits.SetActive(false);
     }
 }
