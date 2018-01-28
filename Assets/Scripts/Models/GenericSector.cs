@@ -36,18 +36,18 @@ public class GenericSectorCalculator
 
         Debug.Log("SectorTemperature: " +SectorTemperature+ " modSpaceship: "+modSpaceship+" tempBonus: "+tempBonus);
         float app = SectorTemperature + (modSpaceship + tempBonus);
-
-        if (app > 0)
+        return app;
+       /* if (app > 0)
         {
             return -app;
         }
-        else return 0;
+        else return 0;*/
     }
 
 
     public float CalcModFUEL(float modSpaceship)
     {
-        return -(SectorConsume + modSpaceship);
+        return (SectorConsume + modSpaceship);
 
 
     }

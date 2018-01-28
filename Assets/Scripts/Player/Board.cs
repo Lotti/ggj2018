@@ -152,9 +152,7 @@ public class Board : Singleton<Board>
         g.transform.position = planetStartGame.transform.position;
         vCamera.Follow = g.transform;
         ShipNavigator sn = g.GetComponent<ShipNavigator>();
-        if (!GameManager.IsInstanced) {
-            dieAt = -1;
-        } 
+      
         sn.SetDieAt(dieAt);
         return sn;
     }
