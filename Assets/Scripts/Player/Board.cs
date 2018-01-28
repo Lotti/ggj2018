@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Cinemachine;
+using DG.Tweening;
 
 public class Board : Singleton<Board>
 {
@@ -23,6 +24,9 @@ public class Board : Singleton<Board>
     private List<Dictionary<ActionType, BitArray>> History;
 
     private Dictionary<string, bool> alreadyPopulatedCells = new Dictionary<string, bool>();
+
+    private Text _wintText;
+    private CanvasGroup _canvas;
 
 	void Awake() {
         WorldMap = this.fakeWorldMap();
@@ -163,8 +167,7 @@ public class Board : Singleton<Board>
             var ship = spawnShip(dieAt, dieAt == -1).Move();
             shipCount++;
         } else {
-            Debug.Log("Game Over - Hai perso!");
-            SceneManager.Instance.ChangeScene( Scenes.StartScene );
+            UIWinPanel.Instance.ShowGameOver();
         }
     }
 }
