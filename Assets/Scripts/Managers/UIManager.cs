@@ -49,7 +49,7 @@ public class UIManager : Singleton<UIManager>
         }
     }
 
-    private void Awake()
+    private void Start()
     {
         SceneManager.Instance.OnOpenScene += this.OnOpenScene;
         this.FillGraphicsComponent();
@@ -71,22 +71,23 @@ public class UIManager : Singleton<UIManager>
     private void OnStartButton()
     {
         GameManager.Instance.Launch(this.HumansToSend);
+        this.UpdateHumansToSend();
        // this.GeneratePaperLog("AHAHAHAH " + this.ScartoffieSpawnate.Count, null);
     }
 
     private void UpdateHumansToSend()
     {
-        this.HumanText.text = "HUMANS\n" + this.HumansToSend;
+        this.HumanText.text = "HUMANS\n" + this.HumansToSend+"/"+GameManager.Instance.Peoples;
     }
 
     private void onminusbutton()
     {
-        this.HumansToSend = Math.Max(0, this.HumansToSend-1);
+        this.HumansToSend = Math.Max(0, this.HumansToSend-10);
     }
 
     private void onplusbutton()
     {
-        this.HumansToSend = Math.Min(1000, this.HumansToSend + 1);
+        this.HumansToSend = Math.Min(GameManager.Instance.Peoples, this.HumansToSend + 10);
     }
 
     public void GeneratePaperLog(string log, Action oncomplete)

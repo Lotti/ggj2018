@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour {
     bool _isGameOver = false;
     bool _isWin = false;
     bool _canLaunchTimer = true;
-    int _peoples = 0;
+    int _peoples = PEOPLES;
 
     public float tempBonus = 0;
 
