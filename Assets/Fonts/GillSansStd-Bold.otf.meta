@@ -1,0 +1,30 @@
+fileFormatVersion: 2
+guid: f79579320b0774648866bb66fded4b5d
+timeCreated: 1517135670
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Gill Sans Std
+  fontNames:
+  - Gill Sans Std
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 851d7b00dc8934cf88c17025f706b815, type: 3}
+  - {fileID: 12800000, guid: 31c3ee7384cc24143b0e51aeddb7d884, type: 3}
+  - {fileID: 12800000, guid: c13c67f4dd28046caa17b46ab8c4894b, type: 3}
+  - {fileID: 12800000, guid: 1b480f88682e443ba852421c606db2c8, type: 3}
+  - {fileID: 12800000, guid: 4b1a7ddd5dbf24556b4d671a7313777f, type: 3}
+  - {fileID: 12800000, guid: 0db244edf51cd4083b3a9edbe114ce6d, type: 3}
+  - {fileID: 12800000, guid: 4e06ac8e1c34549ba8ea39479412f894, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

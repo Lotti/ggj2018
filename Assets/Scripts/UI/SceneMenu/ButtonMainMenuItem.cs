@@ -47,6 +47,9 @@ public class ButtonMainMenuItem : MonoBehaviour
             case ButtonType.Options:
                 this.btn.onClick.AddListener(delegate { this.Options(); });
                 break;
+            case ButtonType.Credits:
+                this.btn.onClick.AddListener(delegate { this.Credits(); });
+                break;
             case ButtonType.Quit:
                 this.btn.onClick.AddListener(delegate { this.Quit(); });
                 break;
@@ -68,9 +71,7 @@ public class ButtonMainMenuItem : MonoBehaviour
         
         var particles = StartSceneManager.Instance.particles;
 
-       
-        //Destroy(UIManager.Instance.gameObject);
-
+      
         foreach (var particleName in particles.Keys)
         {
             var main = particles[particleName].main;
@@ -107,7 +108,12 @@ public class ButtonMainMenuItem : MonoBehaviour
 
     private void Credits()
     {
-        Debug.Log("Options");
+        if (!StartSceneManager.Instance.credits.activeInHierarchy)
+            StartSceneManager.Instance.credits.SetActive(true);
+        
+        StartSceneManager.Instance.anim.Play();
+
+
     }
 
     private void Quit()

@@ -7,6 +7,8 @@ public class StartSceneManager : Singleton<StartSceneManager> {
 
     public Dictionary<string, ParticleSystem> particles = new Dictionary<string, ParticleSystem>();
     public Dictionary<String, GameObject> buttons = new Dictionary<string, GameObject>();
+    public Animation anim;
+    public GameObject credits;
 
     public event Action OnClick;
 
@@ -32,6 +34,8 @@ public class StartSceneManager : Singleton<StartSceneManager> {
         SceneManager.Instance.OnOpenScene += this.OnOpenScene;
         this.FillGraphicsComponent();
     }
+
+
 
     public void OnOpenScene()
     {
