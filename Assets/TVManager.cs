@@ -6,6 +6,7 @@ public class TVManager : Singleton<TVManager>
 {
     public GameObject razzo;
     public GameObject sbarre;
+    public GameObject launchFeedback;
 
     public bool ShowingRazzo = true;
 
@@ -16,19 +17,30 @@ public class TVManager : Singleton<TVManager>
     {
         this.ShowRazzoCazzo();
     }
+    public void ShowMonitor()
+    {
+        this.SetLayerRecursively(razzo, nonVisLayer);
+        this.SetLayerRecursively(sbarre, nonVisLayer);
+        this.SetLayerRecursively(launchFeedback, okLayer);
+        MonitorScript.Instance.ResetText();
+    }
     public void ShowRazzoCazzo()
     {
+        if (GameManager.Instance.IsRunning) return;
         if (!ShowingRazzo)
         {
             this.ShowingRazzo = !ShowingRazzo;
+            this.SetLayerRecursively(launchFeedback, nonVisLayer);
             this.SetLayerRecursively(razzo, okLayer);
             this.SetLayerRecursively(sbarre, nonVisLayer);
         }
     }
     public void ShowSbarre()
     {
+        if (GameManager.Instance.IsRunning) return;
         if (ShowingRazzo)
         {
+            this.SetLayerRecursively(launchFeedback, nonVisLayer);
             this.ShowingRazzo = !ShowingRazzo;
             this.SetLayerRecursively(razzo, nonVisLayer);
             this.SetLayerRecursively(sbarre, okLayer);

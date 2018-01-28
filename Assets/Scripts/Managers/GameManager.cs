@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour {
     bool _canLaunchTimer = true;
     int _peoples = PEOPLES;
 
+    public bool IsRunning { get { return _isRunning; } }
+
     public float tempBonus = 0;
 
     public float GameTimer { get { return _gameTimer; }}
