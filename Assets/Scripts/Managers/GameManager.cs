@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : Singleton<GameManager> {
     
-    static GameManager _instance = null;
-    public static GameManager Instance { get { return _instance; } }
+    //static GameManager _instance = null;
+    //public static GameManager Instance { get { return _instance; } }
     public static bool IsInstanced { get { return _instance != null; } }
 
     public const int SPACE_SIZE = 10;

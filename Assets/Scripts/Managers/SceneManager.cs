@@ -36,7 +36,8 @@ public class SceneManager : Singleton<SceneManager>
 
         UnityEngine.SceneManagement.SceneManager.LoadScene(scene.ScenesToString());
 
-        this.OnOpenScene();
+        if (this.OnOpenScene!=null)
+            this.OnOpenScene();
 
 
     }
@@ -52,6 +53,7 @@ public class SceneManager : Singleton<SceneManager>
 
     private void Awake()
     {
+        _instance = this;
         this.scene = Scenes.StartScene;
     }
 
