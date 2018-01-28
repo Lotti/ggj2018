@@ -31,9 +31,19 @@ public class PaperThing : A3DClickable
         this.isMakingFirstAnimating = true;
         var tween = this.transform.DOMove(endAnimationTransform.position, 1);
         tween.onComplete += () => {
-            this.isMakingFirstAnimating = false;
-            this.InitVar();
-            OnComplete();
+            Vector3 final2 = endAnimationTransform.position - 
+            Vector3.forward *( 3 - UIManager.Instance.ScartoffieSpawnate.Count*0.5f )
+            +Vector3.up*UIManager.Instance.ScartoffieSpawnate.Count * 0.05f;
+
+            tween = this.transform.DOMove(final2, 1);
+            tween.onComplete += () =>
+            {
+                this.isMakingFirstAnimating = false;
+                this.InitVar();
+
+                if(OnComplete!=null)
+                    OnComplete();
+            };
         };
     }
     void InitVar()

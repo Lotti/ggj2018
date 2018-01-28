@@ -31,11 +31,12 @@ public class MissionLog : Singleton<MissionLog>
     public void TransmitLog(){
         if (OnTransmission != null){
             OnTransmission(_FormatLog());
+            this._TrasmissionLog.Clear();
         }
     }
 
     string _FormatLog() {
-        _formattedLog = String.Join("\n", _TrasmissionLog.ToArray());
+        _formattedLog = String.Join("\n\n", _TrasmissionLog.ToArray());
         return _formattedLog;
     }
 

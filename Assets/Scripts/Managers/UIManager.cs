@@ -17,6 +17,8 @@ public class UIManager : Singleton<UIManager>
     public Generic3DClickable HumanPlusButton;
     public Generic3DClickable HumanMinusButton;
 
+    public StartButton startButton;
+
     private int _HumansToSend = 0;
     public int HumansToSend { get { return _HumansToSend; }
         set {
@@ -28,10 +30,21 @@ public class UIManager : Singleton<UIManager>
     private void Awake()
     {
         this.ScartoffieSpawnate = new List<GameObject>();
-        this.GeneratePaperLog("AAAHAHAHAHAHAH", null);
+        //this.GeneratePaperLog("AAAHAHAHAHAHAH", null);
         HumanPlusButton.OnClickCallback += this.onplusbutton;
         HumanMinusButton.OnClickCallback += this.onminusbutton;
         this.HumansToSend = 0;
+        this.startButton.OnClickCallback += this.OnStartButton;
+        MissionLog.Instance.OnTransmission += (string log) =>
+          {
+              this.GeneratePaperLog(log, null);
+          };
+    }
+
+    private void OnStartButton()
+    {
+        GameManager.Instance.Launch(this.HumansToSend);
+       // this.GeneratePaperLog("AHAHAHAH " + this.ScartoffieSpawnate.Count, null);
     }
 
     private void UpdateHumansToSend()
