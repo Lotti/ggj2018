@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class AudioManager : Singleton<AudioManager>
 {
+    [SerializeField]
     private AudioSource music;
+    [SerializeField]
     private AudioSource soundEffect;
 
     [SerializeField]
     private AudioClip mainTheme;
     [SerializeField]
+    private AudioClip mainTheme2;
+    [SerializeField]
     private AudioClip menuButtonPressedSound;
+    [SerializeField]
+    private AudioClip menuButtonHoverSound;
     [SerializeField]
     private AudioClip launchButtonPressedSound;
     [SerializeField]
@@ -22,6 +28,11 @@ public class AudioManager : Singleton<AudioManager>
     [SerializeField]
     private AudioClip printerSound;
 
+    void Awake () {
+        DontDestroyOnLoad( this.gameObject );
+        PlayMainTheme();
+    }
+
     public void PlayMainTheme()
     {
         music.clip = mainTheme;
@@ -29,9 +40,19 @@ public class AudioManager : Singleton<AudioManager>
         music.Play();
     }
 
+    public void PlayMainTheme2 () {
+        music.clip = mainTheme2;
+        music.loop = true;
+        music.Play();
+    }
+
     public void PlayMenuButtonPressedSound()
     {
         soundEffect.PlayOneShot(menuButtonPressedSound);
+    }
+
+    public void PlayMenuButtonHoverSound () {
+        soundEffect.PlayOneShot( menuButtonHoverSound );
     }
 
     public void PlayLaunchButtonPressedSound()

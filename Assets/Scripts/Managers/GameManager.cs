@@ -90,6 +90,7 @@ public class GameManager : Singleton<GameManager> {
     void Awake () {
         _instance = this;
         DontDestroyOnLoad( this.gameObject );
+        AudioManager.Instance.PlayMainTheme2();
         StartGame();
     }
 
@@ -192,6 +193,8 @@ public class GameManager : Singleton<GameManager> {
     readonly WaitForSeconds _waitSeconds = new WaitForSeconds( 1 );
     IEnumerator _Run(){
         tempBonus = 0;
+
+        MissionLog.Instance.AddLog("Mission Start: HP  " + _spaceship.HP + " TEMP  " + _spaceship.Temp + " FUEL  " + _spaceship.Fuel );
 
         while (_currentTick < _map.Count)
         {

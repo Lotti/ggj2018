@@ -56,6 +56,7 @@ public class ButtonMainMenuItem : MonoBehaviour
 
     private void NewGame()
     {
+        AudioManager.Instance.PlayMenuButtonPressedSound();
         this.StartCoroutine(SceneManager.Instance.ChangeScene(Scenes.Main_1, Fade()));
        
     }
@@ -101,17 +102,20 @@ public class ButtonMainMenuItem : MonoBehaviour
 
     private void Options()
     {
+        AudioManager.Instance.PlayMenuButtonPressedSound();
         Debug.Log("Options");
     }
 
 
     private void Credits()
     {
-        Debug.Log("Options");
+        AudioManager.Instance.PlayMenuButtonPressedSound();
+        Debug.Log("Credits");
     }
 
     private void Quit()
     {
+        AudioManager.Instance.PlayMenuButtonPressedSound();
 #if !UNITY_EDITOR
         Application.Quit();
 #else

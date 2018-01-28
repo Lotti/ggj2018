@@ -25,12 +25,16 @@ public class MissionLog : Singleton<MissionLog>
 
     public void AddLog(string logToAdd)
     {
-        var str = (_TrasmissionLog.Count + 1) + " " + logToAdd;
+        var str = (_TrasmissionLog.Count) + " " + logToAdd;
         _TrasmissionLog.Add(str);
         MonitorScript.Instance.AppendText(str);
     }
 
-    public void TransmitLog(){
+    public void TransmitLog()
+    {
+
+        TrasmissionLog[TrasmissionLog.Count - 1] = "<color=#e30e0e>" + TrasmissionLog[TrasmissionLog.Count - 1] + "</color>";
+
         if (OnTransmission != null){
             OnTransmission(_FormatLog());
             this._TrasmissionLog.Clear();

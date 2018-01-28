@@ -19,6 +19,7 @@ public class UIButtonMouseHover : MonoBehaviour, IPointerEnterHandler, IPointerE
 
     
     public void OnPointerEnter ( PointerEventData eventData ) {
+        AudioManager.Instance.PlayMenuButtonHoverSound();
         _t.DOScale(Vector3.one*1.1f, 0.2f);
         _i.color = Color.white;
     }
