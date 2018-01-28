@@ -24,7 +24,10 @@ public class BlackAlienSector :  GenericSectorCalculator, ISector {
 
         spaceship.Fuel--;
 
-        if ( app < 0 ) {
+        Debug.Log(spaceship.ModHP[tick]);
+
+        if ( app < 0 ) 
+        {
             MissionLog.Instance.AddLog("Ehi Boss! An unidentified hostile starship fire at us!!We have some damage on the ship");
         }else{
             MissionLog.Instance.AddLog("We had a figth with an enemy alien, but we are safe!!");

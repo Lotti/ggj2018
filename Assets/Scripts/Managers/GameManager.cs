@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour {
     bool _canLaunchTimer = true;
     int _peoples = PEOPLES;
 
+    public float tempBonus = 0;
+
     public float GameTimer { get { return _gameTimer; }}
     public float LaunchTimer { get { return _launchTimer; }}
     public int GameTimerInt { get { return Mathf.FloorToInt(_gameTimer); } }
@@ -92,7 +94,7 @@ public class GameManager : MonoBehaviour {
     }
 
     bool _isSpaceShipDied(){
-        return _spaceship.HP == 0 || _spaceship.Fuel <= 0.1 || _spaceship.Temp >= 12 || _spaceship.Temp <= 0;
+        return _spaceship.HP == 0 || _spaceship.Fuel <= 0.1 || _spaceship.Temp >= 10 || _spaceship.Temp <= 0;
     }
 
     WaitForEndOfFrame _waitFrame = new WaitForEndOfFrame();
@@ -112,6 +114,8 @@ public class GameManager : MonoBehaviour {
     }
 
     public void StartGame(){
+
+        tempBonus = 0;
         _gameTimer = COUNT_DOWN;
         _launchTimer = 0;
         _isGameOver = false;
@@ -171,15 +175,31 @@ public class GameManager : MonoBehaviour {
 
     readonly WaitForSeconds _waitSeconds = new WaitForSeconds( 1 );
     IEnumerator _Run(){
-        while (_currentTick < _map.Count){
+        tempBonus = 0;
+
+        while (_currentTick < _map.Count)
+        {
             _map[_currentTick].RunSector( _spaceship, _currentTick );
 
-            Debug.Log( _map[_currentTick].ToString() + " XXX " + _spaceship.ToString() );
+            if(_spaceship.ActionMatrix[ActionType.PROTECTION][_currentTick]==true)
+            {
+                tempBonus++;
+            }
+            else
+            {
+                tempBonus--;
+                if (tempBonus > 0)
+                    tempBonus = 0f;
+            }
+
+            Debug.Log( _map[_currentTick].ToString() + " XXX " + _spaceship.ToString(_currentTick));
             if(_isSpaceShipDied()){
                 _isRunning = false;
                 LaunchFailed();
                 yield break;
             }
+
+
             _currentTick++;
             yield return _waitSeconds;
         }

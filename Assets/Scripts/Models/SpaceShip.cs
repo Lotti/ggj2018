@@ -124,7 +124,7 @@ public class SpaceShip : ISpaceShip {
             {
                 ModHP[i] = 0;
                 ModFUEL[i] = 0;
-                ModTEMP[i] = -1;
+                ModTEMP[i] = 0;
             }
         
             //TEMPERATURE
@@ -162,9 +162,9 @@ public class SpaceShip : ISpaceShip {
 
         }
 
-        Debug.Log("ModHP => " + string.Join(",", ModHP.Select(x => x.ToString()).ToArray()));
-        Debug.Log("ModFUEL => " + string.Join(",", ModFUEL.Select(x => x.ToString()).ToArray()));
-        Debug.Log("ModTEMP => " + string.Join(",", ModTEMP.Select(x => x.ToString()).ToArray()));
+       // Debug.Log("ModHP => " + string.Join(",", ModHP.Select(x => x.ToString()).ToArray()));
+      //  Debug.Log("ModFUEL => " + string.Join(",", ModFUEL.Select(x => x.ToString()).ToArray()));
+      //  Debug.Log("ModTEMP => " + string.Join(",", ModTEMP.Select(x => x.ToString()).ToArray()));
 
 
     }
@@ -230,8 +230,8 @@ public class SpaceShip : ISpaceShip {
         return _actionMatrix[type][tick];
     }
 
-    public override string ToString(){
-        return string.Format( "HP => {0}; FUEL => {1}; TEMP => {2}", HP, Fuel, Temp );
+    public string ToString(int actTick){
+        return string.Format( "HP => {0}; FUEL => {1}; TEMP => {2}; MODHP => {3}; MODTEMP => {4}; MODFUEL => {5}; ", HP, Fuel, Temp,ModHP[actTick],ModTEMP[actTick],ModFUEL[actTick]);
     }
 
     public void Init(int spaceSize, int hp, float fuel, float temp) 

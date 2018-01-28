@@ -1,4 +1,7 @@
-﻿
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
 public class BlackHoleSector : GenericSectorCalculator, ISector
 {
 
@@ -12,7 +15,7 @@ public class BlackHoleSector : GenericSectorCalculator, ISector
 
     public void RunSector(ISpaceShip spaceship, int tick)
     {
-        
+
         spaceship.HP += (int)CalcModDMG(spaceship.ModHP[tick]);
 
         spaceship.Temp += CalcModTEMP(spaceship.ModTEMP[tick]);
