@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
@@ -20,6 +21,8 @@ public class SceneManager : Singleton<SceneManager>
         }
     }
 
+    private WaitForEndOfFrame _wait = new WaitForEndOfFrame();
+
     private Scenes scene = Scenes.StartScene;
 
     public void ChangeScene(Scenes scene)
@@ -29,9 +32,17 @@ public class SceneManager : Singleton<SceneManager>
         UnityEngine.SceneManagement.SceneManager.LoadScene(scene.ScenesToString());
     }
 
-    public void ChangeScene(Scenes scene,Action<YieldInstruction> onFade)
+    public IEnumerator ChangeScene(Scenes scene,IEnumerator onFade)
     {
-        
+        yield return _wait;
+
+        Debug.Log("I am WAITING");
+
+        yield return onFade;
+
+        Debug.Log("I am OK ");
+
+        UnityEngine.SceneManagement.SceneManager.LoadScene(scene.ScenesToString());
     }
 
     private void Awake()

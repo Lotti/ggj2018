@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,26 +19,24 @@ public class ButtonMainMenuItem : MonoBehaviour
     public string textString;
     public ButtonType buttonType;
 
-    private Button btn;
-    private Text stringText;
+    public Button btn;
+    //private Text stringText;
 
     private void Awake()
     {
-        var child = this.transform.GetChild(0);
+       // var child = this.transform.GetChild(0);
         
         if (this.btn == null)
             this.btn = this.GetComponent<Button>();
 
-        if(child != null)
-            if (this.stringText == null)
-                this.stringText = child.GetComponent<Text>();
+
         
         this.Init();
     }
 
     public void Init()
     {
-        this.stringText.text = textString;
+        //this.stringText.text = textString;
 
         switch (buttonType)
         {
@@ -56,7 +55,14 @@ public class ButtonMainMenuItem : MonoBehaviour
 
     private void NewGame()
     {
-        SceneManager.Instance.ChangeScene(Scenes.Main);
+        this.StartCoroutine(SceneManager.Instance.ChangeScene(Scenes.Main, Fade()));
+    }
+
+    private IEnumerator Fade()
+    {
+        yield return new WaitForSecondsRealtime(1);
+
+        Debug.Log("SKKSJSHJSJ");
     }
 
     private void Options()
