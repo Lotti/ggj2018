@@ -170,7 +170,7 @@ public class Board : Singleton<Board>
             var ship = spawnShip(dieAt, dieAt == -1).Move();
             shipCount++;
         } else {
-            Debug.Log("Game Over");
+            Debug.Log("Game Over - Hai perso!");
             SceneManager.Instance.ChangeScene( Scenes.StartScene );
         }
     }
