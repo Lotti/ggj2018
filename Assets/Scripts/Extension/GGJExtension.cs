@@ -15,6 +15,8 @@ public static class GGJExtension
                 return "Main";
             case Scenes.Main_1:
                 return "Main_1";
+            case Scenes.Player:
+                return "Player";
             default:
                 return "NoScene"; 
         }   
