@@ -32,10 +32,17 @@ public class PaperThing : A3DClickable
         var tween = this.transform.DOMove(endAnimationTransform.position, 1);
         tween.onComplete += () => {
             Vector3 final2 = endAnimationTransform.position - 
-            Vector3.forward *( 3 - UIManager.Instance.ScartoffieSpawnate.Count*0.5f )
+            Vector3.forward *( 4 - UIManager.Instance.ScartoffieSpawnate.Count*0.5f )
             +Vector3.up*UIManager.Instance.ScartoffieSpawnate.Count * 0.05f;
 
-            tween = this.transform.DOMove(final2, 1);
+            this.prevPosition = final2;
+            this.prevRotation = this.transform.rotation;
+            this.isMakingFirstAnimating = false;
+            if (OnComplete != null)
+                OnComplete();
+            this.isAnimating = true;
+            this.OnClick();
+            /*étween = this.transform.DOMove(final2, 1);
             tween.onComplete += () =>
             {
                 this.isMakingFirstAnimating = false;
@@ -43,14 +50,14 @@ public class PaperThing : A3DClickable
 
                 if(OnComplete!=null)
                     OnComplete();
-            };
+            };*/
         };
     }
-    void InitVar()
+    /*void InitVar()
     {
         this.prevPosition = this.transform.position;
         this.prevRotation = this.transform.rotation;
-    }
+    }*/
     public override void OnClick()
     {
         this.OnClick(MainCameraManager.Instance.paperThing);

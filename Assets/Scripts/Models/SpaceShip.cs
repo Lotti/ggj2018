@@ -290,6 +290,10 @@ public class SpaceShip : ISpaceShip {
         return "spaceShip";
     }
 
+    public void SetActionMatrix(Dictionary<ActionType, BitArray> matrix){
+        _actionMatrix = matrix;
+    }
+
 }
 
 public class SpaceShipDataInit: ISpaceShipDataInit {

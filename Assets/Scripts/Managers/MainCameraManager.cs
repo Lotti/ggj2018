@@ -47,7 +47,7 @@ public class MainCameraManager : Singleton<MainCameraManager>
                             SbarraManager.Instance.UpdateBarra(mod[1], mod[2], mod[3]);
                         }
                     }
-                    catch(Exception ex) { }
+                    catch(Exception ex) { TVManager.Instance.ShowRazzoCazzo(); }
                     
 
                     return;
@@ -69,6 +69,7 @@ public class MainCameraManager : Singleton<MainCameraManager>
                     SbarraManager.Instance.UpdateBarra(mod[1], mod[2], mod[3]);
                     return;
                 }
+                TVManager.Instance.ShowRazzoCazzo();
             }
         }
     }
