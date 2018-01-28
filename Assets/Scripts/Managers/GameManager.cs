@@ -38,6 +38,12 @@ public class GameManager : MonoBehaviour {
     public int Peoples { get { return _peoples; }}
 
     public List<ISector> WorldMap { get { return _map; }}
+    public List<Dictionary<ActionType, BitArray>> History = new List<Dictionary<ActionType, BitArray>>();
+    public int historyCount {
+        get {
+            return this.History.Count;
+        }
+    }
 
     static ISector[] _mapSpawner = new ISector[]{
         new EmptySector(),
@@ -93,8 +99,12 @@ public class GameManager : MonoBehaviour {
         _instance = null;    
     }
 
-    bool _isSpaceShipDied(){
-        return _spaceship.HP == 0 || _spaceship.Fuel <= 0.1 || _spaceship.Temp >= 10 || _spaceship.Temp <= 0;
+    static bool IsSpaceShipDied(SpaceShip ship){
+        return ship.HP == 0 || ship.Fuel <= 0.1 || ship.Temp >= 10 || ship.Temp <= 0;
+    }
+
+    bool _isSpaceShipDied() {
+        return IsSpaceShipDied(_spaceship);
     }
 
     WaitForEndOfFrame _waitFrame = new WaitForEndOfFrame();
@@ -165,7 +175,7 @@ public class GameManager : MonoBehaviour {
 
     public void FillHistory(Dictionary<ActionType,BitArray> actionMatrix)
     {
-        HistoryManager.Instance.History.Add(actionMatrix);
+        History.Add(actionMatrix);
     }
 
     public bool SetupAction( ActionType type, int tick, bool action ){
@@ -240,14 +250,14 @@ public class GameManager : MonoBehaviour {
         SceneManager.Instance.ChangeScene(Scenes.Player);
     }
 
-    public int SimulateRun( Dictionary<ActionType, BitArray> input ){
+    public static int SimulateRun(List<ISector> _map, Dictionary<ActionType, BitArray> input) {
         SpaceShip ship = new SpaceShip();
         ship.Init( new SpaceShipDataInit( INITIAL_HP, INITIAL_FUEL, INITIAL_TEMP, SPACE_SIZE ) );
         ship.Setup( new SpaceShipDataSetup( INITIAL_HP, INITIAL_FUEL, INITIAL_TEMP, 0 ) );
         ship.SetActionMatrix( input );
         for ( int i = 0; i < _map.Count;  i++){
-            _map[_currentTick].RunSector( ship, i );
-            if ( _isSpaceShipDied() ) {
+            _map[i].RunSector( ship, i );
+            if ( IsSpaceShipDied(ship) ) {
                 return i;
             }
         }

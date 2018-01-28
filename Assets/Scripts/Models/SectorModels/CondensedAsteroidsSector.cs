@@ -49,6 +49,6 @@ public class CondensedAsteroidsSector : GenericSectorCalculator, ISector
 
     public string prefabName()
     {
-        return "condensedAsteroid";
+        return "condensedAsteroids";
     }
 }
