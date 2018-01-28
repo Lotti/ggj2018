@@ -72,16 +72,16 @@ public class Board : Singleton<Board>
 
     private List<ISector> fakeWorldMap() {
         return new List<ISector>(){
-            new EmptySector(),
-            new BaseStationSector(),
-            new WhiteAlienSector(),
             new BlackAlienSector(),
-            new BlackHoleSector(),
-            new NebulosaSector(),
-            new RedStarSector(),
-            new SparseAsteroidSector(),
-            new CondensedAsteroidsSector(),
-            new BaseStationSector(),
+            new BlackAlienSector(),
+            new BlackAlienSector(),
+            new BlackAlienSector(),
+            new BlackAlienSector(),
+            new BlackAlienSector(),
+            new BlackAlienSector(),
+            new BlackAlienSector(),
+            new BlackAlienSector(),
+            new BlackAlienSector(),
         };        
     }
 

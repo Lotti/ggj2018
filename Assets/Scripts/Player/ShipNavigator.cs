@@ -37,6 +37,7 @@ public class ShipNavigator : MonoBehaviour {
         return this;
     }
 
+    private bool moveOrDie = false;
     public ShipNavigator Move() {
         GameObject target = Board.Instance.getShipTarget(step);
         if (target != null) {
@@ -55,10 +56,13 @@ public class ShipNavigator : MonoBehaviour {
                 .SetEase(Ease.Linear)
                 .OnComplete(() => {
                 if (dieAt == -1 || mStep < dieAt) {
+                        moveOrDie = true;
                         this.PlayStopAnimation();
                     }
                     else {
-                        this.SelfDestruct();
+                        moveOrDie = false;
+                        this.PlayStopAnimation();
+                        
                     }
                 });
             step++;
@@ -68,8 +72,10 @@ public class ShipNavigator : MonoBehaviour {
         return this;
     }
 
-    public void SelfDestruct() {
+    public IEnumerator SelfDestruct() {
         boom.SetActive(true);
+
+        yield return new WaitForSeconds((float)boom.GetComponent<UnityEngine.Playables.PlayableDirector>().duration);
 
         Board.Instance.launchShip();
         Destroy(this.gameObject);
@@ -90,6 +96,11 @@ public class ShipNavigator : MonoBehaviour {
         if (currentMiniScene != null){
             currentMiniScene.OnEndAnimation -= PlayNextStep;
         }
-        Move();
+
+        if (moveOrDie) {
+            Move();
+        } else {
+            StartCoroutine(this.SelfDestruct());
+        }
     }
 }
