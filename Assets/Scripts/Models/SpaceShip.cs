@@ -98,17 +98,22 @@ public class SpaceShip : ISpaceShip {
 
     public void CalculateMod()
     {
-
         ModHP = new float[GameManager.SPACE_SIZE];
         ModFUEL = new float[GameManager.SPACE_SIZE];
         ModTEMP = new float[GameManager.SPACE_SIZE];
 
-        //PROTECTION
-        BitArray protectionArray=new BitArray(GameManager.SPACE_SIZE);
+        BitArray protectionArray = new BitArray(GameManager.SPACE_SIZE);
         ActionMatrix.TryGetValue(ActionType.PROTECTION, out protectionArray);
 
-        for (int i = 0; i < GameManager.SPACE_SIZE;i++)
+        BitArray tempArray = new BitArray(GameManager.SPACE_SIZE);
+        ActionMatrix.TryGetValue(ActionType.TEMPERATURE, out tempArray);
+
+        BitArray fuelArray = new BitArray(GameManager.SPACE_SIZE);
+        ActionMatrix.TryGetValue(ActionType.CONSUME, out fuelArray);
+
+        for (int i = 0; i < GameManager.SPACE_SIZE; i++)
         {
+            /*//PROTECTION
             if(protectionArray[i]==true)
             {
                 ModHP[i] = 2;
@@ -121,14 +126,8 @@ public class SpaceShip : ISpaceShip {
                 ModFUEL[i] = 0;
                 ModTEMP[i] = 0;
             }
-        }
-
-        //TEMPERATURE
-        BitArray tempArray = new BitArray(GameManager.SPACE_SIZE);
-        ActionMatrix.TryGetValue(ActionType.TEMPERATURE, out tempArray);
-
-        for (int i = 0; i < GameManager.SPACE_SIZE; i++)
-        {
+        
+            //TEMPERATURE
             if (tempArray[i] == true)
             {
                 ModHP[i] += -2;
@@ -141,15 +140,9 @@ public class SpaceShip : ISpaceShip {
                 ModFUEL[i] += 0;
                 ModTEMP[i] += 0;
             }
-        }
-
-        //FUEL
-        BitArray fuelArray = new BitArray(GameManager.SPACE_SIZE);
-        ActionMatrix.TryGetValue(ActionType.CONSUME, out fuelArray);
-
-        for (int i = 0; i < GameManager.SPACE_SIZE; i++)
-        {
-            if (tempArray[i] == true)
+        
+            //FUEL
+            if (fuelArray[i] == true)
             {
                 ModHP[i] += -1;
                 ModFUEL[i] += 2;
@@ -161,6 +154,12 @@ public class SpaceShip : ISpaceShip {
                 ModFUEL[i] += 0;
                 ModTEMP[i] += 0;
             }
+            */
+            var mod = this.GetModForTick(i);
+            ModHP[i] = mod[(int)ActionType.PROTECTION];
+            ModFUEL[i] = mod[(int)ActionType.CONSUME];
+            ModTEMP[i] = mod[(int)ActionType.TEMPERATURE];
+
         }
 
        // Debug.Log("ModHP => " + string.Join(",", ModHP.Select(x => x.ToString()).ToArray()));
@@ -173,6 +172,63 @@ public class SpaceShip : ISpaceShip {
     public int GetPeopleBonus()
     {
         return _peoples / 10;
+    }
+
+    public int[] GetModForTick(int i)
+    {
+        BitArray protectionArray = new BitArray(GameManager.SPACE_SIZE);
+        ActionMatrix.TryGetValue(ActionType.PROTECTION, out protectionArray);
+
+        BitArray tempArray = new BitArray(GameManager.SPACE_SIZE);
+        ActionMatrix.TryGetValue(ActionType.TEMPERATURE, out tempArray);
+
+        BitArray fuelArray = new BitArray(GameManager.SPACE_SIZE);
+        ActionMatrix.TryGetValue(ActionType.CONSUME, out fuelArray);
+
+        int[] mod = new int[4];
+
+        //PROTECTION
+        if (protectionArray[i] == true)
+        {
+            mod[(int) ActionType.PROTECTION] = 2;
+            mod[(int)ActionType.CONSUME] = 1;
+            mod[(int)ActionType.TEMPERATURE] = 2;
+        }
+        else
+        {
+            mod[(int)ActionType.PROTECTION] = 0;
+            mod[(int)ActionType.CONSUME] = 0;
+            mod[(int)ActionType.TEMPERATURE] = 0;
+        }
+
+        //TEMPERATURE
+        if (tempArray[i] == true)
+        {
+            mod[(int)ActionType.PROTECTION] += -2;
+            mod[(int)ActionType.CONSUME] += -1;
+            mod[(int)ActionType.TEMPERATURE] += +1;
+        }
+        else
+        {
+            mod[(int)ActionType.PROTECTION] += 0;
+            mod[(int)ActionType.CONSUME] += 0;
+            mod[(int)ActionType.TEMPERATURE] += 0;
+        }
+
+        //FUEL
+        if (fuelArray[i] == true)
+        {
+            mod[(int)ActionType.PROTECTION] += -1;
+            mod[(int)ActionType.CONSUME] += +2;
+            mod[(int)ActionType.TEMPERATURE] += -2;
+        }
+        else
+        {
+            mod[(int)ActionType.PROTECTION] += 0;
+            mod[(int)ActionType.CONSUME] += 0;
+            mod[(int)ActionType.TEMPERATURE] += 0;
+        }
+        return mod;
     }
 
     public bool HasAction ( ActionType type, int tick ) {
