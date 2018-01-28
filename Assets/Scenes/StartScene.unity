@@ -8670,7 +8670,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Strange Guy
+  m_Text: Alessio Di Maria
 --- !u!222 &913815475
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10042,7 +10042,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 792710423
+  randomSeed: 2093626466
   InitialModule:
     serializedVersion: 3
     enabled: 1
