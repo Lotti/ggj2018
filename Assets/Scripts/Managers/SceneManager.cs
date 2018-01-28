@@ -7,9 +7,12 @@ using UnityEngine;
 public enum Scenes
 {
     Main,
+    Main_1,
     Player,
+    Credits,
     StartScene
 }
+
 
 public class SceneManager : Singleton<SceneManager>
 {
