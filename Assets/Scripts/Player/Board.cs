@@ -143,7 +143,9 @@ public class Board : Singleton<Board>
     }
 
     public GameObject getShipTarget(int i) {
-        if (i >= shipObjectives.Count) {
+        if (i > shipObjectives.Count) {
+            return null;
+        }else if(i == shipObjectives.Count){
             return planetEndGame;
         }
         else {
@@ -169,6 +171,7 @@ public class Board : Singleton<Board>
             shipCount++;
         } else {
             Debug.Log("Game Over");
+            SceneManager.Instance.ChangeScene( Scenes.StartScene );
         }
     }
 }

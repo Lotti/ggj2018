@@ -42,10 +42,11 @@ public class ShipNavigator : MonoBehaviour {
             points.Add(midPoint);
             float floatDist = dist.magnitude * 0.02f;
             points.Add(target.transform.position);
+            int mStep = step;
             this.transform.DOPath(points.ToArray(), floatDist, PathType.CatmullRom, PathMode.Sidescroller2D)
                 .SetEase(Ease.Linear)
                 .OnComplete(() => {
-                    if (dieAt == -1 || step < dieAt) {
+                if (dieAt == -1 || mStep < dieAt) {
                         this.Move();
                     }
                     else {
@@ -53,6 +54,8 @@ public class ShipNavigator : MonoBehaviour {
                     }
                 });
             step++;
+        }else{
+            SceneManager.Instance.ChangeScene( Scenes.StartScene );
         }
         return this;
     }
