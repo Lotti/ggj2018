@@ -208,6 +208,7 @@ public class GameManager : MonoBehaviour {
         StopAllCoroutines();
         MissionLog.Instance.TransmitLog();
         Debug.LogWarning( "WIIIIIIIINNNNNNNNN! DAJE CAZZO" );
+        SceneManager.Instance.ChangeScene(Scenes.Player);
     }
 
     public void GameOver(){
@@ -216,6 +217,7 @@ public class GameManager : MonoBehaviour {
         StopAllCoroutines();
         MissionLog.Instance.TransmitLog();
         Debug.LogWarning( "GAME OVER - MEGA FATALITYYYY!!!!" );
+        SceneManager.Instance.ChangeScene(Scenes.Player);
     }
 
 }
