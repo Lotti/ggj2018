@@ -74,13 +74,13 @@ public class Board : Singleton<Board>
         return new List<ISector>(){
             new EmptySector(),
             new BaseStationSector(),
-            new EmptySector(),
-            new BaseStationSector(),
-            new EmptySector(),
-            new BaseStationSector(),
-            new EmptySector(),
-            new BaseStationSector(),
-            new EmptySector(),
+            new WhiteAlienSector(),
+            new BlackAlienSector(),
+            new BlackHoleSector(),
+            new NebulosaSector(),
+            new RedStarSector(),
+            new SparseAsteroidSector(),
+            new CondensedAsteroidsSector(),
             new BaseStationSector(),
         };        
     }
@@ -152,6 +152,9 @@ public class Board : Singleton<Board>
         g.transform.position = planetStartGame.transform.position;
         vCamera.Follow = g.transform;
         ShipNavigator sn = g.GetComponent<ShipNavigator>();
+        if (!GameManager.IsInstanced) {
+            dieAt = -1;
+        } 
         sn.SetDieAt(dieAt);
         return sn;
     }

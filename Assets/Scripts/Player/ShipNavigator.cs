@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
@@ -20,6 +20,15 @@ public class ShipNavigator : MonoBehaviour {
     }
 
     void Update() {
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            Time.timeScale = 10f;
+        }
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            Time.timeScale = 1f;
+        }
+
+
         this.transform.right = Vector3.Lerp(this.transform.right, this.targetForward, 0.1f);
     }
 
@@ -68,13 +77,19 @@ public class ShipNavigator : MonoBehaviour {
 
     public void PlayStopAnimation()
     {
-        currentMiniScene.OnEndAnimation += PlayNextStep;
-        currentMiniScene.PlayActionAnimation();
+        if (currentMiniScene != null) {
+            currentMiniScene.OnEndAnimation += PlayNextStep;
+            currentMiniScene.PlayActionAnimation();
+        } else {
+            PlayNextStep();
+        }
     }
 
     private void PlayNextStep()
     {
-        currentMiniScene.OnEndAnimation -= PlayNextStep;
+        if (currentMiniScene != null){
+            currentMiniScene.OnEndAnimation -= PlayNextStep;
+        }
         Move();
     }
 }

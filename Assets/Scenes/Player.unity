@@ -649,6 +649,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1158051804}
   - component: {fileID: 1158051805}
+  - component: {fileID: 1158051806}
   m_Layer: 0
   m_Name: PlanetX
   m_TagString: Untagged
@@ -713,6 +714,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!114 &1158051806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1158051803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f75a69a1543134109942e1ea7577ce09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idleAnimation: {fileID: 0}
+  actionAnimation: {fileID: 0}
 --- !u!1 &1379783854
 GameObject:
   m_ObjectHideFlags: 3
