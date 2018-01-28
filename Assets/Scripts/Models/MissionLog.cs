@@ -27,7 +27,9 @@ public class MissionLog : Singleton<MissionLog>
     {
         var str = (_TrasmissionLog.Count) + " " + logToAdd;
         _TrasmissionLog.Add(str);
-        MonitorScript.Instance.AppendText(str);
+        if (SceneManager.Instance.CurrentScene != Scenes.Player) {
+            MonitorScript.Instance.AppendText(str);
+        }
     }
 
     public void TransmitLog()
