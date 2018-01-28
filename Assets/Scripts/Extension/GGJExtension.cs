@@ -13,6 +13,8 @@ public static class GGJExtension
                 return "StartScene";
             case Scenes.Main:
                 return "Main";
+            case Scenes.Main_1:
+                return "Main_1";
             default:
                 return "NoScene"; 
         }   

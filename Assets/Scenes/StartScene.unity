@@ -225,7 +225,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!114 &365661803
 MonoBehaviour:
@@ -3810,7 +3810,7 @@ GameObject:
   - component: {fileID: 549759957}
   - component: {fileID: 549759959}
   - component: {fileID: 549759958}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: PUNTINI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3876,7 +3876,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 576987811}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4056,7 +4056,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 908163628
+  randomSeed: 253024889
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -7409,6 +7409,7 @@ GameObject:
   - component: {fileID: 737424102}
   - component: {fileID: 737424103}
   - component: {fileID: 737424104}
+  - component: {fileID: 737424105}
   m_Layer: 5
   m_Name: BodyButtons
   m_TagString: Untagged
@@ -7480,6 +7481,22 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 2
   m_TargetDisplay: 0
+--- !u!114 &737424105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 737424101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &780083536
 GameObject:
   m_ObjectHideFlags: 0
@@ -7712,6 +7729,8 @@ GameObject:
   - component: {fileID: 1592771963}
   - component: {fileID: 1592771962}
   - component: {fileID: 1592771961}
+  - component: {fileID: 1592771965}
+  - component: {fileID: 1592771966}
   m_Layer: 5
   m_Name: NewGame
   m_TagString: Untagged
@@ -7831,6 +7850,36 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1592771959}
+--- !u!114 &1592771965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1592771959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74bc89d62567446caa517b87f946cdd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textString: 
+  buttonType: 0
+  btn: {fileID: 0}
+--- !u!114 &1592771966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1592771959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &1632284785
 GameObject:
   m_ObjectHideFlags: 0
@@ -7842,7 +7891,7 @@ GameObject:
   - component: {fileID: 1632284788}
   - component: {fileID: 1632284787}
   - component: {fileID: 1632284789}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: NeboulousFabolous
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7928,7 +7977,7 @@ GameObject:
   - component: {fileID: 1635567833}
   - component: {fileID: 1635567832}
   - component: {fileID: 1635567834}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: Asteroids
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8013,7 +8062,7 @@ GameObject:
   - component: {fileID: 1683303816}
   - component: {fileID: 1683303818}
   - component: {fileID: 1683303817}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: DeepSpace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8227,7 +8276,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 2005543557
+  randomSeed: 2046592341
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -11575,7 +11624,7 @@ GameObject:
   - component: {fileID: 1796586574}
   - component: {fileID: 1796586573}
   - component: {fileID: 1796586575}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: SOLARINCAZZATI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11660,6 +11709,7 @@ GameObject:
   - component: {fileID: 1936396956}
   - component: {fileID: 1936396958}
   - component: {fileID: 1936396957}
+  - component: {fileID: 1936396959}
   m_Layer: 5
   m_Name: ButtonRowOne (1)
   m_TagString: Untagged
@@ -11728,6 +11778,22 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
+--- !u!114 &1936396959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1936396955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &2074208699
 GameObject:
   m_ObjectHideFlags: 0
@@ -11768,7 +11834,8 @@ GameObject:
   - component: {fileID: 2086070690}
   - component: {fileID: 2086070689}
   - component: {fileID: 2086070688}
-  m_Layer: 5
+  - component: {fileID: 2086070692}
+  m_Layer: 12
   m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11782,7 +11849,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2086070686}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.9999643}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 0.9999645, y: 0.9999645, z: 0.9999645}
   m_Children: []
   m_Father: {fileID: 737424102}
@@ -11859,6 +11926,22 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2086070686}
+--- !u!114 &2086070692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2086070686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &2105273368
 GameObject:
   m_ObjectHideFlags: 0
@@ -11869,6 +11952,7 @@ GameObject:
   - component: {fileID: 2105273369}
   - component: {fileID: 2105273371}
   - component: {fileID: 2105273370}
+  - component: {fileID: 2105273372}
   m_Layer: 5
   m_Name: ButtonRowTwo (1)
   m_TagString: Untagged
@@ -11937,6 +12021,22 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
+--- !u!114 &2105273372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2105273368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &2138287218
 GameObject:
   m_ObjectHideFlags: 0

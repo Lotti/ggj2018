@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public enum ButtonType
 {
@@ -12,7 +13,7 @@ public enum ButtonType
     Quit
 }
 
-public class ButtonMainMenuItem : MonoBehaviour 
+public class ButtonMainMenuItem : MonoBehaviour
 {
 
 
@@ -55,17 +56,51 @@ public class ButtonMainMenuItem : MonoBehaviour
 
     private void NewGame()
     {
-        this.StartCoroutine(SceneManager.Instance.ChangeScene(Scenes.Main, Fade()));
+        this.StartCoroutine(SceneManager.Instance.ChangeScene(Scenes.Main_1, Fade()));
     }
 
     private IEnumerator Fade()
     {
-        yield return new WaitForSecondsRealtime(1);
+        var btns = UIManager.Instance.buttons;
 
-        Debug.Log("SKKSJSHJSJ");
+        var time = 0.85f;
+        
+        var particles = UIManager.Instance.particles;
+
+        foreach (var particleName in particles.Keys)
+        {
+            var main = particles[particleName].main;
+
+            yield return new WaitForEndOfFrame();
+
+            main.startSpeed = 115;
+        }
+
+        yield return new WaitForSecondsRealtime(0.45f);
+
+        foreach (var btnName in btns.Keys)
+        {
+            btns[btnName].transform.DOScale(new Vector3(1.35f,1.35f,1.35f),
+                                            time).
+                         OnComplete(()=>
+                         {
+                            btns[btnName].transform.DOScale(new Vector3(0, 0, 0), 0.25f);
+                         });
+                         
+        }
+
+        yield return new WaitForSecondsRealtime(1.55f);
+
+
     }
 
     private void Options()
+    {
+        Debug.Log("Options");
+    }
+
+
+    private void Credits()
     {
         Debug.Log("Options");
     }

@@ -24,6 +24,8 @@ public class SceneManager : Singleton<SceneManager>
         }
     }
 
+    public event Action OnOpenScene;
+
     private WaitForEndOfFrame _wait = new WaitForEndOfFrame();
 
     private Scenes scene = Scenes.StartScene;
@@ -33,17 +35,15 @@ public class SceneManager : Singleton<SceneManager>
         this.scene = scene;
 
         UnityEngine.SceneManagement.SceneManager.LoadScene(scene.ScenesToString());
+
+        this.OnOpenScene();
     }
 
     public IEnumerator ChangeScene(Scenes scene,IEnumerator onFade)
     {
         yield return _wait;
 
-        Debug.Log("I am WAITING");
-
         yield return onFade;
-
-        Debug.Log("I am OK ");
 
         UnityEngine.SceneManagement.SceneManager.LoadScene(scene.ScenesToString());
     }
@@ -52,4 +52,5 @@ public class SceneManager : Singleton<SceneManager>
     {
         this.scene = Scenes.StartScene;
     }
+
 }
