@@ -17,8 +17,6 @@ public class GenericSectorCalculator
 
     public float CalcModDMG(float modSpaceship)
     {
-        Debug.Log("VALORE DEL CAZZO" + modSpaceship ); 
-
         float app = SectorDamage - modSpaceship;
 
         if (app > 0)
@@ -31,7 +29,14 @@ public class GenericSectorCalculator
 
     public float CalcModTEMP(float modSpaceship)
     {
-        float app = SectorTemperature  - modSpaceship; 
+        float tempBonus = 0f;
+        if (GameManager.Instance != null) {
+            tempBonus = GameManager.Instance.tempBonus;
+        }
+
+        Debug.Log("SectorTemperature: " +SectorTemperature+ " modSpaceship: "+modSpaceship+" tempBonus: "+tempBonus);
+        float app = SectorTemperature - (modSpaceship + tempBonus);
+        Debug.Log("= "+app);
 
         if (app > 0)
         {

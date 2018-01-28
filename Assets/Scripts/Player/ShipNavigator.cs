@@ -5,6 +5,7 @@ using DG.Tweening;
 
 public class ShipNavigator : MonoBehaviour {
     private int step = 0;
+    private int dieAt = -1;
     private List<float> amplitude = new List<float>() { -9f, -5f, -1f, 1f, 5f ,9f};
     // Use this for initialization
 
@@ -19,7 +20,12 @@ public class ShipNavigator : MonoBehaviour {
         this.transform.right = Vector3.Lerp(this.transform.right, this.targetForward, 0.1f);
     }
 
-    public void Move() {
+    public ShipNavigator SetDieAt(int dieAt) {
+        this.dieAt = dieAt;
+        return this;
+    }
+
+    public ShipNavigator Move() {
         GameObject target = Board.Instance.getShipTarget(step);
         if (target != null) {
             var dist = this.transform.position - target.transform.position;
@@ -33,11 +39,20 @@ public class ShipNavigator : MonoBehaviour {
             points.Add(target.transform.position);
             this.transform.DOPath(points.ToArray(), floatDist, PathType.CatmullRom, PathMode.Sidescroller2D)
                 .SetEase(Ease.Linear)
-                .OnComplete(() =>
-                {
-                    this.Move();
+                .OnComplete(() => {
+                    if (step < dieAt) {
+                        this.Move();
+                    } else {
+                        this.SelfDestruct();   
+                    }                    
                 });
             step++;
         }
+        return this;
+    }
+
+    public ShipNavigator SelfDestruct() {
+        Debug.Log("MORTO AMMAZZATO");
+        return this;
     }
 }
