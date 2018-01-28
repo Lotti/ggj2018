@@ -9,8 +9,8 @@ public class GameManager : Singleton<GameManager> {
     public static bool IsInstanced { get { return _instance != null; } }
 
     public const int SPACE_SIZE = 10;
-    public const int INITIAL_HP = 5;
-    public const float INITIAL_FUEL = 12;
+    public const int INITIAL_HP = 7;
+    public const float INITIAL_FUEL = 7;
     public const float INITIAL_TEMP = 5;
     public const float COUNT_DOWN = 180;
     public const int PEOPLES = 100;
@@ -54,15 +54,6 @@ public class GameManager : Singleton<GameManager> {
     static ISector[] _mapSpawner = new ISector[]{
         new EmptySector(),
         new EmptySector(),
-        new EmptySector(),
-        new EmptySector(),
-        new EmptySector(),
-        new EmptySector(),
-        new EmptySector(),
-        new EmptySector(),
-        new EmptySector(),
-        new EmptySector(),
-        new EmptySector(),
         new SparseAsteroidSector(),
         new SparseAsteroidSector(),
         new SparseAsteroidSector(),
@@ -81,9 +72,17 @@ public class GameManager : Singleton<GameManager> {
 
     void _InitMap(){
         _map = new List<ISector>();
+        int currentMaxDamage = 0;
         for ( int i = 0; i < SPACE_SIZE;  i++){
-            int index = Random.Range(0,_mapSpawner.Length);
-            _map.Add( _mapSpawner[index] );
+            int index = Random.Range(0, _mapSpawner.Length);
+            var sp = _mapSpawner[index];
+            //While
+            while (currentMaxDamage + ((GenericSectorCalculator)sp).SectorDamage > GameManager.INITIAL_HP)
+            {
+                index = Random.Range(0, _mapSpawner.Length);
+                sp = _mapSpawner[index];
+            }
+            _map.Add(sp);
         }
     }
 
@@ -200,16 +199,17 @@ public class GameManager : Singleton<GameManager> {
         {
             _map[_currentTick].RunSector( _spaceship, _currentTick );
 
-            if(_spaceship.ActionMatrix[ActionType.PROTECTION][_currentTick]==true)
+            /*if(_spaceship.ActionMatrix[ActionType.PROTECTION][_currentTick]==true)
             {
                 tempBonus++;
             }
             else
             {
-                tempBonus--;
-                if (tempBonus < 0)
-                    tempBonus = 0f;
-            }
+                tempBonus = 0f;
+                //tempBonus--;
+                //if (tempBonus < 0)
+                //    tempBonus = 0f;
+            }*/
 
             Debug.Log(" TEMP BONUS " + tempBonus);
 
