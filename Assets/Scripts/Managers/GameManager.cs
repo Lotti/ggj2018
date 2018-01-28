@@ -189,6 +189,8 @@ public class GameManager : Singleton<GameManager> {
     IEnumerator _Run(){
         tempBonus = 0;
 
+        MissionLog.Instance.AddLog("Mission Start: HP  " + _spaceship.HP + " TEMP  " + _spaceship.Temp + " FUEL  " + _spaceship.Fuel );
+
         while (_currentTick < _map.Count)
         {
             _map[_currentTick].RunSector( _spaceship, _currentTick );
