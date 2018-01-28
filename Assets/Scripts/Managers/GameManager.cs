@@ -188,9 +188,11 @@ public class GameManager : MonoBehaviour {
             else
             {
                 tempBonus--;
-                if (tempBonus > 0)
+                if (tempBonus < 0)
                     tempBonus = 0f;
             }
+
+            Debug.Log(" TEMP BONUS " + tempBonus);
 
             Debug.Log( _map[_currentTick].ToString() + " XXX " + _spaceship.ToString(_currentTick));
             if(_isSpaceShipDied()){

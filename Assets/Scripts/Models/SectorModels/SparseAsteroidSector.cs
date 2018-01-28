@@ -27,7 +27,7 @@ public class SparseAsteroidSector : GenericSectorCalculator, ISector
         {
             MissionLog.Instance.AddLog("An asteroid has scratched our hull! ");
         }*/
-        MissionLog.Instance.AddLog("Spa Asteroid: Hp" + spaceship.HP + " - Temp" + spaceship.Temp + " - Fuel" + spaceship.Fuel);
+        MissionLog.Instance.AddLog("Spa Asteroid: Hp" + spaceship.HP + " - Temp" + spaceship.Temp + " - Fuel " + spaceship.Fuel);
 
 
     }

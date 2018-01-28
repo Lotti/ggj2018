@@ -21,7 +21,7 @@ public class BaseStationSector : GenericSectorCalculator, ISector {
 
         spaceship.Fuel--;
 
-        MissionLog.Instance.AddLog("Space Station: Hp" + spaceship.HP + " - Temp" +spaceship.Temp+ " - Fuel" +spaceship.Fuel);
+        MissionLog.Instance.AddLog("Space Station: Hp" + spaceship.HP + " - Temp" +spaceship.Temp+ " - Fuel " +spaceship.Fuel);
 
     }
 

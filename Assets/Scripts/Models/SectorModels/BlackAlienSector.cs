@@ -26,7 +26,7 @@ public class BlackAlienSector :  GenericSectorCalculator, ISector {
 
         Debug.Log(spaceship.ModHP[tick]);
 
-        MissionLog.Instance.AddLog("Bad Alien: Hp" + spaceship.HP + " - Temp" + spaceship.Temp + " - Fuel" + spaceship.Fuel);
+        MissionLog.Instance.AddLog("Bad Alien: Hp" + spaceship.HP + " - Temp" + spaceship.Temp + " - Fuel " + spaceship.Fuel);
 
 
         /*if ( app < 0 ) 

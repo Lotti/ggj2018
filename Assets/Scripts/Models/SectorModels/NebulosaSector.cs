@@ -30,7 +30,7 @@ public class NebulosaSector : GenericSectorCalculator,ISector
         {
             MissionLog.Instance.AddLog("We are in a nebula but our shields are working well! :)");
         }*/
-        MissionLog.Instance.AddLog("Nebola: Hp" + spaceship.HP + " - Temp" + spaceship.Temp + " - Fuel" + spaceship.Fuel);
+        MissionLog.Instance.AddLog("Nebola: Hp" + spaceship.HP + " - Temp" + spaceship.Temp + " - Fuel " + spaceship.Fuel);
 
 
     }

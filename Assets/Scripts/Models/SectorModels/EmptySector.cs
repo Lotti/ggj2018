@@ -19,7 +19,7 @@ public class EmptySector : GenericSectorCalculator,ISector {
         spaceship.Fuel--;
 
         //MissionLog.Instance.AddLog("For now it seems to be all right in thi sector, dude");
-        MissionLog.Instance.AddLog("Empty: Hp" + spaceship.HP + " - Temp" + spaceship.Temp + " - Fuel" + spaceship.Fuel);
+        MissionLog.Instance.AddLog("Empty: Hp" + spaceship.HP + " - Temp" + spaceship.Temp + " - Fuel " + spaceship.Fuel);
 
     }
 

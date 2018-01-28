@@ -39,7 +39,7 @@ public class RedStarSector : GenericSectorCalculator,ISector {
         }
 
         //MissionLog.Instance.AddLog(builder.ToString());
-        MissionLog.Instance.AddLog("RedStar: Hp" + spaceship.HP + " - Temp" + spaceship.Temp + " - Fuel" + spaceship.Fuel);
+        MissionLog.Instance.AddLog("RedStar: Hp" + spaceship.HP + " - Temp" + spaceship.Temp + " - Fuel " + spaceship.Fuel);
 
     }
 
