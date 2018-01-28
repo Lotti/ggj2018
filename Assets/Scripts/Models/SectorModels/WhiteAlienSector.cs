@@ -23,7 +23,8 @@ public class WhiteAlienSector : GenericSectorCalculator, ISector {
 
         spaceship.Fuel--;
 
-        MissionLog.Instance.AddLog("Ah ah! nice gift from an unexpected friend!");
+        //MissionLog.Instance.AddLog("Ah ah! nice gift from an unexpected friend!");
+        MissionLog.Instance.AddLog("Good Alien: Hp: " + spaceship.HP + " - Temp: " + spaceship.Temp + " - Fuel: " + spaceship.Fuel);
 
     }
 

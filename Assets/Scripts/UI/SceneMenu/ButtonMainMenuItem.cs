@@ -47,6 +47,9 @@ public class ButtonMainMenuItem : MonoBehaviour
             case ButtonType.Options:
                 this.btn.onClick.AddListener(delegate { this.Options(); });
                 break;
+            case ButtonType.Credits:
+                this.btn.onClick.AddListener(delegate { this.Credits(); });
+                break;
             case ButtonType.Quit:
                 this.btn.onClick.AddListener(delegate { this.Quit(); });
                 break;
@@ -56,16 +59,21 @@ public class ButtonMainMenuItem : MonoBehaviour
 
     private void NewGame()
     {
+        AudioManager.Instance.PlayMenuButtonPressedSound();
         this.StartCoroutine(SceneManager.Instance.ChangeScene(Scenes.Main_1, Fade()));
+       
     }
 
     private IEnumerator Fade()
     {
-        var btns = UIManager.Instance.buttons;
+        var btns = StartSceneManager.Instance.buttons;
 
         var time = 0.85f;
         
-        var particles = UIManager.Instance.particles;
+        var particles = StartSceneManager.Instance.particles;
+
+       
+        //Destroy(UIManager.Instance.gameObject);
 
         foreach (var particleName in particles.Keys)
         {
@@ -80,12 +88,14 @@ public class ButtonMainMenuItem : MonoBehaviour
 
         foreach (var btnName in btns.Keys)
         {
-            btns[btnName].transform.DOScale(new Vector3(1.35f,1.35f,1.35f),
+            
+            btns[btnName].transform.DOScale(new Vector3(1.10f,1.10f,1.10f),
                                             time).
                          OnComplete(()=>
                          {
                             btns[btnName].transform.DOScale(new Vector3(0, 0, 0), 0.25f);
                          });
+            AudioManager.Instance.PlayShipLaunchedSound();
                          
         }
 
@@ -96,17 +106,25 @@ public class ButtonMainMenuItem : MonoBehaviour
 
     private void Options()
     {
+        AudioManager.Instance.PlayMenuButtonPressedSound();
         Debug.Log("Options");
     }
 
 
     private void Credits()
     {
-        Debug.Log("Options");
+        AudioManager.Instance.PlayMenuButtonPressedSound();
+
+        if (!StartSceneManager.Instance.credits.activeInHierarchy)
+            StartSceneManager.Instance.credits.SetActive(true);
+
+
+        Debug.Log("Credits");
     }
 
     private void Quit()
     {
+        AudioManager.Instance.PlayMenuButtonPressedSound();
 #if !UNITY_EDITOR
         Application.Quit();
 #else

@@ -38,7 +38,9 @@ public class RedStarSector : GenericSectorCalculator,ISector {
             builder.Append("this sector seems to be empty...");
         }
 
-        MissionLog.Instance.AddLog(builder.ToString());
+        //MissionLog.Instance.AddLog(builder.ToString());
+        MissionLog.Instance.AddLog("RedStar: Hp" + spaceship.HP + " - Temp" + spaceship.Temp + " - Fuel " + spaceship.Fuel);
+
     }
 
     public ISector Clone() {

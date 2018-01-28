@@ -19,10 +19,12 @@ public class SituaButton : A3DClickable
 
     public override void OnClick()
     {
+        AudioManager.Instance.PlayIngameButtonPressedSound();
         this.isActive = !this.isActive;
         this.buttonLight.gameObject.SetActive(this.isActive);
 
         this.rend.GetComponent<Renderer>().material.SetColor("_Color", (this.isActive ? activeColor : nonActiveColor));
+        this.rend.GetComponent<Renderer>().material.SetColor("_EmissionColor", (this.isActive ? activeColor : nonActiveColor));
 
         this.rend.transform.DOLocalMoveY(((!this.isActive)?0:-0.066f), 1);
 

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,17 +27,29 @@ public class MainCameraManager : Singleton<MainCameraManager>
         this.cam.transform.forward = Vector3.Lerp(
             this.cam.transform.forward,
             this.firstForward + top + right, 0.1f);
-           
-        if (Input.GetMouseButtonDown(0))
+        RaycastHit hit;
+        var ray = cam.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray.origin, ray.direction, out hit))
         {
-            RaycastHit hit;
-            var ray = cam.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray.origin, ray.direction, out hit))
+            if (Input.GetMouseButtonDown(0))
             {
+            
                 var button = hit.transform.GetComponent<A3DClickable>();
                 if (button != null)
                 {
                     button.OnClick();
+                    try
+                    {
+                        var bbb = (SituaButton)button;
+                        if (bbb != null)
+                        {
+                            var mod = GameManager.Instance.SpaceShip.GetModForTick(bbb.Tick);
+                            SbarraManager.Instance.UpdateBarra(bbb.Tick, mod[1], mod[2], mod[3]);
+                        }
+                    }
+                    catch(Exception ex) { TVManager.Instance.ShowRazzoCazzo(); }
+                    
+
                     return;
                 }
                 /*
@@ -46,6 +59,17 @@ public class MainCameraManager : Singleton<MainCameraManager>
                     paper.OnClick(this.paperThing);
                     return;
                 }*/
+            }
+            else
+            {
+                var button = hit.transform.GetComponent<SituaButton>();
+                if (button != null)
+                {
+                    var mod=GameManager.Instance.SpaceShip.GetModForTick(button.Tick);
+                    SbarraManager.Instance.UpdateBarra(button.Tick, mod[1], mod[2], mod[3]);
+                    return;
+                }
+                TVManager.Instance.ShowRazzoCazzo();
             }
         }
     }

@@ -1,70 +1,87 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Cinemachine;
 
-public class Board : Singleton<Board> {
-
-    public int rows = 3;
-    public float rowMargin = -60f;
-    public float colMargin = 60f;
+public class Board : Singleton<Board>
+{
+    public int rows = 7;
+    public float rowMargin = 75f;
+    public float colMargin = 85f;
     public CinemachineVirtualCamera vCamera;
     public GameObject planetEndGame;
     public GameObject planetStartGame;
     private Dictionary<int, List<GameObject>> cells = new Dictionary<int, List<GameObject>>();
     private List<GameObject> shipObjectives = new List<GameObject>();
     private string prefabPath = "Prefabs/PlayerScene/";
+    private int shipCount = 0;
+
+    private List<ISector> LocalMap;
+    private List<ISector> WorldMap;
+    private List<Dictionary<ActionType, BitArray>> History;
+
+    private Dictionary<string, bool> alreadyPopulatedCells = new Dictionary<string, bool>();
 
 	void Awake() {
-        this.PrepareCells();
-
-        List<ISector> WorldMap = this.fakeWorldMap();
-        if (GameManager.Instance != null) {
-            WorldMap = GameManager.Instance.WorldMap;    
+        WorldMap = this.fakeWorldMap();
+        History = this.fakeHistory();
+        if (GameManager.IsInstanced) {
+            WorldMap = GameManager.Instance.WorldMap;
+            History = GameManager.Instance.History;
         }
-        List<ISector> LocalMap = new List<ISector>(WorldMap.Count);
+
+        // cloning real WorldMap in LocalMap
+        LocalMap = new List<ISector>(WorldMap.Count);
         for (int i = 0; i < WorldMap.Count; i++) {
             LocalMap.Add(WorldMap[i].Clone());
         }
 
-        this.PopulateCells(WorldMap);
+        this.PrepareCells();
+        this.PopulateCells();
 	}
 
 	// Use this for initialization
 	void Start () {
-        Transform parentTransform = planetStartGame.transform;
-        GameObject g = (GameObject)Instantiate(Resources.Load(prefabPath + "spaceShip"), Vector3.zero, Quaternion.identity, parentTransform);
-        g.transform.position = cells[0][0].transform.position;
-        g.transform.localScale = Vector3.one * 0.8f;
-        vCamera.Follow = g.transform;
-        g.GetComponent<ShipNavigator>().Move();
+        shipCount = 0;
+        launchShip();
 	}
-	
-	// Update is called once per frame
+
+    // Update is called once per frame
 	void Update () {
 		
 	}
 
+    private List<Dictionary<ActionType, BitArray>> fakeHistory() {
+        var _actionMatrix = new Dictionary<ActionType, BitArray>();
+        _actionMatrix.Add(ActionType.CONSUME, new BitArray(GameManager.SPACE_SIZE, false));
+        _actionMatrix.Add(ActionType.PROTECTION, new BitArray(GameManager.SPACE_SIZE, false));
+        _actionMatrix.Add(ActionType.TEMPERATURE, new BitArray(GameManager.SPACE_SIZE, false));
+
+        return new List<Dictionary<ActionType, BitArray>>() {
+            _actionMatrix,
+            _actionMatrix,
+            _actionMatrix,
+        };
+    }
+
     private List<ISector> fakeWorldMap() {
         return new List<ISector>(){
-            new SparseAsteroidSector(),
-            new WhiteAlienSector(),
-            new BlackAlienSector(),
-            new BlackHoleSector(),
-            new SparseAsteroidSector(),
-            new BlackAlienSector(),
-            new SparseAsteroidSector(),
-            new BlackAlienSector(),
-            new BlackHoleSector(),
-            new BlackHoleSector(),
-            new BlackHoleSector(),
+            new EmptySector(),
+            new BaseStationSector(),
+            new EmptySector(),
+            new BaseStationSector(),
+            new EmptySector(),
+            new BaseStationSector(),
+            new EmptySector(),
+            new BaseStationSector(),
+            new EmptySector(),
+            new BaseStationSector(),
         };        
     }
 
-    private void PrepareCells()
-    {
-        
+    private void PrepareCells() {
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < GameManager.SPACE_SIZE; col++) {
                 if (!cells.ContainsKey(col)) {
@@ -74,14 +91,15 @@ public class Board : Singleton<Board> {
                 GameObject cell = new GameObject(row + "-" + col + " cell");
                 cell.transform.SetParent(this.transform);
                 cell.transform.localScale = Vector3.one;
-                cell.transform.localPosition = new Vector3(col * colMargin, row * rowMargin, 0f);
+                cell.transform.localPosition = new Vector3(col * colMargin, row * -rowMargin, 0f);
 
                 cells[col].Add(cell);
             }
         }
     }
 
-    private void PopulateCells(List<ISector> WorldMap) {
+    private void PopulateCells() {
+        // populate path cells
         int prevRandom = -1;
         int random;
         for (int i = 0; i < cells.Count; i++) {
@@ -91,21 +109,59 @@ public class Board : Singleton<Board> {
             prevRandom = random;
 
             GameObject c = cells[i][random];
-            ISector s = WorldMap[0];
+            ISector s = LocalMap[0];
+            alreadyPopulatedCells.Add(i + "-" + random, true);
+
             GameObject g = (GameObject) Instantiate(Resources.Load(prefabPath + s.prefabName()), Vector3.zero, Quaternion.identity, c.transform);
             g.transform.localPosition = Vector3.zero;
-            g.transform.localScale = Vector3.one * 0.8f;
             shipObjectives.Add(g);
-            WorldMap.RemoveAt(0);
+            LocalMap.RemoveAt(0);
+        }
+
+        // populate other cells
+        for (int i = 0; i < cells.Count; i++) {
+            for (int y = 0; y < cells[i].Count; y++) {
+                int rand = UnityEngine.Random.Range(0, 3);
+
+                if (!alreadyPopulatedCells.ContainsKey(i+"-"+y) && rand == 0) {
+                    GameObject c = cells[i][y];
+                    ISector s = GameManager.MapSpawner()[UnityEngine.Random.Range(0, GameManager.MapSpawner().Length)];
+                    GameObject g = (GameObject)Instantiate(Resources.Load(prefabPath + s.prefabName()), Vector3.zero, Quaternion.identity, c.transform);
+                    g.transform.localPosition = Vector3.zero;
+                }
+            }
         }
     }
 
     public GameObject getShipTarget(int i) {
-        if (i >= shipObjectives.Count) {
+        if (i > shipObjectives.Count) {
+            return null;
+        } else if (i == shipObjectives.Count) {
             return planetEndGame;
-        }
-        else {
+        } else {
             return shipObjectives[i];
+        }
+    }
+
+    public ShipNavigator spawnShip(int dieAt, bool win) {
+        GameObject g = (GameObject)Instantiate(Resources.Load(prefabPath + "spaceShip"), Vector3.zero, Quaternion.identity);
+        g.transform.position = planetStartGame.transform.position;
+        vCamera.Follow = g.transform;
+        ShipNavigator sn = g.GetComponent<ShipNavigator>();
+        sn.SetDieAt(dieAt);
+        return sn;
+    }
+
+    public void launchShip() {
+        Debug.Log("shipCount: " + shipCount);
+        Debug.Log("History.Count: " + History.Count);
+        if (shipCount < History.Count) {
+            int dieAt = GameManager.SimulateRun(LocalMap, History[shipCount]);
+            var ship = spawnShip(dieAt, dieAt == -1).Move();
+            shipCount++;
+        } else {
+            Debug.Log("Game Over - Hai perso!");
+            SceneManager.Instance.ChangeScene( Scenes.StartScene );
         }
     }
 }

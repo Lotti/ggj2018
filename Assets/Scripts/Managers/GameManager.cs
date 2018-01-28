@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : Singleton<GameManager> {
     
-    static GameManager _instance = null;
-    public static GameManager Instance { get { return _instance; } }
+    //static GameManager _instance = null;
+    //public static GameManager Instance { get { return _instance; } }
     public static bool IsInstanced { get { return _instance != null; } }
 
     public const int SPACE_SIZE = 10;
-    public const int INITIAL_HP = 3;
+    public const int INITIAL_HP = 5;
     public const float INITIAL_FUEL = 12;
     public const float INITIAL_TEMP = 5;
     public const float COUNT_DOWN = 180;
@@ -24,7 +24,9 @@ public class GameManager : MonoBehaviour {
     bool _isGameOver = false;
     bool _isWin = false;
     bool _canLaunchTimer = true;
-    int _peoples = 0;
+    int _peoples = PEOPLES;
+
+    public bool IsRunning { get { return _isRunning; } }
 
     public float tempBonus = 0;
 
@@ -38,6 +40,16 @@ public class GameManager : MonoBehaviour {
     public int Peoples { get { return _peoples; }}
 
     public List<ISector> WorldMap { get { return _map; }}
+    public List<Dictionary<ActionType, BitArray>> History = new List<Dictionary<ActionType, BitArray>>();
+    public int historyCount {
+        get {
+            return this.History.Count;
+        }
+    }
+
+    public static ISector[] MapSpawner() {
+        return _mapSpawner;
+    }
 
     static ISector[] _mapSpawner = new ISector[]{
         new EmptySector(),
@@ -78,6 +90,7 @@ public class GameManager : MonoBehaviour {
     void Awake () {
         _instance = this;
         DontDestroyOnLoad( this.gameObject );
+        AudioManager.Instance.PlayMainTheme2();
         StartGame();
     }
 
@@ -93,8 +106,12 @@ public class GameManager : MonoBehaviour {
         _instance = null;    
     }
 
-    bool _isSpaceShipDied(){
-        return _spaceship.HP == 0 || _spaceship.Fuel <= 0.1 || _spaceship.Temp >= 10 || _spaceship.Temp <= 0;
+    static bool IsSpaceShipDied(SpaceShip ship){
+        return ship.HP == 0 || ship.Fuel <= 0.1 || ship.Temp >= 10 || ship.Temp <= 0;
+    }
+
+    bool _isSpaceShipDied() {
+        return IsSpaceShipDied(_spaceship);
     }
 
     WaitForEndOfFrame _waitFrame = new WaitForEndOfFrame();
@@ -165,7 +182,7 @@ public class GameManager : MonoBehaviour {
 
     public void FillHistory(Dictionary<ActionType,BitArray> actionMatrix)
     {
-        HistoryManager.Instance.History.Add(actionMatrix);
+        History.Add(actionMatrix);
     }
 
     public bool SetupAction( ActionType type, int tick, bool action ){
@@ -176,6 +193,8 @@ public class GameManager : MonoBehaviour {
     readonly WaitForSeconds _waitSeconds = new WaitForSeconds( 1 );
     IEnumerator _Run(){
         tempBonus = 0;
+
+        MissionLog.Instance.AddLog("Mission Start: HP  " + _spaceship.HP + " TEMP  " + _spaceship.Temp + " FUEL  " + _spaceship.Fuel );
 
         while (_currentTick < _map.Count)
         {
@@ -188,9 +207,11 @@ public class GameManager : MonoBehaviour {
             else
             {
                 tempBonus--;
-                if (tempBonus > 0)
+                if (tempBonus < 0)
                     tempBonus = 0f;
             }
+
+            Debug.Log(" TEMP BONUS " + tempBonus);
 
             Debug.Log( _map[_currentTick].ToString() + " XXX " + _spaceship.ToString(_currentTick));
             if(_isSpaceShipDied()){
@@ -198,14 +219,16 @@ public class GameManager : MonoBehaviour {
                 LaunchFailed();
                 yield break;
             }
-
+           
 
             _currentTick++;
             yield return _waitSeconds;
         }
 
+        TVManager.Instance.ShowRazzoCazzo();
         _isRunning = false;
         LaunchSuccess();
+
     }
 
     public void LaunchFailed() {
@@ -238,6 +261,20 @@ public class GameManager : MonoBehaviour {
         MissionLog.Instance.TransmitLog();
         Debug.LogWarning( "GAME OVER - MEGA FATALITYYYY!!!!" );
         SceneManager.Instance.ChangeScene(Scenes.Player);
+    }
+
+    public static int SimulateRun(List<ISector> _map, Dictionary<ActionType, BitArray> input) {
+        SpaceShip ship = new SpaceShip();
+        ship.Init( new SpaceShipDataInit( INITIAL_HP, INITIAL_FUEL, INITIAL_TEMP, SPACE_SIZE ) );
+        ship.Setup( new SpaceShipDataSetup( INITIAL_HP, INITIAL_FUEL, INITIAL_TEMP, 0 ) );
+        ship.SetActionMatrix( input );
+        for ( int i = 0; i < _map.Count;  i++){
+            _map[i].RunSector( ship, i );
+            if ( IsSpaceShipDied(ship) ) {
+                return i;
+            }
+        }
+        return -1;
     }
 
 }
