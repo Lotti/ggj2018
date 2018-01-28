@@ -145,7 +145,7 @@ public class SpaceShip : ISpaceShip {
             if (fuelArray[i] == true)
             {
                 ModHP[i] += -1;
-                ModFUEL[i] += 2;
+                ModFUEL[i] += +2;
                 ModTEMP[i] += -2;
             }
             else
@@ -167,11 +167,6 @@ public class SpaceShip : ISpaceShip {
       //  Debug.Log("ModTEMP => " + string.Join(",", ModTEMP.Select(x => x.ToString()).ToArray()));
 
 
-    }
-
-    public int GetPeopleBonus()
-    {
-        return _peoples / 10;
     }
 
     public int[] GetModForTick(int i)
