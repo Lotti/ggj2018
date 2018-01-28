@@ -26,6 +26,8 @@ public class GameManager : Singleton<GameManager> {
     bool _canLaunchTimer = true;
     int _peoples = PEOPLES;
 
+    public event System.Action<bool> OnGameEnd;
+
     public bool IsRunning { get { return _isRunning; } }
 
     public float tempBonus = 0;
@@ -251,7 +253,9 @@ public class GameManager : Singleton<GameManager> {
         StopAllCoroutines();
         MissionLog.Instance.TransmitLog();
         Debug.LogWarning( "WIIIIIIIINNNNNNNNN! DAJE CAZZO" );
-        SceneManager.Instance.ChangeScene(Scenes.Player);
+        if(OnGameEnd!= null){
+            OnGameEnd(_isWin);
+        }
     }
 
     public void GameOver(){
@@ -260,7 +264,9 @@ public class GameManager : Singleton<GameManager> {
         StopAllCoroutines();
         MissionLog.Instance.TransmitLog();
         Debug.LogWarning( "GAME OVER - MEGA FATALITYYYY!!!!" );
-        SceneManager.Instance.ChangeScene(Scenes.Player);
+        if ( OnGameEnd != null ) {
+            OnGameEnd( _isWin );
+        }
     }
 
     public static int SimulateRun(List<ISector> _map, Dictionary<ActionType, BitArray> input) {
