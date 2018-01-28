@@ -118,8 +118,6 @@ public class ButtonMainMenuItem : MonoBehaviour
         if (!StartSceneManager.Instance.credits.activeInHierarchy)
             StartSceneManager.Instance.credits.SetActive(true);
 
-        StartSceneManager.Instance.anim.Play();
-
 
         Debug.Log("Credits");
     }

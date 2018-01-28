@@ -7,7 +7,6 @@ using Cinemachine;
 
 public class Board : Singleton<Board>
 {
-
     public int rows = 7;
     public float rowMargin = 75f;
     public float colMargin = 85f;
@@ -19,39 +18,34 @@ public class Board : Singleton<Board>
     private string prefabPath = "Prefabs/PlayerScene/";
     private int shipCount = 0;
 
+    private List<ISector> LocalMap;
     private List<ISector> WorldMap;
-    private List<Dictionary<ActionType, BitArray>> History = new List<Dictionary<ActionType, BitArray>>();
-    private int historyCount
-    {
-        get
-        {
-            return this.History.Count;
-        }
-    }
+    private List<Dictionary<ActionType, BitArray>> History;
 
     private Dictionary<string, bool> alreadyPopulatedCells = new Dictionary<string, bool>();
 
 	void Awake() {
-        this.PrepareCells();
-
         WorldMap = this.fakeWorldMap();
         History = this.fakeHistory();
-        if (GameManager.Instance != null) {
+        if (GameManager.IsInstanced) {
             WorldMap = GameManager.Instance.WorldMap;
             History = GameManager.Instance.History;
         }
-        List<ISector> LocalMap = new List<ISector>(WorldMap.Count);
+
+        // cloning real WorldMap in LocalMap
+        LocalMap = new List<ISector>(WorldMap.Count);
         for (int i = 0; i < WorldMap.Count; i++) {
             LocalMap.Add(WorldMap[i].Clone());
         }
 
+        this.PrepareCells();
         this.PopulateCells();
 	}
 
 	// Use this for initialization
 	void Start () {
         shipCount = 0;
-        pickShip();
+        launchShip();
 	}
 
     // Update is called once per frame
@@ -76,17 +70,14 @@ public class Board : Singleton<Board>
         return new List<ISector>(){
             new EmptySector(),
             new BaseStationSector(),
-            new SparseAsteroidSector(),
-            new WhiteAlienSector(),
-            new BlackAlienSector(),
-            new BlackHoleSector(),
-            new CondensedAsteroidsSector(),
+            new EmptySector(),
             new BaseStationSector(),
-            new NebulosaSector(),
-            new RedStarSector(),
-            new BlackHoleSector(),
-            new BlackHoleSector(),
-            new BlackHoleSector(),
+            new EmptySector(),
+            new BaseStationSector(),
+            new EmptySector(),
+            new BaseStationSector(),
+            new EmptySector(),
+            new BaseStationSector(),
         };        
     }
 
@@ -118,13 +109,13 @@ public class Board : Singleton<Board>
             prevRandom = random;
 
             GameObject c = cells[i][random];
-            ISector s = WorldMap[0];
+            ISector s = LocalMap[0];
             alreadyPopulatedCells.Add(i + "-" + random, true);
 
             GameObject g = (GameObject) Instantiate(Resources.Load(prefabPath + s.prefabName()), Vector3.zero, Quaternion.identity, c.transform);
             g.transform.localPosition = Vector3.zero;
             shipObjectives.Add(g);
-            WorldMap.RemoveAt(0);
+            LocalMap.RemoveAt(0);
         }
 
         // populate other cells
@@ -145,10 +136,9 @@ public class Board : Singleton<Board>
     public GameObject getShipTarget(int i) {
         if (i > shipObjectives.Count) {
             return null;
-        }else if(i == shipObjectives.Count){
+        } else if (i == shipObjectives.Count) {
             return planetEndGame;
-        }
-        else {
+        } else {
             return shipObjectives[i];
         }
     }
@@ -162,11 +152,11 @@ public class Board : Singleton<Board>
         return sn;
     }
 
-    public void pickShip() {
+    public void launchShip() {
         Debug.Log("shipCount: " + shipCount);
         Debug.Log("History.Count: " + History.Count);
         if (shipCount < History.Count) {
-            int dieAt = GameManager.SimulateRun(WorldMap, History[shipCount]);
+            int dieAt = GameManager.SimulateRun(LocalMap, History[shipCount]);
             var ship = spawnShip(dieAt, dieAt == -1).Move();
             shipCount++;
         } else {

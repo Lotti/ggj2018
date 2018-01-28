@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4100488976956210}
+  - component: {fileID: 114346691954131662}
   m_Layer: 0
   m_Name: whiteAlien
   m_TagString: Untagged
@@ -178,6 +179,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114346691954131662
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1328981902502818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f75a69a1543134109942e1ea7577ce09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idleAnimation: {fileID: 320473840522450028}
+  actionAnimation: {fileID: 320349018730061668}
 --- !u!198 &198310782801017322
 ParticleSystem:
   m_ObjectHideFlags: 1

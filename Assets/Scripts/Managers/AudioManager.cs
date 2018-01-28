@@ -35,15 +35,19 @@ public class AudioManager : Singleton<AudioManager>
 
     public void PlayMainTheme()
     {
-        music.clip = mainTheme;
-        music.loop = true;
-        music.Play();
+        if (mainTheme != null) {
+            music.clip = mainTheme;
+            music.loop = true;
+            music.Play();
+        }
     }
 
     public void PlayMainTheme2 () {
-        music.clip = mainTheme2;
-        music.loop = true;
-        music.Play();
+        if (mainTheme2 != null) {
+            music.clip = mainTheme2;
+            music.loop = true;
+            music.Play();
+        }
     }
 
     public void PlayMenuButtonPressedSound()

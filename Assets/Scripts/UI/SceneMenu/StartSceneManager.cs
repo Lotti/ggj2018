@@ -7,7 +7,6 @@ public class StartSceneManager : Singleton<StartSceneManager> {
 
     public Dictionary<string, ParticleSystem> particles = new Dictionary<string, ParticleSystem>();
     public Dictionary<String, GameObject> buttons = new Dictionary<string, GameObject>();
-    public Animation anim;
     public GameObject credits;
 
     public event Action OnClick;
