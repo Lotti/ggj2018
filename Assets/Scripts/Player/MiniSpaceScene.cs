@@ -31,6 +31,7 @@ public class MiniSpaceScene : MonoBehaviour {
 			yield return new WaitForSeconds(duration);
 
 			idleAnimation.Play();
+			actionAnimation.gameObject.SetActive(false);
 		}
 
 		End();
