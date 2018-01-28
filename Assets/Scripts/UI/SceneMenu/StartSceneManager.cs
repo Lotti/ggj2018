@@ -39,5 +39,6 @@ public class StartSceneManager : Singleton<StartSceneManager> {
     public void OnOpenScene()
     {
         this.particles.Clear();
+        this.buttons.Clear();
     }
 }

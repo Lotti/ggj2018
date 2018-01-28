@@ -4951,7 +4951,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 1133572567
+  randomSeed: 975618871
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -8331,7 +8331,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 238.81467, y: -30}
+  m_AnchoredPosition: {x: 238.81445, y: -30}
   m_SizeDelta: {x: -520, y: 800}
   m_Pivot: {x: 0.3676641, y: 0.6540454}
 --- !u!114 &737424103
@@ -10042,7 +10042,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -47010532
+  randomSeed: 152300221
   InitialModule:
     serializedVersion: 3
     enabled: 1
