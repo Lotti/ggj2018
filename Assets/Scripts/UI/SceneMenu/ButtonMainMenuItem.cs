@@ -95,6 +95,7 @@ public class ButtonMainMenuItem : MonoBehaviour
                          {
                             btns[btnName].transform.DOScale(new Vector3(0, 0, 0), 0.25f);
                          });
+            AudioManager.Instance.PlayShipLaunchedSound();
                          
         }
 

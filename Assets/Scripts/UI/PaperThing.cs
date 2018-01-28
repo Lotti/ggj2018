@@ -64,6 +64,7 @@ public class PaperThing : A3DClickable
     }
     public void OnClick(Transform nextTransform)
     {
+        AudioManager.Instance.PlayPaperMovedSound();
         if (this.isMakingFirstAnimating) return;
 
         if (nextTransform != null && !isInFront)
