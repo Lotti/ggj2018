@@ -13,13 +13,16 @@ public class BaseStationSector : GenericSectorCalculator, ISector {
 
     public void RunSector(ISpaceShip spaceship, int tick)
     {
-        spaceship.HP = 5;
+        spaceship.HP += (int)CalcModDMG(spaceship.ModHP[tick]);
 
-        spaceship.Temp = 5;
+        spaceship.Temp += CalcModTEMP(spaceship.ModTEMP[tick]);
 
-        spaceship.Fuel += 1;
+        spaceship.Fuel += CalcModFUEL(spaceship.ModFUEL[tick]);
 
-        spaceship.Fuel--;
+
+        spaceship.HP += 1;
+        spaceship.Temp = GameManager.INITIAL_TEMP;
+
 
         MissionLog.Instance.AddLog("Space Station: Hp" + spaceship.HP + " - Temp" +spaceship.Temp+ " - Fuel " +spaceship.Fuel);
 
