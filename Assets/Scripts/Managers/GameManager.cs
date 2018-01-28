@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour {
     public const float INITIAL_FUEL = 12;
     public const float INITIAL_TEMP = 5;
     public const float COUNT_DOWN = 180;
-    public const int PEOPLES = 1000;
+    public const int PEOPLES = 100;
 
     List<ISector> _map = new List<ISector>();
     bool _isRunning = false;
@@ -24,7 +24,9 @@ public class GameManager : MonoBehaviour {
     bool _isGameOver = false;
     bool _isWin = false;
     bool _canLaunchTimer = true;
-    int _peoples = 0;
+    int _peoples = PEOPLES;
+
+    public float tempBonus = 0;
 
     public float GameTimer { get { return _gameTimer; }}
     public float LaunchTimer { get { return _launchTimer; }}
@@ -92,7 +94,7 @@ public class GameManager : MonoBehaviour {
     }
 
     bool _isSpaceShipDied(){
-        return _spaceship.HP == 0 || _spaceship.Fuel <= 0.1 || _spaceship.Temp >= 12 || _spaceship.Temp <= 0;
+        return _spaceship.HP == 0 || _spaceship.Fuel <= 0.1 || _spaceship.Temp >= 10 || _spaceship.Temp <= 0;
     }
 
     WaitForEndOfFrame _waitFrame = new WaitForEndOfFrame();
@@ -112,6 +114,8 @@ public class GameManager : MonoBehaviour {
     }
 
     public void StartGame(){
+
+        tempBonus = 0;
         _gameTimer = COUNT_DOWN;
         _launchTimer = 0;
         _isGameOver = false;
@@ -171,15 +175,31 @@ public class GameManager : MonoBehaviour {
 
     readonly WaitForSeconds _waitSeconds = new WaitForSeconds( 1 );
     IEnumerator _Run(){
-        while (_currentTick < _map.Count){
+        tempBonus = 0;
+
+        while (_currentTick < _map.Count)
+        {
             _map[_currentTick].RunSector( _spaceship, _currentTick );
 
-            Debug.Log( _map[_currentTick].ToString() + " XXX " + _spaceship.ToString() );
+            if(_spaceship.ActionMatrix[ActionType.PROTECTION][_currentTick]==true)
+            {
+                tempBonus++;
+            }
+            else
+            {
+                tempBonus--;
+                if (tempBonus > 0)
+                    tempBonus = 0f;
+            }
+
+            Debug.Log( _map[_currentTick].ToString() + " XXX " + _spaceship.ToString(_currentTick));
             if(_isSpaceShipDied()){
                 _isRunning = false;
                 LaunchFailed();
                 yield break;
             }
+
+
             _currentTick++;
             yield return _waitSeconds;
         }
@@ -218,6 +238,20 @@ public class GameManager : MonoBehaviour {
         MissionLog.Instance.TransmitLog();
         Debug.LogWarning( "GAME OVER - MEGA FATALITYYYY!!!!" );
         SceneManager.Instance.ChangeScene(Scenes.Player);
+    }
+
+    public int SimulateRun( Dictionary<ActionType, BitArray> input ){
+        SpaceShip ship = new SpaceShip();
+        ship.Init( new SpaceShipDataInit( INITIAL_HP, INITIAL_FUEL, INITIAL_TEMP, SPACE_SIZE ) );
+        ship.Setup( new SpaceShipDataSetup( INITIAL_HP, INITIAL_FUEL, INITIAL_TEMP, 0 ) );
+        ship.SetActionMatrix( input );
+        for ( int i = 0; i < _map.Count;  i++){
+            _map[_currentTick].RunSector( ship, i );
+            if ( _isSpaceShipDied() ) {
+                return i;
+            }
+        }
+        return -1;
     }
 
 }
