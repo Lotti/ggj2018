@@ -19,14 +19,16 @@ public class SparseAsteroidSector : GenericSectorCalculator, ISector
 
         spaceship.Fuel--;
 
-        if (app < 0)
+       /* if (app < 0)
         {
             MissionLog.Instance.AddLog("Ehi Boss! we came across a band of asteroids that damaged our ship!");
         }
         else
         {
             MissionLog.Instance.AddLog("An asteroid has scratched our hull! ");
-        }
+        }*/
+        MissionLog.Instance.AddLog("Spa Asteroid: Hp" + spaceship.HP + " - Temp" + spaceship.Temp + " - Fuel " + spaceship.Fuel);
+
 
     }
 

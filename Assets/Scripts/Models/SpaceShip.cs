@@ -200,8 +200,8 @@ public class SpaceShip : ISpaceShip {
         if (tempArray[i] == true)
         {
             mod[(int)ActionType.PROTECTION] += -2;
-            mod[(int)ActionType.CONSUME] += -1;
-            mod[(int)ActionType.TEMPERATURE] += +1;
+            mod[(int)ActionType.CONSUME] += 1;
+            mod[(int)ActionType.TEMPERATURE] += -1;
         }
         else
         {
@@ -262,6 +262,11 @@ public class SpaceShip : ISpaceShip {
         _modFUEL = new float[GameManager.SPACE_SIZE];
         _modTEMP = new float[GameManager.SPACE_SIZE];
 
+    }
+
+    public int GetPeopleBonus()
+    {
+        return _peoples / 10;
     }
 
     public void SetAction ( ActionType type, int tick, bool active ) {

@@ -57,15 +57,19 @@ public class ButtonMainMenuItem : MonoBehaviour
     private void NewGame()
     {
         this.StartCoroutine(SceneManager.Instance.ChangeScene(Scenes.Main_1, Fade()));
+       
     }
 
     private IEnumerator Fade()
     {
-        var btns = UIManager.Instance.buttons;
+        var btns = StartSceneManager.Instance.buttons;
 
         var time = 0.85f;
         
-        var particles = UIManager.Instance.particles;
+        var particles = StartSceneManager.Instance.particles;
+
+       
+        //Destroy(UIManager.Instance.gameObject);
 
         foreach (var particleName in particles.Keys)
         {
@@ -80,7 +84,8 @@ public class ButtonMainMenuItem : MonoBehaviour
 
         foreach (var btnName in btns.Keys)
         {
-            btns[btnName].transform.DOScale(new Vector3(1.35f,1.35f,1.35f),
+            
+            btns[btnName].transform.DOScale(new Vector3(1.10f,1.10f,1.10f),
                                             time).
                          OnComplete(()=>
                          {

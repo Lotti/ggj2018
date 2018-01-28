@@ -19,11 +19,14 @@ public class WhiteAlienSector : GenericSectorCalculator, ISector {
 
         spaceship.Temp += CalcModTEMP(spaceship.ModTEMP[tick]);
 
+        Debug.Log("TEMP DEL CAZZO:"+ spaceship.Temp);
+
         spaceship.Fuel += 2;
 
         spaceship.Fuel--;
 
-        MissionLog.Instance.AddLog("Ah ah! nice gift from an unexpected friend!");
+        //MissionLog.Instance.AddLog("Ah ah! nice gift from an unexpected friend!");
+        MissionLog.Instance.AddLog("Good Alien: Hp: " + spaceship.HP + " - Temp: " + spaceship.Temp + " - Fuel: " + spaceship.Fuel);
 
     }
 

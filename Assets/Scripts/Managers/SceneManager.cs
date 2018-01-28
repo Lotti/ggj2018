@@ -37,6 +37,8 @@ public class SceneManager : Singleton<SceneManager>
         UnityEngine.SceneManagement.SceneManager.LoadScene(scene.ScenesToString());
 
         this.OnOpenScene();
+
+
     }
 
     public IEnumerator ChangeScene(Scenes scene,IEnumerator onFade)
