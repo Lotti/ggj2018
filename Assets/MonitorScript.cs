@@ -17,9 +17,8 @@ public class MonitorScript : Singleton<MonitorScript> {
     }
     public void ResetText()
     {
-        this.text.text = "Launch!";
+        this.text.text = "";
         currentText = "";
-        this.AppendText("Launch!");
     }
     float lastUpdate = 0;
 	void Update ()

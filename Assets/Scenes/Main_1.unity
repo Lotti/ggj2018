@@ -774,11 +774,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 1f1352d52d7edf04096dbee9e5897a7c, type: 3}
       propertyPath: m_Layer
-      value: 13
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: 1f1352d52d7edf04096dbee9e5897a7c, type: 3}
       propertyPath: m_Layer
-      value: 13
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 1f1352d52d7edf04096dbee9e5897a7c, type: 3}
       propertyPath: m_IsActive
@@ -1386,7 +1386,7 @@ GameObject:
   - component: {fileID: 475003102}
   - component: {fileID: 475003104}
   - component: {fileID: 475003103}
-  m_Layer: 13
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8514,7 +8514,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1517986298}
-  m_Layer: 13
+  m_Layer: 8
   m_Name: RocketRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10250,7 +10250,7 @@ GameObject:
   - component: {fileID: 1950481594}
   - component: {fileID: 1950481593}
   - component: {fileID: 1950481592}
-  m_Layer: 13
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -202,14 +202,16 @@ public class GameManager : MonoBehaviour {
                 LaunchFailed();
                 yield break;
             }
-
+           
 
             _currentTick++;
             yield return _waitSeconds;
         }
 
+        TVManager.Instance.ShowRazzoCazzo();
         _isRunning = false;
         LaunchSuccess();
+
     }
 
     public void LaunchFailed() {
