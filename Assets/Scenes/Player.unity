@@ -141,8 +141,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rows: 7
-  rowMargin: 75
-  colMargin: 85
+  rowMargin: 95
+  colMargin: 100
   vCamera: {fileID: 974938358}
   planetEndGame: {fileID: 617770316}
   planetStartGame: {fileID: 2051608375}

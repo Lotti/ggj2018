@@ -47,6 +47,10 @@ public class GameManager : Singleton<GameManager> {
         }
     }
 
+    public static ISector[] MapSpawner() {
+        return _mapSpawner;
+    }
+
     static ISector[] _mapSpawner = new ISector[]{
         new EmptySector(),
         new EmptySector(),
