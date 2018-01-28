@@ -63,8 +63,7 @@ public class ShipNavigator : MonoBehaviour {
                 });
             step++;
         } else {
-            Debug.Log("Hai vinto!");
-            SceneManager.Instance.ChangeScene( Scenes.StartScene );
+            UIWinPanel.Instance.ShowWin();
         }
         return this;
     }
@@ -81,12 +80,14 @@ public class ShipNavigator : MonoBehaviour {
         if (currentMiniScene != null) {
             currentMiniScene.OnEndAnimation += PlayNextStep;
             currentMiniScene.PlayActionAnimation();
+        } else {
+            PlayNextStep();
         }
     }
 
     private void PlayNextStep()
     {
-        if (currentMiniScene != null) {
+        if (currentMiniScene != null){
             currentMiniScene.OnEndAnimation -= PlayNextStep;
         }
         Move();

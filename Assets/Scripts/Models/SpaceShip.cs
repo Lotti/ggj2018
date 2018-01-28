@@ -186,7 +186,7 @@ public class SpaceShip : ISpaceShip {
         if (protectionArray[i] == true)
         {
             mod[(int) ActionType.PROTECTION] = 2;
-            mod[(int)ActionType.CONSUME] = 1;
+            mod[(int)ActionType.CONSUME] = -1;
             mod[(int)ActionType.TEMPERATURE] = 2;
         }
         else
@@ -200,7 +200,7 @@ public class SpaceShip : ISpaceShip {
         if (tempArray[i] == true)
         {
             mod[(int)ActionType.PROTECTION] += -1;
-            mod[(int)ActionType.CONSUME] += 1;
+            mod[(int)ActionType.CONSUME] += -1;
             mod[(int)ActionType.TEMPERATURE] += -1;
         }
         else
@@ -214,7 +214,7 @@ public class SpaceShip : ISpaceShip {
         if (fuelArray[i] == true)
         {
             mod[(int)ActionType.PROTECTION] += -1;
-            mod[(int)ActionType.CONSUME] += -2;
+            mod[(int)ActionType.CONSUME] += 2;
             mod[(int)ActionType.TEMPERATURE] += -2;
         }
         else
