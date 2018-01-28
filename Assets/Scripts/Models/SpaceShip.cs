@@ -264,6 +264,11 @@ public class SpaceShip : ISpaceShip {
 
     }
 
+    public int GetPeopleBonus()
+    {
+        return _peoples / 10;
+    }
+
     public void SetAction ( ActionType type, int tick, bool active ) {
         _actionMatrix[type][tick] = active;
     }
