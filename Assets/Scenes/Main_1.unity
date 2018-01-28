@@ -4891,6 +4891,16 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114796024835724852, guid: 853d6045ecc7d416bb68de39ee2d9ef4,
+        type: 2}
+      propertyPath: m_fontSize
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114796024835724852, guid: 853d6045ecc7d416bb68de39ee2d9ef4,
+        type: 2}
+      propertyPath: m_fontSizeBase
+      value: 2.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 853d6045ecc7d416bb68de39ee2d9ef4, type: 2}
   m_IsPrefabParent: 0
