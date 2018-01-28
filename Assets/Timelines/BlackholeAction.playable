@@ -437,20 +437,20 @@ AnimationClip:
       - serializedVersion: 2
         time: 0.73333335
         value: {x: 38.992004, y: 38.992004, z: 38.992004}
-        inSlope: {x: -1.0990677, y: -1.0990639, z: -1.0990639}
-        outSlope: {x: -1.0990677, y: -1.0990639, z: -1.0990639}
+        inSlope: {x: 2.912778, y: 2.9127808, z: 2.9127808}
+        outSlope: {x: 2.912778, y: 2.9127808, z: 2.9127808}
         tangentMode: 0
       - serializedVersion: 2
-        time: 1.45
-        value: {x: 13.674982, y: 13.674987, z: 13.674987}
-        inSlope: {x: -16.732857, y: -16.732857, z: -16.732857}
-        outSlope: {x: -16.732857, y: -16.732857, z: -16.732857}
+        time: 1.7666667
+        value: {x: 10.779542, y: 10.779547, z: 10.779547}
+        inSlope: {x: -5.2541075, y: -5.254114, z: -5.254114}
+        outSlope: {x: -5.2541075, y: -5.254114, z: -5.254114}
         tangentMode: 0
       - serializedVersion: 2
         time: 2
         value: {x: 14.698182, y: 14.698182, z: 14.698182}
-        inSlope: {x: 1.8603638, y: 1.8603551, z: 1.8603551}
-        outSlope: {x: 1.8603638, y: 1.8603551, z: 1.8603551}
+        inSlope: {x: 16.79417, y: 16.794151, z: 16.794151}
+        outSlope: {x: 16.79417, y: 16.794151, z: 16.794151}
         tangentMode: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -607,20 +607,20 @@ AnimationClip:
       - serializedVersion: 2
         time: 0.73333335
         value: 38.992004
-        inSlope: -1.0990677
-        outSlope: -1.0990677
+        inSlope: 2.912778
+        outSlope: 2.912778
         tangentMode: 34
       - serializedVersion: 2
-        time: 1.45
-        value: 13.674982
-        inSlope: -16.732857
-        outSlope: -16.732857
+        time: 1.7666667
+        value: 10.779542
+        inSlope: -5.2541075
+        outSlope: -5.2541075
         tangentMode: 34
       - serializedVersion: 2
         time: 2
         value: 14.698182
-        inSlope: 1.8603638
-        outSlope: 1.8603638
+        inSlope: 16.79417
+        outSlope: 16.79417
         tangentMode: 34
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -641,20 +641,20 @@ AnimationClip:
       - serializedVersion: 2
         time: 0.73333335
         value: 38.992004
-        inSlope: -1.0990639
-        outSlope: -1.0990639
+        inSlope: 2.9127808
+        outSlope: 2.9127808
         tangentMode: 34
       - serializedVersion: 2
-        time: 1.45
-        value: 13.674987
-        inSlope: -16.732857
-        outSlope: -16.732857
+        time: 1.7666667
+        value: 10.779547
+        inSlope: -5.254114
+        outSlope: -5.254114
         tangentMode: 34
       - serializedVersion: 2
         time: 2
         value: 14.698182
-        inSlope: 1.8603551
-        outSlope: 1.8603551
+        inSlope: 16.794151
+        outSlope: 16.794151
         tangentMode: 34
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -675,20 +675,20 @@ AnimationClip:
       - serializedVersion: 2
         time: 0.73333335
         value: 38.992004
-        inSlope: -1.0990639
-        outSlope: -1.0990639
+        inSlope: 2.9127808
+        outSlope: 2.9127808
         tangentMode: 34
       - serializedVersion: 2
-        time: 1.45
-        value: 13.674987
-        inSlope: -16.732857
-        outSlope: -16.732857
+        time: 1.7666667
+        value: 10.779547
+        inSlope: -5.254114
+        outSlope: -5.254114
         tangentMode: 34
       - serializedVersion: 2
         time: 2
         value: 14.698182
-        inSlope: 1.8603551
-        outSlope: 1.8603551
+        inSlope: 16.794151
+        outSlope: 16.794151
         tangentMode: 34
       m_PreInfinity: 2
       m_PostInfinity: 2
