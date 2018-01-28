@@ -29,6 +29,11 @@ public class SceneManager : Singleton<SceneManager>
         UnityEngine.SceneManagement.SceneManager.LoadScene(scene.ScenesToString());
     }
 
+    public void ChangeScene(Scenes scene,Action<YieldInstruction> onFade)
+    {
+        
+    }
+
     private void Awake()
     {
         this.scene = Scenes.StartScene;

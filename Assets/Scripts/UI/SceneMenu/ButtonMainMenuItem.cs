@@ -23,12 +23,15 @@ public class ButtonMainMenuItem : MonoBehaviour
 
     private void Awake()
     {
+        var child = this.transform.GetChild(0);
+        
         if (this.btn == null)
             this.btn = this.GetComponent<Button>();
 
-        if (this.stringText == null)
-            this.stringText = this.transform.GetChild(0).GetComponent<Text>();
-
+        if(child != null)
+            if (this.stringText == null)
+                this.stringText = child.GetComponent<Text>();
+        
         this.Init();
     }
 
