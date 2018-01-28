@@ -78,6 +78,7 @@ public class GameManager : MonoBehaviour {
     void Awake () {
         _instance = this;
         DontDestroyOnLoad( this.gameObject );
+        AudioManager.Instance.PlayMainTheme2();
         StartGame();
     }
 
