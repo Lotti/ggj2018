@@ -28,6 +28,8 @@ public class MoveBackgroundElements : MonoBehaviour
     public Axis axisType = Axis.Z;
     public MovementType movementType = MovementType.Translation;
 
+    private MovementType exitMovement = MovementType.Translation;
+
     public void Awake()
     {
 
@@ -36,25 +38,28 @@ public class MoveBackgroundElements : MonoBehaviour
 
     public void SetMovement(Axis axisType)
     {
+        var rectTransform = this.GetComponent<RectTransform>();
+        
         switch (this.movementType)
         {
+            
             case MovementType.Translation:
                 switch (this.axisType)
                 {
                     case Axis.X:
-                        this.transform.DOMoveX(this.offsetMovement,
+                        rectTransform.DOMoveX(this.offsetMovement,
                                                this.durationBetweenAnimation).SetLoops(-1, this.loopType);
                         break;
                     case Axis.Y:
-                        this.transform.DOMoveY(this.offsetMovement,
+                        rectTransform.DOMoveY(this.offsetMovement,
                                                this.durationBetweenAnimation).SetLoops(-1, this.loopType);
                         break;
                     case Axis.Z:
-                        this.transform.DOMoveZ(this.offsetMovement,
+                        rectTransform.DOMoveZ(rectTransform.position.z - this.offsetMovement,
                                                this.durationBetweenAnimation).SetLoops(-1, this.loopType);
                         break;
                     case Axis.ALL:
-                             this.transform.DOMove(new Vector3(this.offsetMovement,
+                        rectTransform.DOMove(new Vector3(this.offsetMovement,
                                                                this.offsetMovement,
                                                                this.offsetMovement), this.durationBetweenAnimation).SetLoops(-1, this.loopType);
                              break;
