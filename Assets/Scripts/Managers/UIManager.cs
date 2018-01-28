@@ -50,9 +50,12 @@ public class UIManager : Singleton<UIManager>
 
     private void OnStartButton()
     {
+        AudioManager.Instance.PlayLaunchButtonPressedSound();
         GameManager.Instance.Launch(this.HumansToSend);
         this.UpdateHumansToSend();
+        AudioManager.Instance.PlayShipLaunchedSound();
         TVManager.Instance.ShowMonitor();
+
        // this.GeneratePaperLog("AHAHAHAH " + this.ScartoffieSpawnate.Count, null);
     }
 
@@ -63,16 +66,19 @@ public class UIManager : Singleton<UIManager>
 
     private void onminusbutton()
     {
+        AudioManager.Instance.PlayIngameButtonPressedSound();
         this.HumansToSend = Math.Max(0, this.HumansToSend-10);
     }
 
     private void onplusbutton()
     {
+        AudioManager.Instance.PlayIngameButtonPressedSound();
         this.HumansToSend = Math.Min(GameManager.Instance.Peoples, this.HumansToSend + 10);
     }
 
     public void GeneratePaperLog(string log, Action oncomplete)
     {
+        AudioManager.Instance.PlayPrinterSound();
         var go = GameObject.Instantiate(this.PaperLogPrefab, this.PaperLogStartTransform);
         go.transform.localPosition = Vector3.zero;
         var pt = go.GetComponent<PaperThing>();

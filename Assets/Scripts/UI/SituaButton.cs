@@ -19,6 +19,7 @@ public class SituaButton : A3DClickable
 
     public override void OnClick()
     {
+        AudioManager.Instance.PlayIngameButtonPressedSound();
         this.isActive = !this.isActive;
         this.buttonLight.gameObject.SetActive(this.isActive);
 
