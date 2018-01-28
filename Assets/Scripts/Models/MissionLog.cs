@@ -25,7 +25,7 @@ public class MissionLog : Singleton<MissionLog>
 
     public void AddLog(string logToAdd)
     {
-        _TrasmissionLog.Add(logToAdd);
+        _TrasmissionLog.Add(_TrasmissionLog.Count + " "+logToAdd);
     }
 
     public void TransmitLog(){

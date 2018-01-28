@@ -5,7 +5,7 @@ public interface ISpaceShip {
     void Init ( ISpaceShipDataInit data );
     void Setup ( ISpaceShipDataInit data );
     void SetAction ( ActionType type, int tick, bool active );
-    string ToString ();
+    string ToString (int tick);
     void CalculateMod();
 
     int HP { get; set; }
