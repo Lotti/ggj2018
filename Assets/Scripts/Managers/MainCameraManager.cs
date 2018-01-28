@@ -44,7 +44,7 @@ public class MainCameraManager : Singleton<MainCameraManager>
                         if (bbb != null)
                         {
                             var mod = GameManager.Instance.SpaceShip.GetModForTick(bbb.Tick);
-                            SbarraManager.Instance.UpdateBarra(mod[1], mod[2], mod[3]);
+                            SbarraManager.Instance.UpdateBarra(bbb.Tick, mod[1], mod[2], mod[3]);
                         }
                     }
                     catch(Exception ex) { TVManager.Instance.ShowRazzoCazzo(); }
@@ -66,7 +66,7 @@ public class MainCameraManager : Singleton<MainCameraManager>
                 if (button != null)
                 {
                     var mod=GameManager.Instance.SpaceShip.GetModForTick(button.Tick);
-                    SbarraManager.Instance.UpdateBarra(mod[1], mod[2], mod[3]);
+                    SbarraManager.Instance.UpdateBarra(button.Tick, mod[1], mod[2], mod[3]);
                     return;
                 }
                 TVManager.Instance.ShowRazzoCazzo();
