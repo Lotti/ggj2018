@@ -30,8 +30,8 @@ public class PaperThingEnd : A3DClickable
     }
 
     void Instance_OnGameEnd ( bool win ) {
-        SetText("Broken transmission\nWe are receiving some images from ours startships!!");
-        Show();
+        //SetText("Broken transmission\nWe are receiving some images from ours startships!!");
+        //Show();
         StartCoroutine( _DelayPlay() );
     }
 
