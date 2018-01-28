@@ -13,9 +13,6 @@ public class UIManager : Singleton<UIManager>
 
     public List<GameObject> ScartoffieSpawnate;
 
-    public Dictionary<string,ParticleSystem> particles = new Dictionary<string, ParticleSystem>();
-    public Dictionary<String, GameObject> buttons = new Dictionary<string, GameObject>();
-
     public TextMeshPro HumanText;
 
     public Generic3DClickable HumanPlusButton;
@@ -23,7 +20,7 @@ public class UIManager : Singleton<UIManager>
 
     public StartButton startButton;
     public Scenes scene;
-    public event Action OnClick;
+
 
     private int _HumansToSend = 0;
     public int HumansToSend { get { return _HumansToSend; }
@@ -33,26 +30,9 @@ public class UIManager : Singleton<UIManager>
             }
     }
 
-    // HO SONNO PERDONATEMI OH ME CHE HO PECCATO
-    private void FillGraphicsComponent()
-    {
-        foreach (var GO in GameObject.FindObjectsOfType<ParticleSystem>())
-        {
-            if(!this.particles.ContainsKey(GO.name))
-                this.particles.Add(GO.name,GO);
-        }
-        foreach (var btn in GameObject.FindObjectsOfType<GameObject>())
-        {
-            if (!this.buttons.ContainsKey(btn.name))
-                if(btn.layer == 12) // Ho sempre sonno
-                    this.buttons.Add(btn.name, btn);
-        }
-    }
-
     private void Start()
     {
-        SceneManager.Instance.OnOpenScene += this.OnOpenScene;
-        this.FillGraphicsComponent();
+        
         this.ScartoffieSpawnate = new List<GameObject>();
         //this.GeneratePaperLog("AAAHAHAHAHAHAH", null);
         if (this.HumanPlusButton != null)
@@ -103,8 +83,5 @@ public class UIManager : Singleton<UIManager>
         this.ScartoffieSpawnate.Add(go);
     }
 
-    public void OnOpenScene()
-    {
-        this.particles.Clear();
-    }
+
 }
