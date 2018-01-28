@@ -8502,7 +8502,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 700, y: 60}
+  m_SizeDelta: {x: 356.2, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &780083538
 MonoBehaviour:
@@ -9093,7 +9093,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Laura THE BEST
+  m_Text: Laura De Stefani
 --- !u!222 &1353654832
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9370,7 +9370,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 700, y: 60}
+  m_SizeDelta: {x: 227.2, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1592682723
 MonoBehaviour:
@@ -10042,7 +10042,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 2093626466
+  randomSeed: -47010532
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -13744,7 +13744,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 365
+    m_Left: 534
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
@@ -14107,7 +14107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 590
+    m_Left: 787
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
