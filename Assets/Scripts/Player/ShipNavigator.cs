@@ -64,7 +64,7 @@ public class ShipNavigator : MonoBehaviour {
     public void SelfDestruct() {
         boom.SetActive(true);
 
-        Board.Instance.pickShip();
+        Board.Instance.launchShip();
         Destroy(this.gameObject);
     }
 }
