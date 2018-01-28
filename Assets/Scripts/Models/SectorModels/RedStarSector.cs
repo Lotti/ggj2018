@@ -38,6 +38,7 @@ public class RedStarSector : GenericSectorCalculator,ISector {
             builder.Append("this sector seems to be empty...");
         }
 
+        MissionLog.Instance.AddLog(builder.ToString());
     }
 
     public ISector Clone() {
