@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
@@ -7,8 +7,9 @@ public class ShipNavigator : MonoBehaviour {
     private int step = 0;
     private int dieAt = -1;
     private List<float> amplitude = new List<float>() { -9f, -5f, -1f, 1f, 5f ,9f};
+    private MiniSpaceScene currentMiniScene;
     public GameObject boom;
-    // Use this for initialization
+    private Vector3 targetForward;
 
     void Awake() {
         boom.SetActive(false);    
@@ -18,9 +19,6 @@ public class ShipNavigator : MonoBehaviour {
         step = 0;
     }
 
-    Vector3 targetForward;
-
-    // Update is called once per frame
     void Update() {
         this.transform.right = Vector3.Lerp(this.transform.right, this.targetForward, 0.1f);
     }
@@ -47,7 +45,7 @@ public class ShipNavigator : MonoBehaviour {
                 .SetEase(Ease.Linear)
                 .OnComplete(() => {
                 if (dieAt == -1 || mStep < dieAt) {
-                        this.Move();
+                        this.PlayStopAnimation(target);
                     }
                     else {
                         this.SelfDestruct();
@@ -66,5 +64,17 @@ public class ShipNavigator : MonoBehaviour {
 
         Board.Instance.launchShip();
         Destroy(this.gameObject);
+    }
+
+    public void PlayStopAnimation(GameObject target)
+    {
+        currentMiniScene = target.GetComponent<MiniSpaceScene>();
+        currentMiniScene.OnEndAnimation += PlayNextStep;
+    }
+
+    private void PlayNextStep()
+    {
+        currentMiniScene.OnEndAnimation -= PlayNextStep;
+        Move();
     }
 }
