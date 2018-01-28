@@ -179,9 +179,7 @@ public class GameManager : MonoBehaviour {
 
         while (_currentTick < _map.Count)
         {
-            _map[_currentTick].RunSector( _spaceship, _currentTick );
-
-            if(_spaceship.ActionMatrix[ActionType.PROTECTION][_currentTick]==true)
+            if (_spaceship.ActionMatrix[ActionType.PROTECTION][_currentTick] == true)
             {
                 tempBonus++;
             }
@@ -192,7 +190,7 @@ public class GameManager : MonoBehaviour {
                     tempBonus = 0f;
             }
 
-            Debug.Log(" TEMP BONUS " + tempBonus);
+            _map[_currentTick].RunSector( _spaceship, _currentTick );
 
             Debug.Log( _map[_currentTick].ToString() + " XXX " + _spaceship.ToString(_currentTick));
             if(_isSpaceShipDied()){
@@ -248,7 +246,7 @@ public class GameManager : MonoBehaviour {
         ship.Setup( new SpaceShipDataSetup( INITIAL_HP, INITIAL_FUEL, INITIAL_TEMP, 0 ) );
         ship.SetActionMatrix( input );
         for ( int i = 0; i < _map.Count;  i++){
-            _map[_currentTick].RunSector( ship, i );
+            _map[i].RunSector( ship, i );
             if ( _isSpaceShipDied() ) {
                 return i;
             }
