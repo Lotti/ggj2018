@@ -6,7 +6,7 @@ using DG.Tweening;
 public class ShipNavigator : MonoBehaviour {
     private int step = 0;
     private List<float> amplitude = new List<float>() { -9f, -5f, -1f, 1f, 5f ,9f};
-    // Use this for initialization
+    private MiniSpaceScene currentMiniScene;
 
     void Start() {
         step = 0;
@@ -35,9 +35,21 @@ public class ShipNavigator : MonoBehaviour {
                 .SetEase(Ease.Linear)
                 .OnComplete(() =>
                 {
-                    this.Move();
+                    this.PlayStopAnimation(target);
                 });
             step++;
         }
+    }
+
+    public void PlayStopAnimation(GameObject target)
+    {
+        currentMiniScene = target.GetComponent<MiniSpaceScene>();
+        currentMiniScene.OnEndAnimation += PlayNextStep;
+    }
+
+    private void PlayNextStep()
+    {
+        currentMiniScene.OnEndAnimation -= PlayNextStep;
+        Move();
     }
 }
