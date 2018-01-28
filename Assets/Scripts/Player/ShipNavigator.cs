@@ -54,8 +54,7 @@ public class ShipNavigator : MonoBehaviour {
                 });
             step++;
         } else {
-            Debug.Log("Hai vinto!");
-            SceneManager.Instance.ChangeScene( Scenes.StartScene );
+            UIWinPanel.Instance.ShowWin();
         }
         return this;
     }
