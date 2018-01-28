@@ -13,15 +13,15 @@ public class BaseStationSector : GenericSectorCalculator, ISector {
 
     public void RunSector(ISpaceShip spaceship, int tick)
     {
-        spaceship.HP += 2;
+        spaceship.HP = 5;
 
         spaceship.Temp = 5;
 
-        spaceship.Fuel += 2;
+        spaceship.Fuel += 1;
 
         spaceship.Fuel--;
 
-        MissionLog.Instance.AddLog("We found a glimpse of hope. All Systems fixed");
+        MissionLog.Instance.AddLog("Space Station: Hp" + spaceship.HP + " - Temp" +spaceship.Temp+ " - Fuel" +spaceship.Fuel);
 
     }
 

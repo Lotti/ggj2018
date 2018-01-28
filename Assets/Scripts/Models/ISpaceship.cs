@@ -7,6 +7,7 @@ public interface ISpaceShip {
     void SetAction ( ActionType type, int tick, bool active );
     string ToString (int tick);
     void CalculateMod();
+    int GetPeopleBonus();
 
     int HP { get; set; }
     float Fuel { get; set; }

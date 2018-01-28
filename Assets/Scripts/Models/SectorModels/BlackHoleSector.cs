@@ -24,7 +24,10 @@ public class BlackHoleSector : GenericSectorCalculator, ISector
 
         spaceship.Fuel--;
 
-        MissionLog.Instance.AddLog("BLACK HOOOOOOOOOOOOOOOOLE! SH*******T! F***K!");
+        MissionLog.Instance.AddLog("BlackHole: Hp" + spaceship.HP + " - Temp" + spaceship.Temp + " - Fuel" + spaceship.Fuel);
+
+
+        //MissionLog.Instance.AddLog("Flyed near a BlackHole: " + );
 
     }
 
