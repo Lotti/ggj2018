@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Cinemachine;
 
 public class Board : Singleton<Board> {
 
     public int rows = 3;
     public float rowMargin = -60f;
     public float colMargin = 60f;
+    public CinemachineVirtualCamera vCamera;
+    public GameObject planetEndGame;
+    public GameObject planetStartGame;
     private Dictionary<int, List<GameObject>> cells = new Dictionary<int, List<GameObject>>();
     private List<GameObject> shipObjectives = new List<GameObject>();
     private string prefabPath = "Prefabs/PlayerScene/";
@@ -29,10 +33,11 @@ public class Board : Singleton<Board> {
 
 	// Use this for initialization
 	void Start () {
-        Transform parentTransform = this.transform;
+        Transform parentTransform = planetStartGame.transform;
         GameObject g = (GameObject)Instantiate(Resources.Load(prefabPath + "spaceShip"), Vector3.zero, Quaternion.identity, parentTransform);
         g.transform.position = cells[0][0].transform.position;
         g.transform.localScale = Vector3.one * 0.8f;
+        vCamera.Follow = g.transform;
         g.GetComponent<ShipNavigator>().Move();
 	}
 	
@@ -77,8 +82,15 @@ public class Board : Singleton<Board> {
     }
 
     private void PopulateCells(List<ISector> WorldMap) {
+        int prevRandom = -1;
+        int random;
         for (int i = 0; i < cells.Count; i++) {
-            GameObject c = cells[i][UnityEngine.Random.Range(0, cells[i].Count)];
+            do {
+                random = UnityEngine.Random.Range(0, cells[i].Count);
+            } while (prevRandom != -1 && Mathf.Abs(random - prevRandom) <= 2);
+            prevRandom = random;
+
+            GameObject c = cells[i][random];
             ISector s = WorldMap[0];
             GameObject g = (GameObject) Instantiate(Resources.Load(prefabPath + s.prefabName()), Vector3.zero, Quaternion.identity, c.transform);
             g.transform.localPosition = Vector3.zero;
@@ -90,7 +102,7 @@ public class Board : Singleton<Board> {
 
     public GameObject getShipTarget(int i) {
         if (i >= shipObjectives.Count) {
-            return null;
+            return planetEndGame;
         }
         else {
             return shipObjectives[i];
