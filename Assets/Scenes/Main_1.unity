@@ -2406,7 +2406,7 @@ Prefab:
     - target: {fileID: 114386227072478608, guid: 7529bfdbae8ecab4fa51b3a290a256aa,
         type: 2}
       propertyPath: Tick
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114386227072478608, guid: 7529bfdbae8ecab4fa51b3a290a256aa,
         type: 2}
@@ -4314,7 +4314,7 @@ Prefab:
     - target: {fileID: 114386227072478608, guid: 7529bfdbae8ecab4fa51b3a290a256aa,
         type: 2}
       propertyPath: Tick
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114386227072478608, guid: 7529bfdbae8ecab4fa51b3a290a256aa,
         type: 2}
@@ -4942,7 +4942,7 @@ Prefab:
     - target: {fileID: 114386227072478608, guid: 7529bfdbae8ecab4fa51b3a290a256aa,
         type: 2}
       propertyPath: Tick
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114386227072478608, guid: 7529bfdbae8ecab4fa51b3a290a256aa,
         type: 2}
