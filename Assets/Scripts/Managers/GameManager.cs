@@ -240,4 +240,18 @@ public class GameManager : MonoBehaviour {
         SceneManager.Instance.ChangeScene(Scenes.Player);
     }
 
+    public int SimulateRun( Dictionary<ActionType, BitArray> input ){
+        SpaceShip ship = new SpaceShip();
+        ship.Init( new SpaceShipDataInit( INITIAL_HP, INITIAL_FUEL, INITIAL_TEMP, SPACE_SIZE ) );
+        ship.Setup( new SpaceShipDataSetup( INITIAL_HP, INITIAL_FUEL, INITIAL_TEMP, 0 ) );
+        ship.SetActionMatrix( input );
+        for ( int i = 0; i < _map.Count;  i++){
+            _map[_currentTick].RunSector( ship, i );
+            if ( _isSpaceShipDied() ) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
 }
