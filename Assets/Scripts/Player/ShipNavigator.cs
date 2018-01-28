@@ -81,12 +81,14 @@ public class ShipNavigator : MonoBehaviour {
         if (currentMiniScene != null) {
             currentMiniScene.OnEndAnimation += PlayNextStep;
             currentMiniScene.PlayActionAnimation();
+        } else {
+            PlayNextStep();
         }
     }
 
     private void PlayNextStep()
     {
-        if (currentMiniScene != null) {
+        if (currentMiniScene != null){
             currentMiniScene.OnEndAnimation -= PlayNextStep;
         }
         Move();
