@@ -9012,7 +9012,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2571ba03045184fc0bb9bd2e07f19c77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 0}
   credits: {fileID: 305551039}
 --- !u!4 &1171650000
 Transform:
