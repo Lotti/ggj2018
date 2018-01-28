@@ -19,6 +19,7 @@ public class MonitorScript : Singleton<MonitorScript> {
     {
         this.text.text = "";
         currentText = "";
+        this.text.alignment = TextAlignmentOptions.TopLeft;
     }
     float lastUpdate = 0;
 	void Update ()
