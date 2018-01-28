@@ -13,12 +13,20 @@ public class UIWinPanel : Singleton<UIWinPanel> {
     CanvasGroup _cg;
 
 	public void ShowWin() {
+        if ( !GameManager.Instance.IsWin ){
+            ShowGameOver();
+            return;
+        }
         _txt.text = "YOU WIN!!";
         _txt.color = Color.green;
         _cg.DOFade( 1f, 0.5f );
 	}
 
     public void ShowGameOver(){
+        if ( GameManager.Instance.IsWin ) {
+            ShowWin();
+            return;
+        }
         _txt.text = "GAME OVER!!";
         _txt.color = Color.red;
         _cg.DOFade( 1f, 0.5f );
