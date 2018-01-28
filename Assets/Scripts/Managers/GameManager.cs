@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour {
     public static bool IsInstanced { get { return _instance != null; } }
 
     public const int SPACE_SIZE = 10;
-    public const int INITIAL_HP = 3;
+    public const int INITIAL_HP = 5;
     public const float INITIAL_FUEL = 12;
     public const float INITIAL_TEMP = 5;
     public const float COUNT_DOWN = 180;
@@ -188,9 +188,11 @@ public class GameManager : MonoBehaviour {
             else
             {
                 tempBonus--;
-                if (tempBonus > 0)
+                if (tempBonus < 0)
                     tempBonus = 0f;
             }
+
+            Debug.Log(" TEMP BONUS " + tempBonus);
 
             Debug.Log( _map[_currentTick].ToString() + " XXX " + _spaceship.ToString(_currentTick));
             if(_isSpaceShipDied()){
