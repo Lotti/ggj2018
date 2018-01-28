@@ -11,18 +11,33 @@ public class MiniSpaceScene : MonoBehaviour {
 
 	public void PlayActionAnimation()
 	{
-		StartCoroutine(PlayActionAnimation((float)actionAnimation.duration));
+		if(idleAnimation != null)
+		{
+			StartCoroutine(PlayActionAnimation((float)actionAnimation.duration));
+		}
+		else
+		{
+			End();
+		}
 	}
 
 	private IEnumerator PlayActionAnimation(float duration)
 	{
-		idleAnimation.Stop();
-		actionAnimation.Play();
+		if(idleAnimation != null)
+		{
+			idleAnimation.Stop();
+			actionAnimation.gameObject.SetActive(true);
+		
+			yield return new WaitForSeconds(duration);
 
-		yield return new WaitForSeconds(duration);
+			idleAnimation.Play();
+		}
 
-		idleAnimation.Play();
+		End();
+	}
 
+	private void End()
+	{
 		if(OnEndAnimation != null)
 		{
 			OnEndAnimation.Invoke();
